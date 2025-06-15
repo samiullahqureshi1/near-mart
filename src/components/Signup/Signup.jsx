@@ -32,7 +32,7 @@ const Signup = () => {
     e.preventDefault();
 
     axios
-      .post(`${server}/user/create-user`, { name, email, password, avatar })
+      .post('https://near-mart-backend.vercel.app/api/v2/user/create-user', { name, email, password, avatar })
       .then((res) => {
         toast.success(res.data.message);
         setName("");

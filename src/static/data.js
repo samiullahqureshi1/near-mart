@@ -191,80 +191,80 @@ export const brandingData = [
 export const categoriesData = [
   {
     id: 1,
-    title: "Paintings",
+    title: "Watches",
     subTitle: "",
     image_Url:
-      "https://static.vecteezy.com/system/resources/previews/007/247/384/original/painting-icon-style-vector.jpg",
+      "https://img.freepik.com/free-photo/close-up-man-wearing-stylish-watch_53876-102070.jpg",
   },
   {
     id: 2,
-    title: "Drawings",
+    title: "Clothes",
     subTitle: "",
     image_Url:
-      "https://png.pngtree.com/png-vector/20190508/ourmid/pngtree-draw-vector-icon-png-image_1027064.jpg"
+      "https://img.freepik.com/free-photo/clothes-hanger-rack-apparel-fashion-store_53876-102058.jpg",
   },
   {
     id: 3,
-    title: "Calligraphy",
+    title: "Electronics",
     subTitle: "",
     image_Url:
-      "https://cdn-icons-png.flaticon.com/512/2928/2928649.png",
+      "https://img.freepik.com/free-photo/laptop-black-background_53876-97302.jpg",
   },
   {
     id: 4,
-    title: "Mandalas",
+    title: "Shoes",
     subTitle: "",
     image_Url:
-      "https://thumbs.dreamstime.com/z/black-floral-flower-icon-white-design-reminiscent-woodblock-prints-showcases-elements-islamic-calligraphy-arabesque-301097673.jpg",
+      "https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png",
   },
-  {
-    id: 5,
-    title: "Fabric Products",
-    subTitle: "",
-    image_Url:
-      "https://static.thenounproject.com/png/3961069-200.png",
-  },
+  // {
+  //   id: 5,
+  //   title: "Ring",
+  //   subTitle: "",
+  //   image_Url:
+  //     "https://static.thenounproject.com/png/3961069-200.png",
+  // },
   {
     id: 6,
     title: "Home Decor",
     subTitle: "",
     image_Url:
-      "https://i.pinimg.com/originals/85/20/d7/8520d751447e4f9681a9020773f21840.jpg",
+      "https://img.freepik.com/free-photo/modern-stylish-interior-room_23-2148820029.jpg",
   },
-  {
-    id: 7,
-    title: "Art Supplies",
-    subTitle: "",
-    image_Url: "https://cdn1.vectorstock.com/i/1000x1000/17/35/artist-supplies-line-icon-concept-sign-outline-vector-29611735.jpg",
-  },
-  {
-    id: 8,
-    title: "Sculptures",
-    subTitle: "",
-    image_Url:
-      "https://t4.ftcdn.net/jpg/01/73/33/43/360_F_173334308_4bXlv6y5voEpnfOApoZWLn3o3EAE45uz.jpg",
-  },
-  {
-    id: 9,
-    title: "Sketches",
-    subTitle: "",
-    image_Url:
-      "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ac754111769999.560fcfae5dcd5.jpg",
-  },
-  {
-    id: 10,
-    title: "Make Your Own",
-    subTitle: "",
-    image_Url:
-      "https://static.vecteezy.com/system/resources/thumbnails/023/233/339/small/settings-icon-customize-illustration-sign-mechanical-symbol-vector.jpg",
-  },
+  // {
+  //   id: 7,
+  //   title: "Art Supplies",
+  //   subTitle: "",
+  //   image_Url: "https://cdn1.vectorstock.com/i/1000x1000/17/35/artist-supplies-line-icon-concept-sign-outline-vector-29611735.jpg",
+  // },
+  // {
+  //   id: 8,
+  //   title: "Sculptures",
+  //   subTitle: "",
+  //   image_Url:
+  //     "https://t4.ftcdn.net/jpg/01/73/33/43/360_F_173334308_4bXlv6y5voEpnfOApoZWLn3o3EAE45uz.jpg",
+  // },
+  // {
+  //   id: 9,
+  //   title: "Sketches",
+  //   subTitle: "",
+  //   image_Url:
+  //     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ac754111769999.560fcfae5dcd5.jpg",
+  // },
+  // {
+  //   id: 10,
+  //   title: "Make Your Own",
+  //   subTitle: "",
+  //   image_Url:
+  //     "https://static.vecteezy.com/system/resources/thumbnails/023/233/339/small/settings-icon-customize-illustration-sign-mechanical-symbol-vector.jpg",
+  // },
 ];
 
 // product Data
 export const productData = [
   {
     id: 1,
-    category:"Computers and Laptops",
+    category: "Computers and Laptops",
     name: "MacBook pro M2 chipset 256gb ssd 8gb ram space-gray color with apple 1 year warranty",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -294,7 +294,7 @@ export const productData = [
   },
   {
     id: 2,
-    category:"Mobile and Tablets",
+    category: "Mobile and Tablets",
     name: "Iphone 14 pro max 256 gb ssd and 8 gb ram silver colour",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -320,11 +320,11 @@ export const productData = [
     rating: 5,
     total_sell: 80,
     stock: 10,
-    category:"Mobile & Tablets"
+    category: "Mobile & Tablets",
   },
   {
     id: 1,
-    category:"Computers and Laptop",
+    category: "Computers and Laptop",
     name: "MacBook pro M2 chipset 256gb ssd 8gb ram space gray color with apple 1 year warranty",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -351,11 +351,11 @@ export const productData = [
     rating: 4,
     total_sell: 75,
     stock: 10,
-    category:"Computers & Laptop"
+    category: "Computers & Laptop",
   },
   {
     id: 4,
-    category:"Others",
+    category: "Others",
     name: "New Fashionable Watch for men 2023 with multiple colors",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -376,7 +376,7 @@ export const productData = [
         url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
       },
       ratings: 4.2,
-    category:"Others"
+      category: "Others",
     },
     price: 100,
     discount_price: 79,
@@ -386,7 +386,7 @@ export const productData = [
   },
   {
     id: 5,
-    category:"Shoes",
+    category: "Shoes",
     name: "New Trend shoes for gents with all sizes",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -413,7 +413,7 @@ export const productData = [
     rating: 5,
     total_sell: 49,
     stock: 10,
-    category:"Shoes"
+    category: "Shoes",
   },
   {
     id: 1,
@@ -452,7 +452,7 @@ export const productData = [
     ],
     total_sell: 20,
     stock: 10,
-    category:"Music and Gaming"
+    category: "Music and Gaming",
   },
   {
     id: 4,
@@ -523,7 +523,7 @@ export const productData = [
   },
   {
     id: 2,
-    category:"Mobile and Tablets",
+    category: "Mobile and Tablets",
     name: "Iphone 14 pro max 256 gb ssd and 8 gb ram silver colour",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -552,7 +552,7 @@ export const productData = [
   },
   {
     id: 1,
-    category:"Music and Gaming",
+    category: "Music and Gaming",
     name: "Gaming Headphone Asus with mutiple color and free delivery",
     description:
       "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
@@ -594,11 +594,11 @@ export const productData = [
 export const footerProductLinks = [
   {
     name: "About us",
-    link: "/about"
+    link: "/about",
   },
   {
     name: "Careers",
-    link: "/carrers"
+    link: "/carrers",
   },
   {
     name: "Store Locations",

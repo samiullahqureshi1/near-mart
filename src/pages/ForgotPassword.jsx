@@ -10,7 +10,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${server}/forgot-password`, { email });
+      await axios.post(`https://near-mart-backend.vercel.app/forgot-password`, { email });
       toast.success("Password reset email sent successfully!");
     } catch (error) {
       toast.error("Failed to send password reset email.");

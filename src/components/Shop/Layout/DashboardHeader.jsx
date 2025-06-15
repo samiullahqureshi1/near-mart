@@ -5,7 +5,7 @@ import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import logo from "C:/Users/theha/Desktop/FYP-Artify/frontend/src/Assests/artify.png"
+import logo from '../../../Assests/nearmart.png'
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
   return (

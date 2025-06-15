@@ -16,7 +16,8 @@ import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
-import logo from "C:/Users/theha/Desktop/FYP-Artify/frontend/src/Assests/artify.png"
+import logo from '../../Assests/nearmart.png'
+
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);

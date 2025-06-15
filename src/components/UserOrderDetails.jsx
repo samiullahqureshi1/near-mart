@@ -30,7 +30,7 @@ const UserOrderDetails = () => {
   const reviewHandler = async (e) => {
     await axios
       .put(
-        `${server}/product/create-new-review`,
+        `https://near-mart-backend.vercel.app/api/v2/product/create-new-review`,
         {
           user,
           rating,
@@ -54,7 +54,7 @@ const UserOrderDetails = () => {
 
   const refundHandler = async () => {
     await axios
-      .put(`${server}/order/order-refund/${id}`, {
+      .put(`https://near-mart-backend.vercel.app/api/v2/order/order-refund/${id}`, {
         status: "Processing refund",
       })
       .then((res) => {

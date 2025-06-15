@@ -23,7 +23,7 @@ const ShopCreate = () => {
     e.preventDefault();
 
     axios
-      .post(`${server}/shop/create-shop`, {
+      .post(`https://near-mart-backend.vercel.app/api/v2/shop/create-shop`, {
         name,
         email,
         password,

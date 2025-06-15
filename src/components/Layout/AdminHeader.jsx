@@ -5,7 +5,7 @@ import { FiPackage, FiShoppingBag } from 'react-icons/fi'
 import { MdOutlineLocalOffer } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import logo from "C:/Users/theha/Desktop/FYP-Artify/frontend/src/Assests/artify.png"
+import logo from '../../Assests/artify.png'
 const AdminHeader = () => {
     const {user} = useSelector((state) => state.user);
 

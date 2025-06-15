@@ -17,7 +17,7 @@ const ShopLogin = () => {
 
     await axios
       .post(
-        `${server}/shop/login-shop`,
+        `https://near-mart-backend.vercel.app/api/v2/shop/login-shop`,
         {
           email,
           password,

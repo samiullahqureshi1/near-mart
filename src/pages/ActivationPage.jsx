@@ -12,7 +12,7 @@ const ActivationPage = () => {
     if (activation_token) {
       const sendRequest = async () => {
         await axios
-          .post(`${server}/user/activation`, {
+          .post(`https://near-mart-backend.vercel.app/api/v2/user/activation`, {
             activation_token,
           })
           .then((res) => {

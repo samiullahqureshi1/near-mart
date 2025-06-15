@@ -23,7 +23,7 @@ const AllSellers = () => {
 
   const handleDelete = async (id) => {
     await axios
-    .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true })
+    .delete(`https://near-mart-backend.vercel.app/api/v2/shop/delete-seller/${id}`, { withCredentials: true })
     .then((res) => {
       toast.success(res.data.message);
     });

@@ -9,7 +9,7 @@ import { server } from "../../server";
 const AllEvents = () => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
-   axios.get(`${server}/event/admin-all-events`, {withCredentials: true}).then((res) =>{
+   axios.get(`https://near-mart-backend.vercel.app/api/v2/event/admin-all-events`, {withCredentials: true}).then((res) =>{
     setEvents(res.data.events);
    })
   }, []);

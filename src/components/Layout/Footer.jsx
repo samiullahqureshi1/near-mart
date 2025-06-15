@@ -11,7 +11,7 @@ import {
   footerProductLinks,
   footerSupportLinks,
 } from "../../static/data";
-import logo from "C:/Users/theha/Desktop/FYP-Artify/frontend/src/Assests/artify.png"
+import logo from '../../Assests/artify.png'
 
 const Footer = () => {
   return (

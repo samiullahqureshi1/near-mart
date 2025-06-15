@@ -95,7 +95,7 @@ const ProductDetails = ({ data }) => {
       const userId = user._id;
       const sellerId = data.shop._id;
       await axios
-        .post(`${server}/conversation/create-new-conversation`, {
+        .post(`https://near-mart-backend.vercel.app/conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,

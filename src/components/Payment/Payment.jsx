@@ -40,7 +40,7 @@ const Payment = () => {
     };
 
     await axios
-      .post(`${server}/order/create-order`, order, config)
+      .post(`https://near-mart-backend.vercel.app/api/v2/order/create-order`, order, config)
       .then((res) => {
         setOpen(false);
         navigate("/order/success");

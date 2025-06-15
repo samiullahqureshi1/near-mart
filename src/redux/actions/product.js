@@ -21,7 +21,7 @@ export const createProduct =
       });
 
       const { data } = await axios.post(
-        `${server}/product/create-product`,
+        `https://near-mart-backend.vercel.app/api/v2/product/create-product`,
         name,
         description,
         category,
@@ -52,7 +52,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.get(
-      `${server}/product/get-all-products-shop/${id}`
+      `https://near-mart-backend.vercel.app/api/v2/product/get-all-products-shop/${id}`
     );
     dispatch({
       type: "getAllProductsShopSuccess",
@@ -74,7 +74,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.delete(
-      `${server}/product/delete-shop-product/${id}`,
+      `https://near-mart-backend.vercel.app/api/v2/product/delete-shop-product/${id}`,
       {
         withCredentials: true,
       }
@@ -99,7 +99,7 @@ export const getAllProducts = () => async (dispatch) => {
       type: "getAllProductsRequest",
     });
 
-    const { data } = await axios.get(`${server}/product/get-all-products`);
+    const { data } = await axios.get(`https://near-mart-backend.vercel.app/api/v2/product/get-all-products`);
     dispatch({
       type: "getAllProductsSuccess",
       payload: data.products,

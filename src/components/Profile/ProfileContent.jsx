@@ -57,7 +57,7 @@ const ProfileContent = ({ active }) => {
         setAvatar(reader.result);
         axios
           .put(
-            `${server}/user/update-avatar`,
+            `https://near-mart-backend.vercel.app/api/v2/user/update-avatar`,
             { avatar: reader.result },
             {
               withCredentials: true,
@@ -468,7 +468,7 @@ const ChangePassword = () => {
 
     await axios
       .put(
-        `${server}/user/update-user-password`,
+        `https://near-mart-backend.vercel.app/api/v2/user/update-user-password`,
         { oldPassword, newPassword, confirmPassword },
         { withCredentials: true }
       )
