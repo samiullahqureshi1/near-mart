@@ -12,27 +12,55 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    await axios
-      .post(
-        `https://near-mart-backend.vercel.app/api/v2/user/login-user`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        toast.success("Login Success!");
-        navigate("/");
-        window.location.reload(true); 
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
-  };
+  //   await axios
+  //     .post(
+  //       `https://near-mart-backend.vercel.app/api/v2/user/login-user`,
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //       { withCredentials: true }
+  //     )
+  //     .then((res) => {
+  //       toast.success("Login Success!");
+  //       navigate("/");
+  //       window.location.reload(true); 
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err.response.data.message);
+  //     });
+  // };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(
+      "https://near-mart-backend.vercel.app/api/v2/user/login-user",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+
+    toast.success("Login Success!");
+
+    const role = res.data.user?.role;
+
+    if (role === "Seller") {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+
+    window.location.reload(true); // Optional: only needed if full reload required
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Login failed");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

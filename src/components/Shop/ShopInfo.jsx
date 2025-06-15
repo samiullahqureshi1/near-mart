@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { server } from "../../server";
 import styles from "../../styles/styles";
 import Loader from "../Layout/Loader";
@@ -26,13 +26,19 @@ const ShopInfo = ({ isOwner }) => {
     })
   }, [])
   
-
+const navigate=useNavigate()
   const logoutHandler = async () => {
-    axios.get(`https://near-mart-backend.vercel.app/api/v2/shop/logout`,{
+  try {
+    await axios.get("https://near-mart-backend.vercel.app/api/v2/shop/logout", {
       withCredentials: true,
     });
-    window.location.reload();
-  };
+
+    navigate("/login");
+  } catch (err) {
+    // Optional: you can log the error or handle it silently
+    console.error("Logout failed:", err);
+  }
+};
 
   const totalReviewsLength =
     products &&
