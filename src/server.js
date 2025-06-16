@@ -1,1 +1,1 @@
-export const server = "https://near-mart-backend.vercel.app/api/v2";
+export const server = "https://near-backend.vercel.app/api/v2";

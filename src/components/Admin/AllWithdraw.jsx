@@ -16,7 +16,7 @@ const AllWithdraw = () => {
 
   useEffect(() => {
     axios
-      .get(`https://near-mart-backend.vercel.app/api/v2/withdraw/get-all-withdraw-request`, {
+      .get(`https://near-backend.vercel.app/api/v2/withdraw/get-all-withdraw-request`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -82,7 +82,7 @@ const AllWithdraw = () => {
 
   const handleSubmit = async () => {
     await axios
-      .put(`https://near-mart-backend.vercel.app/api/v2/withdraw/update-withdraw-request/${withdrawData.id}`,{
+      .put(`https://near-backend.vercel.app/api/v2/withdraw/update-withdraw-request/${withdrawData.id}`,{
         sellerId: withdrawData.shopId,
       },{withCredentials: true})
       .then((res) => {
