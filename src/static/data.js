@@ -189,33 +189,33 @@ export const brandingData = [
 
 // categories data
 export const categoriesData = [
-  {
-    id: 1,
-    title: "Watches",
-    subTitle: "",
-    image_Url:
-      "https://img.freepik.com/free-photo/close-up-man-wearing-stylish-watch_53876-102070.jpg",
-  },
+  // {
+  //   id: 1,
+  //   title: "Watches",
+  //   subTitle: "",
+  //   image_Url:
+  //     "https://img.freepik.com/free-photo/close-up-man-wearing-stylish-watch_53876-102070.jpg",
+  // },
   {
     id: 2,
     title: "Clothes",
     subTitle: "",
     image_Url:
-      "https://img.freepik.com/free-photo/clothes-hanger-rack-apparel-fashion-store_53876-102058.jpg",
+      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/1_2a9471ff-024d-40f7-a4b3-a15a058ff334_2022-03-24.jpg?v=1652056987",
   },
   {
     id: 3,
-    title: "Electronics",
+    title: "Accessories",
     subTitle: "",
     image_Url:
-      "https://img.freepik.com/free-photo/laptop-black-background_53876-97302.jpg",
+      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/2_2022-03-02.jpg?v=1652057671&width=800",
   },
   {
     id: 4,
-    title: "Shoes",
+    title: "Footwear",
     subTitle: "",
     image_Url:
-      "https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png",
+      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/3_2022-03-02.jpg?v=1652057690&width=800",
   },
   // {
   //   id: 5,
@@ -226,10 +226,10 @@ export const categoriesData = [
   // },
   {
     id: 6,
-    title: "Home Decor",
+    title: "Watches",
     subTitle: "",
     image_Url:
-      "https://img.freepik.com/free-photo/modern-stylish-interior-room_23-2148820029.jpg",
+      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/4_f8612457-70c3-4a0f-b808-0f322a71741c_2022-03-02.jpg?v=1652057727",
   },
   // {
   //   id: 7,

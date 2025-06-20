@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../../styles/styles";
 import { categoriesData, productData } from "../../static/data";
+import { CiHeart, CiShoppingCart, CiUser } from "react-icons/ci";
+import { FiUser } from "react-icons/fi";
+
 import {
   AiOutlineHeart,
   AiOutlineSearch,
@@ -32,6 +35,14 @@ const Header = ({ activeHeading }) => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+ useEffect(() => {
+    if (location.state?.openCart) {
+      setOpenCart(true);
+      // Clear the flag to prevent reopening on reload
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -56,61 +67,122 @@ const Header = ({ activeHeading }) => {
   return (
     <>
       <div className={`${styles.section}`}>
-        <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
-          <div>
-            <Link to="/">
-              <img
-                src={logo}
-                alt=""
-                className="w-[100px] 800px:w-[113px]"
-              />
-            </Link>
-          </div>
-          {/* search box */}
-          <div className="w-[50%] relative">
-            <input
-              type="text"
-              placeholder="Search Product..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="h-[40px] w-full px-2 border-[#1c1d22] border-[2px] rounded-md"
-            />
-            <AiOutlineSearch
-              size={30}
-              className="absolute right-2 top-1.5 cursor-pointer"
-            />
-            {searchData && searchData.length !== 0 ? (
-              <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
-                {searchData &&
-                  searchData.map((i, index) => {
-                    return (
-                      <Link to={`/product/${i._id}`}>
-                        <div className="w-full flex items-start-py-3">
-                          <img
-                            src={`${i.images[0]?.url}`}
-                            alt=""
-                            className="w-[40px] h-[40px] mr-[10px]"
-                          />
-                          <h1>{i.name}</h1>
-                        </div>
-                      </Link>
-                    );
-                  })}
-              </div>
-            ) : null}
-          </div>
+        <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between  px-5">
+  {/* Logo Section */}
+  <div className="ml-5">
+    <Link to="/">
+      <img
+        src={logo}
+        alt="Logo"
+        className="w-[100px] 800px:w-[113px] filter drop-shadow-lg"
+      />
+    </Link>
+  </div>
 
-          <div className={`${styles.button}`}>
-            <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
-              <h1 className="text-[#fff] flex items-center">
-                {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
-                <IoIosArrowForward className="ml-1" />
-              </h1>
+  {/* Categories, Home, Best Selling, FAQ */}
+  <div className="relative flex items-center space-x-8 ml-10">
+      <div onClick={() => setDropDown(!dropDown)} className="relative cursor-pointer">
+      <button className="text-black font-medium hover:text-[#3bc177]">Categories</button>
+      {/* <IoIosArrowDown
+        size={20}
+        className="absolute right-1 top-0 cursor-pointer text-black"
+        onClick={() => setDropDown(!dropDown)}
+      /> */}
+      {dropDown && (
+        <DropDown
+          categoriesData={categoriesData}
+          setDropDown={setDropDown}
+        />
+      )}
+    </div>
+    <Link to="/" className="text-black font-medium hover:text-[#3bc177] ">Home</Link>
+    <Link to="/best-selling" className="text-black font-medium hover:text-[#3bc177]">Best Selling</Link>
+    <Link to="/faq" className="text-black font-medium hover:text-[#3bc177]">FAQ</Link>
+  
+  </div>
+
+  {/* Search Box and Icons (Wishlist, Cart, Profile) */}
+  <div className="flex items-center space-x-6">
+    {/* Search Box */}
+    <div className="relative w-[300px]">
+      <input
+        type="text"
+        placeholder="Search Product..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="h-[40px] w-full px-2 border-gray-200 border-[2px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#3bc177]"
+      />
+      <AiOutlineSearch
+        size={30}
+        className="absolute right-3 top-1.5 cursor-pointer text-[#3bc177]"
+      />
+      {searchData && searchData.length !== 0 && (
+        <div className="absolute min-h-[30vh] bg-white shadow-lg z-[9] p-4 max-h-[40vh] overflow-auto border-2 border-[#f0f0f0] rounded-md">
+          {searchData.map((i, index) => (
+            <Link to={`/product/${i._id}`} key={index}>
+              <div className="w-full flex items-start py-3 hover:bg-[#f1f1f1] rounded-md">
+                <img
+                  src={`${i.images[0]?.url}`}
+                  alt={i.name}
+                  className="w-[40px] h-[40px] mr-[10px]"
+                />
+                <h1 className="text-sm text-gray-800">{i.name}</h1>
+              </div>
             </Link>
-          </div>
+          ))}
         </div>
+      )}
+    </div>
+
+    {/* Wishlist Icon */}
+    <div
+      className="relative cursor-pointer"
+      onClick={() => setOpenWishlist(true)}
+    >
+      <CiHeart size={30} color="black" />
+      <span className="absolute right-0 top-0 rounded-full bg-[#ff6f61] w-4 h-4 text-white text-[12px] leading-tight text-center">
+        {wishlist && wishlist.length}
+      </span>
+    </div>
+
+    {/* Cart Icon */}
+    <div
+      className="relative cursor-pointer"
+      onClick={() => setOpenCart(true)}
+    >
+      <CiShoppingCart size={30} color="black" />
+      <span className="absolute right-0 top-0 rounded-full bg-[#ff6f61] w-4 h-4 text-white text-[12px] leading-tight text-center ">
+        {cart && cart.length}
+      </span>
+    </div>
+
+    {/* Profile Icon */}
+    <div className="relative cursor-pointer">
+      {isAuthenticated ? (
+        <Link to="/profile">
+          {/* <img
+            src={`${user?.avatar?.url}`}
+            className="w-[35px] h-[35px] rounded-full border-2 border-white"
+            alt="Profile"
+          /> */}
+          <CiUser className="w-[25px] h-[25px] "/>
+
+
+        </Link>
+      ) : (
+        <Link to="/login">
+          <CgProfile size={30} color="white" />
+        </Link>
+      )}
+    </div>
+
+    {openCart && <Cart setOpenCart={setOpenCart} />}
+    {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />}
+  </div>
+</div>
+
       </div>
-      <div
+      {/* <div
         className={`${
           active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
         } transition hidden 800px:flex items-center justify-between w-full bg-[#1c1d22] h-[70px]`}
@@ -118,7 +190,6 @@ const Header = ({ activeHeading }) => {
         <div
           className={`${styles.section} relative ${styles.noramlFlex} justify-between`}
         >
-          {/* categories */}
           <div onClick={() => setDropDown(!dropDown)}>
             <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
               <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
@@ -140,7 +211,6 @@ const Header = ({ activeHeading }) => {
               ) : null}
             </div>
           </div>
-          {/* navitems */}
           <div className={`${styles.noramlFlex}`}>
             <Navbar active={activeHeading} />
           </div>
@@ -191,16 +261,14 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
 
-            {/* cart popup */}
             {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
 
-            {/* wishlist popup */}
             {openWishlist ? (
               <Wishlist setOpenWishlist={setOpenWishlist} />
             ) : null}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* mobile header */}
       <div

@@ -12,7 +12,7 @@ const Events = () => {
       !isLoading && (
         <div className={`${styles.section}`}>
       <div className={`${styles.heading}`}>
-        <h1>Popular Events</h1>
+        {/* <h1>Popular Events</h1> */}
       </div>
 
       <div className="w-full grid">
@@ -21,13 +21,13 @@ const Events = () => {
             <EventCard data={allEvents && allEvents[0]} />
           )
          }
-         <h4>{
+         {/* <h4>{
            allEvents?.length === 0 && (
             'No Events have!'
            )
-          }
+          } */}
 
-         </h4>
+         {/* </h4> */}
       </div>
      
     </div>
