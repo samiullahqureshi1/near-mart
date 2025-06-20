@@ -21,7 +21,7 @@ export const createProduct =
       });
 
       const { data } = await axios.post(
-        `https://near-backend.vercel.app/api/v2/product/create-product`,
+        `http://localhost:9000/api/v2/product/create-product`,
         name,
         description,
         category,
@@ -52,7 +52,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://near-backend.vercel.app/api/v2/product/get-all-products-shop/${id}`
+      `http://localhost:9000/api/v2/product/get-all-products-shop/${id}`
     );
     dispatch({
       type: "getAllProductsShopSuccess",
@@ -74,7 +74,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.delete(
-      `https://near-backend.vercel.app/api/v2/product/delete-shop-product/${id}`,
+      `http://localhost:9000/api/v2/product/delete-shop-product/${id}`,
       {
         withCredentials: true,
       }
@@ -99,7 +99,7 @@ export const getAllProducts = () => async (dispatch) => {
       type: "getAllProductsRequest",
     });
 
-    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/product/get-all-products`);
+    const { data } = await axios.get(`http://localhost:9000/api/v2/product/get-all-products`);
     dispatch({
       type: "getAllProductsSuccess",
       payload: data.products,

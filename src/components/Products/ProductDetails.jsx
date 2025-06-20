@@ -116,7 +116,7 @@ const ProductDetails = ({ data }) => {
       const userId = user._id;
       const sellerId = data.shop._id;
       await axios
-        .post(`https://near-backend.vercel.app/conversation/create-new-conversation`, {
+        .post(`http://localhost:9000/conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,
@@ -134,173 +134,138 @@ const ProductDetails = ({ data }) => {
   const [selectedColor, setSelectedColor] = useState(null);
 
   return (
-    <div className="bg-white">
-      {data ? (
-        <div className="w-[90%] 800px:w-[80%] mx-auto py-8">
-          <div className="block w-full 800px:flex gap-10">
-            {/* IMAGE SECTION */}
-            <div className="w-full 800px:w-[50%]">
-              <div className="bg-[#f6f6f6] rounded-lg p-6 flex justify-center items-center">
-                <img
-                  src={data.images[select]?.url}
-                  alt=""
-                  className="w-[80%] object-contain"
-                />
-              </div>
+   <div className="bg-white">
+  {data ? (
+    <div className="w-[90%] 800px:w-[80%] mx-auto py-10">
+      <div className="block 800px:flex gap-8">
+        {/* IMAGE SECTION */}
+        <div className="w-full 800px:w-[50%] flex">
+          <div className="flex flex-col items-center gap-4 mr-4">
+            {data.images.map((i, index) => (
+              <img
+                key={index}
+                src={i.url}
+                alt=""
+                onClick={() => setSelect(index)}
+                className={`w-[70px] h-[70px] object-cover p-1 border rounded-md cursor-pointer ${
+                  select === index ? "border-black" : "border-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+          <div className="w-full bg-[#f6f6f6] rounded-lg p-6 flex justify-center items-center">
+            <img
+              src={data.images[select]?.url}
+              alt=""
+              className="max-h-[500px] object-contain"
+            />
+          </div>
+        </div>
 
-              {/* Thumbnail Selector */}
-              <div className="flex flex-wrap gap-3 mt-4 justify-center">
-                {data.images.map((i, index) => (
-                  <img
-                    key={index}
-                    src={i.url}
-                    alt=""
-                    onClick={() => setSelect(index)}
-                    className={`w-[70px] h-[70px] p-1 border rounded-md cursor-pointer transition-all duration-200 ${
-                      select === index ? "border-black" : "border-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+        {/* PRODUCT DETAILS SECTION */}
+        <div className="w-full 800px:w-[50%] pt-4">
+          <h1 className="text-2xl font-semibold text-[#333] mb-2">
+            {data.name}
+          </h1>
 
-            {/* PRODUCT DETAILS SECTION */}
-            <div className="w-full 800px:w-[50%] pt-3">
-              <h1 className="text-2xl font-semibold mb-2">{data.name}</h1>
-              {/* Removed description from here */}
-              <Ratings rating={data.ratings} />
-              <p className="text-[15px] mt-1 text-green-600">
-                ({totalReviewsLength} ratings)
-              </p>
+          <div className="flex items-center gap-2">
+            <Ratings rating={data.ratings} />
+            <p className="text-sm text-gray-600">({totalReviewsLength} reviews)</p>
+          </div>
 
-              {/* Pricing */}
-              <div className="mt-4 flex items-center gap-4">
-                <h4 className="text-2xl font-bold text-black">
-                  Rs.{data.discountPrice}
-                </h4>
-                {data.originalPrice && (
-                  <h3 className="line-through text-gray-500 text-lg">
-                    Rs.{data.originalPrice}
-                  </h3>
-                )}
-              </div>
+          <p className="text-[15px] text-gray-600 mt-2">
+{data.description}
+          </p>
 
-              {/* Color Selector */}
-              <div className="mt-6">
-                <h4 className="font-semibold mb-2">Choose a Color</h4>
-                <div className="flex gap-3">{/* Future color options */}</div>
-              </div>
-
-              {/* Quantity Selector + Wishlist */}
-              <div className="mt-8 flex items-center justify-between max-w-[260px]">
-                <div className="flex items-center border rounded-full">
-                  <button
-                    onClick={decrementCount}
-                    className="px-3 py-2 text-xl font-semibold border rounded-l-full bg-gray-100 hover:bg-gray-200"
-                  >
-                    -
-                  </button>
-                  <span className="px-4 py-2 bg-white text-black">{count}</span>
-                  <button
-                    onClick={incrementCount}
-                    className="px-3 py-2 text-xl font-semibold border rounded-r-full bg-gray-100 hover:bg-gray-200"
-                  >
-                    +
-                  </button>
-                </div>
-
-                {click ? (
-                  <AiFillHeart
-                    size={30}
-                    className="text-red-500 cursor-pointer"
-                    onClick={() => removeFromWishlistHandler(data)}
-                  />
-                ) : (
-                  <AiOutlineHeart
-                    size={30}
-                    className="text-gray-700 cursor-pointer"
-                    onClick={() => addToWishlistHandler(data)}
-                  />
-                )}
-              </div>
-
-              {/* Buy/Add to Cart Buttons */}
-              <div className="mt-6 flex gap-4">
-                <Link
-        to={{
-          pathname: "/checkout",  // Navigate to checkout page
-          state: { 
-            cart: [
-              {
-                _id: data._id,
-                name: data.name,
-                discountPrice: data.discountPrice,
-                qty: count, // The quantity selected
-                image: data.images[select]?.url,
-              },
-            ]
-          }
-        }}
-      >
-        <button
-          onClick={handleBuyNow}
-          className="bg-green-700 hover:bg-green-800 text-white px-10 py-3 rounded-full font-semibold"
-        >
-          Buy Now (Rs.{data.discountPrice * count})
-        </button>
-      </Link>
+         
+          {/* Quantity & Wishlist */}
+          <div className="mt-6 flex items-center gap-4">
+            <div className="flex items-center border rounded-full overflow-hidden">
                 <button
-                  onClick={() => addToCartHandler(data._id)}
-                  className="border border-gray-400 hover:bg-gray-100 px-10 py-3 rounded-full font-semibold"
+                  onClick={decrementCount}
+                  className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
                 >
-                  Add to Cart
+                  −
+                </button>
+                <span className="px-4 py-2">{count}</span>
+                <button
+                  onClick={incrementCount}
+                  className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
+                >
+                  +
                 </button>
               </div>
 
-              {/* Delivery Info */}
-              <div className="mt-8 space-y-4">
-                {/* Free Delivery Section */}
-                <div className="border p-4 rounded-md flex items-start gap-3 bg-gray-50 shadow-sm hover:shadow-md transition-all duration-200 ease-in-out">
-                  <CiDeliveryTruck className="w-6 h-6 text-[#3bc177]" />{" "}
-                  {/* Icon styled with color */}
-                  <div>
-                    <p className="font-semibold text-lg text-[#333]">
-                      Free Delivery
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Enter your Postal code for Delivery Availability
-                    </p>
-                  </div>
-                </div>
-
-                {/* Return Delivery Section */}
-                <div className="border p-4 rounded-md flex items-start gap-3 bg-gray-50 shadow-sm hover:shadow-md transition-all duration-200 ease-in-out">
-                  <TbTruckReturn className="w-6 h-6 text-[#ff6f61]" />{" "}
-                  {/* Icon styled with color */}
-                  <div>
-                    <p className="font-semibold text-lg text-[#333]">
-                      Return Delivery
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Free 30-day Returns.{" "}
-                      <span className="underline text-[#3bc177]">Details</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {click ? (
+              <AiFillHeart
+                size={30}
+                className="text-red-500 cursor-pointer"
+                onClick={() => removeFromWishlistHandler(data)}
+              />
+            ) : (
+              <AiOutlineHeart
+                size={30}
+                className="text-gray-700 cursor-pointer"
+                onClick={() => addToWishlistHandler(data)}
+              />
+            )}
           </div>
 
-          {/* Product Info Tabs */}
-          <ProductDetailsInfo
-            data={data}
-            products={products}
-            totalReviewsLength={totalReviewsLength}
-            averageRating={averageRating}
-          />
+          {/* Pricing & Buttons */}
+          <div className="mt-6 flex items-center gap-5">
+            <h4 className="text-2xl font-bold text-black">
+              Rs.{data.discountPrice}
+            </h4>
+            {data.originalPrice && (
+              <h3 className="line-through text-gray-500 text-lg">
+                Rs.{data.originalPrice}
+              </h3>
+            )}
+          </div>
+
+          <div className="mt-6 flex gap-4">
+            <Link
+              to={{
+                pathname: "/checkout",
+                state: {
+                  cart: [
+                    {
+                      _id: data._id,
+                      name: data.name,
+                      discountPrice: data.discountPrice,
+                      qty: count,
+                      image: data.images[select]?.url,
+                    },
+                  ],
+                },
+              }}
+            >
+              <button
+                onClick={handleBuyNow}
+                className="bg-[#3bc177] hover:bg-green-700 text-white px-10 py-3 rounded-full font-semibold"
+              >
+                Buy Now (Rs.{data.discountPrice * count})
+              </button>
+            </Link>
+            <button
+              onClick={() => addToCartHandler(data._id)}
+              className="border border-gray-400 hover:bg-gray-100 px-10 py-3 rounded-full font-semibold"
+            >
+              Add to Cart
+            </button>
+          </div>
+
+       
+
+        
         </div>
-      ) : null}
+      </div>
+
+      
     </div>
+  ) : null}
+</div>
+
   );
 };
 

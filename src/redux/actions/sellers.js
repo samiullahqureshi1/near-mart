@@ -8,7 +8,7 @@ export const getAllSellers = () => async (dispatch) => {
       type: "getAllSellersRequest",
     });
 
-    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/shop/admin-all-sellers`, {
+    const { data } = await axios.get(`http://localhost:9000/api/v2/shop/admin-all-sellers`, {
       withCredentials: true,
     });
 

@@ -141,10 +141,15 @@
 // };
 
 // export default ProductCard;
-import React, { useState, useEffect } from "react";
-import { AiFillHeart, AiOutlineEye, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import {
+  AiFillHeart,
+  AiOutlineEye,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { BiExpand } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToWishlist,
@@ -156,6 +161,7 @@ import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 
 const ProductCard = ({ data }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -165,7 +171,8 @@ const ProductCard = ({ data }) => {
     setClick(wishlist && wishlist.find((i) => i._id === data._id));
   }, [wishlist]);
 
-  const handleWishlist = () => {
+  const handleWishlist = (e) => {
+    e.stopPropagation();
     if (click) {
       dispatch(removeFromWishlist(data));
       setClick(false);
@@ -175,7 +182,8 @@ const ProductCard = ({ data }) => {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
     const isItemExists = cart && cart.find((i) => i._id === data._id);
     if (isItemExists) {
       toast.error("Item already in cart!");
@@ -188,106 +196,113 @@ const ProductCard = ({ data }) => {
     }
   };
 
+  const handleNavigate = () => {
+    navigate(`/product/${data._id}`);
+  };
+
   const discountPercentage = data.originalPrice
     ? Math.round(
         ((data.originalPrice - data.discountPrice) / data.originalPrice) * 100
       )
     : 0;
 
-return (
-  <div className="group relative cursor-pointer w-[300px] bg-[#f6f6f6] rounded-xl overflow-hidden shadow-md transition">
-    {/* Wishlist + Expand */}
-    <div className="absolute top-3  left-3 z-10 flex flex-col opacity-0 group-hover:opacity-100 transition">
-      <button
-        onClick={handleWishlist}
-        className="text-white bg-black/40 p-2 rounded-full"
-      >
-        {click ? (
-          <AiFillHeart size={22} className="text-red-500" />
-        ) : (
-          <AiOutlineHeart size={22} />
-        )}
-      </button>
-      <button
-        onClick={() => setOpen(true)}
-        className="text-white bg-black/40 p-2 rounded-full mt-2"
-      >
-        <BiExpand size={22} />
-      </button>
-    </div>
-
-    {/* Discount badge */}
-    {discountPercentage > 0 && (
-      <div className="absolute top-3 right-3 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-full z-10">
-        -{discountPercentage}%
-      </div>
-    )}
-
-    {/* Product Image */}
-    <Link to={`/product/${data._id}`}>
-      <div className="h-[360px] flex items-center justify-center p-6">
+  return (
+    <div
+      className="group relative cursor-pointer w-[240px] overflow-hidden"
+      onClick={handleNavigate}
+    >
+      {/* Image Section */}
+      <div className="w-full h-[300px] bg-white flex items-center justify-center">
         <img
           src={data.images?.[0]?.url}
           alt={data.name}
           className="max-h-full max-w-full object-contain"
         />
       </div>
-    </Link>
 
-    {/* Hover Buttons */}
-   <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition bg-black/10 backdrop-blur-sm">
+      {/* Product Info */}
+      <div className="py-3 text-left px-2">
+        <h4 className="text-base font-Poppins text-black truncate mb-1">
+          {data.name}
+        </h4>
+        <div className="flex items-center gap-2">
+          <span className="text-[15px] font-semibold text-gray-700">
+            Rs.{data.discountPrice}
+          </span>
+          {discountPercentage > 0 && (
+            <span className="text-sm text-gray-500 line-through">
+              Rs.{data.originalPrice}
+            </span>
+          )}
+        </div>
+      </div>
 
-  {/* Quick View Button */}
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition z-10">
+        {/* Top Left: Wishlist + Expand */}
+        <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
+          <button
+            onClick={handleWishlist}
+            className="text-white bg-black/40 p-2 rounded-full"
+          >
+            {click ? (
+              <AiFillHeart size={22} className="text-red-500" />
+            ) : (
+              <AiOutlineHeart size={22} />
+            )}
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(true);
+            }}
+            className="text-white bg-black/40 p-2 rounded-full"
+          >
+            <BiExpand size={22} />
+          </button>
+        </div>
+
+        {/* Center Buttons */}
+<div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+  {/* Quick View */}
   <button
-    onClick={() => setOpen(true)}
-    className="bg-white  text-black text-base font-medium py-2 px-6 rounded-full shadow group/quickview relative overflow-hidden transition"
+    onClick={(e) => {
+      e.stopPropagation();
+      setOpen(true);
+    }}
+    className="bg-white text-black text-base font-medium py-2 px-6 rounded-full shadow group/quickview relative overflow-hidden
+               opacity-0 -translate-y-6 transition-all duration-[800ms] ease-in-out
+               group-hover:opacity-100 group-hover:translate-y-0"
   >
     <span className="transition duration-300 group-hover/quickview:opacity-0">
       Quick View
     </span>
-
-    <span className="hover:bg-black text-white absolute inset-0 flex items-center justify-center opacity-0 group-hover/quickview:opacity-100 transition duration-300">
+    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/quickview:opacity-100 transition duration-300 bg-black text-white rounded-full">
       <AiOutlineEye size={20} />
     </span>
   </button>
 
-  {/* Quick Shop Button */}
+  {/* Quick Shop */}
   <button
     onClick={handleAddToCart}
-    className="bg-sky-400 hover:bg-sky-500 text-white text-base font-medium py-2 px-6 rounded-full shadow group/quickshop relative overflow-hidden transition"
+    className="bg-sky-400 hover:bg-sky-500 text-white text-base font-medium py-2 px-6 rounded-full shadow group/quickshop relative overflow-hidden
+               opacity-0 -translate-y-6 transition-all duration-[800ms] ease-in-out delay-150
+               group-hover:opacity-100 group-hover:translate-y-0"
   >
     <span className="transition duration-300 group-hover/quickshop:opacity-0">
       Quick Shop
     </span>
-
     <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/quickshop:opacity-100 transition duration-300">
       <AiOutlineShoppingCart size={20} />
     </span>
   </button>
-
 </div>
-    {/* Name + Price */}
-    <div className="px-5 py-4 text-left bg-white">
-      <h4 className="text-base font-semibold text-gray-800 truncate mb-2">
-        {data.name}
-      </h4>
-      <div className="flex items-center gap-2">
-        <span className="text-[17px] font-bold text-black">
-          Rs.{data.discountPrice}
-        </span>
-        {discountPercentage > 0 && (
-          <span className="text-sm text-gray-500 line-through">
-            Rs.{data.originalPrice}
-          </span>
-        )}
+
       </div>
+
+      {open && <ProductDetailsCard setOpen={setOpen} data={data} />}
     </div>
-
-    {open && <ProductDetailsCard setOpen={setOpen} data={data} />}
-  </div>
-);
-
-
+  );
 };
 
 export default ProductCard;

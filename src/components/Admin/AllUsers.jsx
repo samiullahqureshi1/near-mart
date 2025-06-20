@@ -23,7 +23,7 @@ const AllUsers = () => {
 
   const handleDelete = async (id) => {
     await axios
-    .delete(`https://near-backend.vercel.app/api/v2/user/delete-user/${id}`, { withCredentials: true })
+    .delete(`http://localhost:9000/api/v2/user/delete-user/${id}`, { withCredentials: true })
     .then((res) => {
       toast.success(res.data.message);
     });

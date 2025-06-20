@@ -28,7 +28,7 @@ const ShopSettings = () => {
         setAvatar(reader.result);
         axios
           .put(
-            `https://near-backend.vercel.app/api/v2/shop/update-shop-avatar`,
+            `http://localhost:9000/api/v2/shop/update-shop-avatar`,
             { avatar: reader.result },
             {
               withCredentials: true,
@@ -52,7 +52,7 @@ const ShopSettings = () => {
 
     await axios
       .put(
-        `https://near-backend.vercel.app/api/v2/shop/update-seller-info`,
+        `http://localhost:9000/api/v2/shop/update-seller-info`,
         {
           name,
           address,
