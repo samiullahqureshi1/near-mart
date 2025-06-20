@@ -44,7 +44,7 @@ const WithdrawMoney = () => {
 
     await axios
       .put(
-        `http://localhost:9000/api/v2/shop/update-payment-methods`,
+        `https://near-backend.vercel.app/api/v2/shop/update-payment-methods`,
         {
           withdrawMethod,
         },
@@ -69,7 +69,7 @@ const WithdrawMoney = () => {
 
   const deleteHandler = async () => {
     await axios
-      .delete(`http://localhost:9000/api/v2/shop/delete-withdraw-method`, {
+      .delete(`https://near-backend.vercel.app/api/v2/shop/delete-withdraw-method`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -89,7 +89,7 @@ const WithdrawMoney = () => {
       const amount = withdrawAmount;
       await axios
         .post(
-          `http://localhost:9000/api/v2/withdraw/create-withdraw-request`,
+          `https://near-backend.vercel.app/api/v2/withdraw/create-withdraw-request`,
           { amount },
           { withCredentials: true }
         )
