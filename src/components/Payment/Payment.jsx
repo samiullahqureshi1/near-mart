@@ -40,7 +40,7 @@
 //     };
 
 //     await axios
-//       .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+//       .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
 //       .then((res) => {
 //         setOpen(false);
 //         navigate("/order/success");
@@ -210,7 +210,7 @@ const Payment = () => {
     };
 
     await axios
-      .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+      .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
       .then(() => {
         setOpen(false);
         navigate("/order/success");
@@ -234,7 +234,7 @@ const Payment = () => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:9000/api/v2/payment/process`,
+        `https://near-backend.vercel.app/api/v2/payment/process`,
         paymentData,
         config
       );
@@ -259,7 +259,7 @@ const Payment = () => {
         };
 
         await axios
-          .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+          .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
           .then(() => {
             setOpen(false);
             navigate("/order/success");
@@ -286,7 +286,7 @@ const Payment = () => {
     };
 
     await axios
-      .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+      .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
       .then(() => {
         setOpen(false);
         navigate("/order/success");

@@ -17,7 +17,7 @@ const ShopInfo = ({ isOwner }) => {
   useEffect(() => {
     dispatch(getAllProductsShop(id));
     setIsLoading(true);
-    axios.get(`http://localhost:9000/api/v2/shop/get-shop-info/${id}`).then((res) => {
+    axios.get(`https://near-backend.vercel.app/api/v2/shop/get-shop-info/${id}`).then((res) => {
      setData(res.data.shop);
      setIsLoading(false);
     }).catch((error) => {
@@ -29,7 +29,7 @@ const ShopInfo = ({ isOwner }) => {
 const navigate=useNavigate()
   const logoutHandler = async () => {
   try {
-    await axios.get("http://localhost:9000/api/v2/shop/logout", {
+    await axios.get("https://near-backend.vercel.app/api/v2/shop/logout", {
       withCredentials: true,
     });
 
