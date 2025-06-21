@@ -30,25 +30,23 @@ const ProductDetails = ({ data }) => {
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
- const handleBuyNow = () => {
-  // Clone original product data, aur quantity + selected image add karo
-  const productData = {
-    ...data, // pura product object jisme saare fields hain
-    qty: count,
-    image: data.images[select]?.url, // ya apni preferred image
+  const handleBuyNow = () => {
+    // Clone original product data, aur quantity + selected image add karo
+    const productData = {
+      ...data, // pura product object jisme saare fields hain
+      qty: count,
+      image: data.images[select]?.url, // ya apni preferred image
+    };
+
+    dispatch(addTocart(productData)); // poora product Redux cart mein save hoga
+
+    navigate("/checkout", {
+      state: {
+        isBuyNow: true,
+        productId: productData._id,
+      },
+    });
   };
-
-  dispatch(addTocart(productData)); // poora product Redux cart mein save hoga
-
-  navigate("/checkout", {
-    state: {
-      isBuyNow: true,
-      productId: productData._id,
-    },
-  });
-};
-
-
 
   useEffect(() => {
     dispatch(getAllProductsShop(data && data?.shop._id));
@@ -134,138 +132,132 @@ const ProductDetails = ({ data }) => {
   const [selectedColor, setSelectedColor] = useState(null);
 
   return (
-   <div className="bg-white">
-  {data ? (
-    <div className="w-[90%] 800px:w-[80%] mx-auto py-10">
-      <div className="block 800px:flex gap-8">
-        {/* IMAGE SECTION */}
-        <div className="w-full 800px:w-[50%] flex">
-          <div className="flex flex-col items-center gap-4 mr-4">
-            {data.images.map((i, index) => (
-              <img
-                key={index}
-                src={i.url}
-                alt=""
-                onClick={() => setSelect(index)}
-                className={`w-[70px] h-[70px] object-cover p-1 border rounded-md cursor-pointer ${
-                  select === index ? "border-black" : "border-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-          <div className="w-full bg-[#f6f6f6] rounded-lg p-6 flex justify-center items-center">
-            <img
-              src={data.images[select]?.url}
-              alt=""
-              className="max-h-[500px] object-contain"
-            />
-          </div>
-        </div>
+    <div className="bg-white">
+      {data ? (
+        <div className="w-[90%] 800px:w-[80%] mx-auto py-10">
+          <div className="block 800px:flex gap-8">
+            {/* IMAGE SECTION */}
+            <div className="w-full 800px:w-[50%] flex">
+              <div className="flex flex-col items-center gap-4 mr-4">
+                {data.images.map((i, index) => (
+                  <img
+                    key={index}
+                    src={i.url}
+                    alt=""
+                    onClick={() => setSelect(index)}
+                    className={`w-[70px] h-[70px] object-cover p-1 border rounded-md cursor-pointer ${
+                      select === index ? "border-black" : "border-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="w-full bg-[#f6f6f6] rounded-lg p-6 flex justify-center items-center">
+                <img
+                  src={data.images[select]?.url}
+                  alt=""
+                  className="max-h-[500px] object-contain"
+                />
+              </div>
+            </div>
 
-        {/* PRODUCT DETAILS SECTION */}
-        <div className="w-full 800px:w-[50%] pt-4">
-          <h1 className="text-2xl font-semibold text-[#333] mb-2">
-            {data.name}
-          </h1>
+            {/* PRODUCT DETAILS SECTION */}
+            <div className="w-full 800px:w-[50%] pt-4">
+              <h1 className="text-2xl font-semibold text-[#333] mb-2">
+                {data.name}
+              </h1>
 
-          <div className="flex items-center gap-2">
-            <Ratings rating={data.ratings} />
-            <p className="text-sm text-gray-600">({totalReviewsLength} reviews)</p>
-          </div>
-
-          <p className="text-[15px] text-gray-600 mt-2">
-{data.description}
-          </p>
-
-         
-          {/* Quantity & Wishlist */}
-          <div className="mt-6 flex items-center gap-4">
-            <div className="flex items-center border rounded-full overflow-hidden">
-                <button
-                  onClick={decrementCount}
-                  className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
-                >
-                  −
-                </button>
-                <span className="px-4 py-2">{count}</span>
-                <button
-                  onClick={incrementCount}
-                  className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
-                >
-                  +
-                </button>
+              <div className="flex items-center gap-2">
+                <Ratings rating={data.ratings} />
+                <p className="text-sm text-gray-600">
+                  ({totalReviewsLength} reviews)
+                </p>
               </div>
 
-            {click ? (
-              <AiFillHeart
-                size={30}
-                className="text-red-500 cursor-pointer"
-                onClick={() => removeFromWishlistHandler(data)}
-              />
-            ) : (
-              <AiOutlineHeart
-                size={30}
-                className="text-gray-700 cursor-pointer"
-                onClick={() => addToWishlistHandler(data)}
-              />
-            )}
-          </div>
+              <p className="text-[15px] text-gray-600 mt-2">
+                {data.description}
+              </p>
 
-          {/* Pricing & Buttons */}
-          <div className="mt-6 flex items-center gap-5">
-            <h4 className="text-2xl font-bold text-black">
-              Rs.{data.discountPrice}
-            </h4>
-            {data.originalPrice && (
-              <h3 className="line-through text-gray-500 text-lg">
-                Rs.{data.originalPrice}
-              </h3>
-            )}
-          </div>
+              {/* Quantity & Wishlist */}
+              <div className="mt-6 flex items-center gap-4">
+                <div className="flex items-center border rounded-full overflow-hidden">
+                  <button
+                    onClick={decrementCount}
+                    className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
+                  >
+                    −
+                  </button>
+                  <span className="px-4 py-2">{count}</span>
+                  <button
+                    onClick={incrementCount}
+                    className="px-4 py-2 text-lg font-medium hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
 
-          <div className="mt-6 flex gap-4">
-            <Link
-              to={{
-                pathname: "/checkout",
-                state: {
-                  cart: [
-                    {
-                      _id: data._id,
-                      name: data.name,
-                      discountPrice: data.discountPrice,
-                      qty: count,
-                      image: data.images[select]?.url,
+                {click ? (
+                  <AiFillHeart
+                    size={30}
+                    className="text-red-500 cursor-pointer"
+                    onClick={() => removeFromWishlistHandler(data)}
+                  />
+                ) : (
+                  <AiOutlineHeart
+                    size={30}
+                    className="text-gray-700 cursor-pointer"
+                    onClick={() => addToWishlistHandler(data)}
+                  />
+                )}
+              </div>
+
+              {/* Pricing & Buttons */}
+              <div className="mt-6 flex items-center gap-5">
+                <h4 className="text-2xl font-bold text-black">
+                  Rs.{data.discountPrice}
+                </h4>
+                {data.originalPrice && (
+                  <h3 className="line-through text-gray-500 text-lg">
+                    Rs.{data.originalPrice}
+                  </h3>
+                )}
+              </div>
+
+              <div className="mt-6 flex gap-4">
+                <Link
+                  to={{
+                    pathname: "/checkout",
+                    state: {
+                      cart: [
+                        {
+                          _id: data._id,
+                          name: data.name,
+                          discountPrice: data.discountPrice,
+                          qty: count,
+                          image: data.images[select]?.url,
+                        },
+                      ],
                     },
-                  ],
-                },
-              }}
-            >
-              <button
-                onClick={handleBuyNow}
-                className="bg-[#3bc177] hover:bg-green-700 text-white px-10 py-3 rounded-full font-semibold"
-              >
-                Buy Now (Rs.{data.discountPrice * count})
-              </button>
-            </Link>
-            <button
-              onClick={() => addToCartHandler(data._id)}
-              className="border border-gray-400 hover:bg-gray-100 px-10 py-3 rounded-full font-semibold"
-            >
-              Add to Cart
-            </button>
+                  }}
+                >
+                  <button
+                    onClick={handleBuyNow}
+                    className="bg-[#3bc177] hover:bg-green-700 text-white px-10 py-3 rounded-full font-semibold"
+                  >
+                    Buy Now (Rs.{data.discountPrice * count})
+                  </button>
+                </Link>
+                <button
+                  onClick={() => addToCartHandler(data._id)}
+                  className="border border-gray-400 hover:bg-gray-100 px-10 py-3 rounded-full font-semibold"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
-
-       
-
-        
         </div>
-      </div>
-
-      
+      ) : null}
     </div>
-  ) : null}
-</div>
-
   );
 };
 
