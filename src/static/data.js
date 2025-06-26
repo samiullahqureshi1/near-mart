@@ -198,24 +198,24 @@ export const categoriesData = [
   // },
   {
     id: 2,
-    title: "Clothes",
+    title: "iphone",
     subTitle: "",
     image_Url:
-      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/1_2a9471ff-024d-40f7-a4b3-a15a058ff334_2022-03-24.jpg?v=1652056987",
+      "https://images.ctfassets.net/mmeshd7gafk1/1bRy70V8KNknn628bf14h8/13839219487f92ab5a2ea6ac3622561c/Phone_HP_Category_Smartphone_desktop.jpg",
   },
   {
     id: 3,
-    title: "Accessories",
+    title: "Mackbook",
     subTitle: "",
     image_Url:
-      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/2_2022-03-02.jpg?v=1652057671&width=800",
+      "https://images.ctfassets.net/mmeshd7gafk1/5GjoGJCqWVngJRShjjG7a/afc9f93703e7ae2890a28cfd2678fb71/HP_Category_Laptop_desktop.jpg",
   },
   {
     id: 4,
-    title: "Footwear",
+    title: "ipad",
     subTitle: "",
     image_Url:
-      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/3_2022-03-02.jpg?v=1652057690&width=800",
+      "https://images.ctfassets.net/mmeshd7gafk1/jW258Um5YCpwOTHNgEokq/bbb7e8a913b24a4b2f72fa24012a5a81/Phone_HP_Category_Tablet_desktop.jpg",
   },
   // {
   //   id: 5,
@@ -226,38 +226,38 @@ export const categoriesData = [
   // },
   {
     id: 6,
-    title: "Watches",
+    title: "Smartwatches",
     subTitle: "",
     image_Url:
-      "https://demo-kalles-4-1.myshopify.com/cdn/shop/files/4_f8612457-70c3-4a0f-b808-0f322a71741c_2022-03-02.jpg?v=1652057727",
+      "https://images.ctfassets.net/mmeshd7gafk1/1W08wc0KJB4db2rXsJyP1P/95133aae1afcd26249faa214d0ad3170/Phone_HP_Category_Watch_desktop__2_.jpg",
   },
-  // {
-  //   id: 7,
-  //   title: "Art Supplies",
-  //   subTitle: "",
-  //   image_Url: "https://cdn1.vectorstock.com/i/1000x1000/17/35/artist-supplies-line-icon-concept-sign-outline-vector-29611735.jpg",
-  // },
-  // {
-  //   id: 8,
-  //   title: "Sculptures",
-  //   subTitle: "",
-  //   image_Url:
-  //     "https://t4.ftcdn.net/jpg/01/73/33/43/360_F_173334308_4bXlv6y5voEpnfOApoZWLn3o3EAE45uz.jpg",
-  // },
-  // {
-  //   id: 9,
-  //   title: "Sketches",
-  //   subTitle: "",
-  //   image_Url:
-  //     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ac754111769999.560fcfae5dcd5.jpg",
-  // },
-  // {
-  //   id: 10,
-  //   title: "Make Your Own",
-  //   subTitle: "",
-  //   image_Url:
-  //     "https://static.vecteezy.com/system/resources/thumbnails/023/233/339/small/settings-icon-customize-illustration-sign-mechanical-symbol-vector.jpg",
-  // },
+  {
+    id: 7,
+    title: "Andriod",
+    subTitle: "",
+    image_Url: "https://images.ctfassets.net/mmeshd7gafk1/1kHjYTtX4lFsNMLAybrL15/22da3fd698698ff16212c521da51b50c/Modular_bloc_-_Samsung_-_Desktop.jpg",
+  },
+  {
+    id: 8,
+    title: "Window Laptops",
+    subTitle: "",
+    image_Url:
+      "https://images.ctfassets.net/mmeshd7gafk1/5hkcYLitLSwmhC6mC9UkYI/84f6e4f4c8b0b1a1d52ec9126fe00dc5/Copy_of_most-wanted--all-laptops--desktop.webp",
+  },
+  {
+    id: 9,
+    title: "Airpods",
+    subTitle: "",
+    image_Url:
+      "https://images.ctfassets.net/mmeshd7gafk1/2EN51erORsZuV5a2DkicAI/6296a9be9687445d51375b4979837f76/-WIP-_Universe_Page_-_Airpods.png",
+  },
+  {
+    id: 10,
+    title: "Great deals",
+    subTitle: "",
+    image_Url:
+      "https://images.ctfassets.net/mmeshd7gafk1/6NskjJVCrZH1ZbtUNVq8BT/07536713dad508f2a447cd0cf5438524/Deals_-_Desktop.jpg",
+  },
 ];
 
 // product Data

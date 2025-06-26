@@ -1,146 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//   AiFillHeart,
-//   AiFillStar,
-//   AiOutlineEye,
-//   AiOutlineHeart,
-//   AiOutlineShoppingCart,
-//   AiOutlineStar,
-// } from "react-icons/ai";
-// import { Link } from "react-router-dom";
-// import styles from "../../../styles/styles";
-// import { useDispatch, useSelector } from "react-redux";
-// import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
-// import {
-//   addToWishlist,
-//   removeFromWishlist,
-// } from "../../../redux/actions/wishlist";
-// import { useEffect } from "react";
-// import { addTocart } from "../../../redux/actions/cart";
-// import { toast } from "react-toastify";
-// import Ratings from "../../Products/Ratings";
-
-// const ProductCard = ({ data,isEvent }) => {
-//   const { wishlist } = useSelector((state) => state.wishlist);
-//   const { cart } = useSelector((state) => state.cart);
-//   const [click, setClick] = useState(false);
-//   const [open, setOpen] = useState(false);
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     if (wishlist && wishlist.find((i) => i._id === data._id)) {
-//       setClick(true);
-//     } else {
-//       setClick(false);
-//     }
-//   }, [wishlist]);
-
-//   const removeFromWishlistHandler = (data) => {
-//     setClick(!click);
-//     dispatch(removeFromWishlist(data));
-//   };
-
-//   const addToWishlistHandler = (data) => {
-//     setClick(!click);
-//     dispatch(addToWishlist(data));
-//   };
-
-//   const addToCartHandler = (id) => {
-//     const isItemExists = cart && cart.find((i) => i._id === id);
-//     if (isItemExists) {
-//       toast.error("Item already in cart!");
-//     } else {
-//       if (data.stock < 1) {
-//         toast.error("Product stock limited!");
-//       } else {
-//         const cartData = { ...data, qty: 1 };
-//         dispatch(addTocart(cartData));
-//         toast.success("Item added to cart successfully!");
-//       }
-//     }
-//   };
-
-//   return (
-//     <>
-//       <div className="w-full h-[370px] bg-white rounded-2xl shadow-sm p-3 relative cursor-pointer">
-//         <div className="flex justify-end"></div>
-//         <Link to={`${isEvent === true ? `/product/${data._id}?isEvent=true` : `/product/${data._id}`}`}>
-//           <img
-//             src={`${data.images && data.images[0]?.url}`}
-//             alt=""
-//             className="w-full h-[170px] object-contain"
-//           />
-//         </Link>
-//         <Link to={`/shop/preview/${data?.shop._id}`}>
-//           <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
-//         </Link>
-//         <Link to={`${isEvent === true ? `/product/${data._id}?isEvent=true` : `/product/${data._id}`}`}>
-//           <h4 className="pb-3 font-[500]">
-//             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
-//           </h4>
-
-//           <div className="flex">
-//           <Ratings rating={data?.ratings} />
-//           </div>
-
-//           <div className="py-2 flex items-center justify-between">
-//             <div className="flex">
-//               <h5 className={`${styles.productDiscountPrice}`}>
-//               Rs.{data.originalPrice === 0
-//                   ? data.originalPrice
-//                   : data.discountPrice}
-//               </h5>
-//               <h4 className={`${styles.price}`}>
-//                 Rs.{data.originalPrice ? data.originalPrice + "" : null}
-//               </h4>
-//             </div>
-//             <span className="font-[400] text-[17px] text-[#68d284]">
-//               {data?.sold_out} sold
-//             </span>
-//           </div>
-//         </Link>
-
-//         {/* side options */}
-//         <div>
-//           {click ? (
-//             <AiFillHeart
-//               size={22}
-//               className="cursor-pointer absolute right-2 top-5"
-//               onClick={() => removeFromWishlistHandler(data)}
-//               color={click ? "red" : "#333"}
-//               title="Remove from wishlist"
-//             />
-//           ) : (
-//             <AiOutlineHeart
-//               size={22}
-//               className="cursor-pointer absolute right-2 top-5"
-//               onClick={() => addToWishlistHandler(data)}
-//               color={click ? "red" : "#333"}
-//               title="Add to wishlist"
-//             />
-//           )}
-//           <AiOutlineEye
-//             size={22}
-//             className="cursor-pointer absolute right-2 top-14"
-//             onClick={() => setOpen(!open)}
-//             color="#333"
-//             title="Quick view"
-//           />
-//           <AiOutlineShoppingCart
-//             size={25}
-//             className="cursor-pointer absolute right-2 top-24"
-//             onClick={() => addToCartHandler(data._id)}
-//             color="#444"
-//             title="Add to cart"
-//           />
-//           {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ProductCard;
 import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
@@ -207,101 +64,59 @@ const ProductCard = ({ data }) => {
     : 0;
 
   return (
-    <div
-      className="group relative cursor-pointer w-[240px] overflow-hidden"
-      onClick={handleNavigate}
-    >
-      {/* Image Section */}
-      <div className="w-full h-[300px] bg-white flex items-center justify-center">
-        <img
+   <div className="bg-white rounded-xl shadow-md p-4 transition-all duration-300 hover:shadow-lg relative text-[#1c1c1c]">
+        {/* Bestseller badge */}
+        <span className="bg-[#f1f1f1] text-[13px] font-semibold text-black px-2 py-1 rounded inline-block mb-2">
+          Best seller
+        </span>
+  
+        {/* Image and navigation */}
+        <div className="relative mb-4">
+          
+          <a href={`/product/${data.slug || data._id}`}>
+            <img
           src={data.images?.[0]?.url}
-          alt={data.name}
-          className="max-h-full max-w-full object-contain"
-        />
-      </div>
-
-      {/* Product Info */}
-      <div className="py-3 text-left px-2">
-        <h4 className="text-base font-Poppins text-black truncate mb-1">
-          {data.name}
-        </h4>
-        <div className="flex items-center gap-2">
-          <span className="text-[15px] font-semibold text-gray-700">
-            Rs.{data.discountPrice}
-          </span>
-          {discountPercentage > 0 && (
-            <span className="text-sm text-gray-500 line-through">
-              Rs.{data.originalPrice}
+              alt={data.name}
+              className="w-full h-[180px] object-contain"
+            />
+          </a>
+        </div>
+  
+        {/* Title */}
+        <h3 className="text-[15px] font-semibold leading-tight mb-1">
+          {data.name?.split(" ")[0] + " " + data.name?.split(" ")[1] ||
+            "iPhone 13"}
+        </h3>
+  
+        {/* Subtitle */}
+        <p className="text-[13px] text-gray-600 mb-1">
+          {data.name || "iPhone 13 128GB - Midnight - Unlocked"}
+        </p>
+  
+        {/* Rating */}
+        {/* Rating with 5 stars */}
+        <div className="flex items-center text-[13px] font-medium text-gray-700 mb-1">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <span key={index}>
+              {index < Math.round(data.ratings || 4.3) ? "★" : "☆"}
             </span>
+          ))}
+          <span className="ml-1">{(data.ratings || 4.3).toFixed(1)}/5</span>
+          <span className="ml-1 text-gray-500">({data.reviews || 3888})</span>
+        </div>
+  
+        {/* Price */}
+        <div className="mt-1">
+          <p className="text-[16px] font-semibold text-black">
+            ${data.discountPrice || data.price}
+          </p>
+          {data.originalPrice && (
+            <p className="text-[13px] text-gray-400 line-through">
+              ${data.originalPrice} <span className="text-gray-500">new</span>
+            </p>
           )}
         </div>
       </div>
-
-      {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition z-10">
-        {/* Top Left: Wishlist + Expand */}
-        <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
-          <button
-            onClick={handleWishlist}
-            className="text-white bg-black/40 p-2 rounded-full"
-          >
-            {click ? (
-              <AiFillHeart size={22} className="text-red-500" />
-            ) : (
-              <AiOutlineHeart size={22} />
-            )}
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen(true);
-            }}
-            className="text-white bg-black/40 p-2 rounded-full"
-          >
-            <BiExpand size={22} />
-          </button>
-        </div>
-
-        {/* Center Buttons */}
-<div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-  {/* Quick View */}
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-      setOpen(true);
-    }}
-    className="bg-white text-black text-base font-medium py-2 px-6 rounded-full shadow group/quickview relative overflow-hidden
-               opacity-0 -translate-y-6 transition-all duration-[800ms] ease-in-out
-               group-hover:opacity-100 group-hover:translate-y-0"
-  >
-    <span className="transition duration-300 group-hover/quickview:opacity-0">
-      Quick View
-    </span>
-    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/quickview:opacity-100 transition duration-300 bg-black text-white rounded-full">
-      <AiOutlineEye size={20} />
-    </span>
-  </button>
-
-  {/* Quick Shop */}
-  <button
-    onClick={handleAddToCart}
-    className="bg-sky-400 hover:bg-sky-500 text-white text-base font-medium py-2 px-6 rounded-full shadow group/quickshop relative overflow-hidden
-               opacity-0 -translate-y-6 transition-all duration-[800ms] ease-in-out delay-150
-               group-hover:opacity-100 group-hover:translate-y-0"
-  >
-    <span className="transition duration-300 group-hover/quickshop:opacity-0">
-      Quick Shop
-    </span>
-    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/quickshop:opacity-100 transition duration-300">
-      <AiOutlineShoppingCart size={20} />
-    </span>
-  </button>
-</div>
-
-      </div>
-
-      {open && <ProductDetailsCard setOpen={setOpen} data={data} />}
-    </div>
   );
 };
 

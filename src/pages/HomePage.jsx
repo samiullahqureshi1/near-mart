@@ -8,15 +8,17 @@ import Events from "../components/Events/Events";
 import Sponsored from "../components/Route/Sponsored";
 import Footer from "../components/Layout/Footer";
 import LookbookBanner from '../components/Route/LookBanner/LookBanner';
+import TechBetterBanner from '../components/Route/LookBanner/LookBanner';
 
 const HomePage = () => {
   return (
     <div>
         <Header activeHeading={1} />
         <Hero />
-        <Categories />
+        <TechBetterBanner/>
+        
         <BestDeals />
-        <LookbookBanner/>
+        <Categories />
         <Events />
         <FeaturedProduct />
         <Sponsored />
