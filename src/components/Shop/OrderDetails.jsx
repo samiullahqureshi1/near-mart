@@ -26,7 +26,7 @@ const OrderDetails = () => {
   const orderUpdateHandler = async (e) => {
     await axios
       .put(
-        `https://near-backend.vercel.app//api/v2/order/update-order-status/${id}`,
+        `https://near-backend.vercel.app/api/v2/order/update-order-status/${id}`,
         {
           status,
         },
@@ -44,7 +44,7 @@ const OrderDetails = () => {
   const refundOrderUpdateHandler = async (e) => {
     await axios
     .put(
-      `https://near-backend.vercel.app//api/v2/order/order-refund-success/${id}`,
+      `https://near-backend.vercel.app/api/v2/order/order-refund-success/${id}`,
       {
         status,
       },

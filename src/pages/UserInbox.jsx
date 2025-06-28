@@ -46,7 +46,7 @@ const UserInbox = () => {
     const getConversation = async () => {
       try {
         const resonse = await axios.get(
-          `https://near-backend.vercel.app//conversation/get-all-conversation-user/${user?._id}`,
+          `https://near-backend.vercel.app/conversation/get-all-conversation-user/${user?._id}`,
           {
             withCredentials: true,
           }
@@ -82,7 +82,7 @@ const UserInbox = () => {
     const getMessage = async () => {
       try {
         const response = await axios.get(
-          `https://near-backend.vercel.app//message/get-all-messages/${currentChat?._id}`
+          `https://near-backend.vercel.app/message/get-all-messages/${currentChat?._id}`
         );
         setMessages(response.data.messages);
       } catch (error) {
@@ -114,7 +114,7 @@ const UserInbox = () => {
     try {
       if (newMessage !== "") {
         await axios
-          .post(`https://near-backend.vercel.app//message/create-new-message`, message)
+          .post(`https://near-backend.vercel.app/message/create-new-message`, message)
           .then((res) => {
             setMessages([...messages, res.data.message]);
             updateLastMessage();
@@ -135,7 +135,7 @@ const UserInbox = () => {
     });
 
     await axios
-      .put(`https://near-backend.vercel.app//conversation/update-last-message/${currentChat._id}`, {
+      .put(`https://near-backend.vercel.app/conversation/update-last-message/${currentChat._id}`, {
         lastMessage: newMessage,
         lastMessageId: user._id,
       })
@@ -175,7 +175,7 @@ const UserInbox = () => {
     try {
       await axios
         .post(
-          `https://near-backend.vercel.app//message/create-new-message`,
+          `https://near-backend.vercel.app/message/create-new-message`,
           {
             images: e,
             sender: user._id,
@@ -195,7 +195,7 @@ const UserInbox = () => {
 
   const updateLastMessageForImage = async () => {
     await axios.put(
-      `https://near-backend.vercel.app//conversation/update-last-message/${currentChat._id}`,
+      `https://near-backend.vercel.app/conversation/update-last-message/${currentChat._id}`,
       {
         lastMessage: "Photo",
         lastMessageId: user._id,
@@ -278,7 +278,7 @@ const MessageList = ({
     const userId = data.members.find((user) => user !== me);
     const getUser = async () => {
       try {
-        const res = await axios.get(`https://near-backend.vercel.app//api/v2/shop/get-shop-info/${userId}`);
+        const res = await axios.get(`https://near-backend.vercel.app/api/v2/shop/get-shop-info/${userId}`);
         setUser(res.data.shop);
       } catch (error) {
         console.log(error);

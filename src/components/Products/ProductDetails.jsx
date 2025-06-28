@@ -129,7 +129,7 @@ const ProductDetails = ({ data }) => {
       const userId = user._id;
       const sellerId = data.shop._id;
       await axios
-        .post(`https://near-backend.vercel.app//conversation/create-new-conversation`, {
+        .post(`https://near-backend.vercel.app/conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,

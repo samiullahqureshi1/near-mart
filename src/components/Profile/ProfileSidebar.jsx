@@ -20,7 +20,7 @@ const ProfileSidebar = ({ setActive, active }) => {
  const {user} = useSelector((state) => state.user);
   const logoutHandler = () => {
     axios
-      .get(`https://near-backend.vercel.app//api/v2/user/logout`, { withCredentials: true })
+      .get(`https://near-backend.vercel.app/api/v2/user/logout`, { withCredentials: true })
       .then((res) => {
         toast.success(res.data.message);
         window.location.reload(true);

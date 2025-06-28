@@ -8,7 +8,7 @@ export const createevent = (data) => async (dispatch) => {
       type: "eventCreateRequest",
     });
 
-    const { d } = await axios.post(`https://near-backend.vercel.app//api/v2/event/create-event`, data);
+    const { d } = await axios.post(`https://near-backend.vercel.app/api/v2/event/create-event`, data);
     dispatch({
       type: "eventCreateSuccess",
       payload: d.event,
@@ -28,7 +28,7 @@ export const getAllEventsShop = (id) => async (dispatch) => {
       type: "getAlleventsShopRequest",
     });
 
-    const { data } = await axios.get(`https://near-backend.vercel.app//api/v2/event/get-all-events/${id}`);
+    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/event/get-all-events/${id}`);
     dispatch({
       type: "getAlleventsShopSuccess",
       payload: data.events,
@@ -49,7 +49,7 @@ export const deleteEvent = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.delete(
-      `https://near-backend.vercel.app//api/v2/event/delete-shop-event/${id}`,
+      `https://near-backend.vercel.app/api/v2/event/delete-shop-event/${id}`,
       {
         withCredentials: true,
       }
@@ -74,7 +74,7 @@ export const getAllEvents = () => async (dispatch) => {
       type: "getAlleventsRequest",
     });
 
-    const { data } = await axios.get(`https://near-backend.vercel.app//api/v2/event/get-all-events`);
+    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/event/get-all-events`);
     dispatch({
       type: "getAlleventsSuccess",
       payload: data.events,
