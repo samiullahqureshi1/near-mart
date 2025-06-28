@@ -85,6 +85,55 @@ const SuggestedProduct = ({ data }) => {
           </div>
         </div>
       )}
+      <div className="bg-gray-100 py-12 px-4">
+        {/* Welcome Section */}
+        <div className="max-w-6xl mx-auto bg-white rounded-lg shadow p-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
+          {/* Text Section */}
+          <div className="max-w-xl z-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Welcome to Near Mart
+            </h2>
+            <p className="text-gray-700 mb-6">
+              The best prices for high-quality reborn tech by sellers we’ve
+              checked and vetted. We don’t mind if you
+              <a href="#" className="text-black underline ml-1">
+                Google us.
+              </a>
+            </p>
+            <button className="bg-black text-white px-6 py-2 rounded font-semibold hover:opacity-90 transition">
+              Get to know us
+            </button>
+          </div>
+
+          {/* Background Pattern */}
+          {/* <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white rounded-r-lg overflow-hidden z-0 hidden md:block">
+      <div className="absolute inset-0 grid grid-cols-2 gap-0 opacity-90">
+        <div className="bg-[#e8fd69] rounded-full w-full h-full rotate-[10deg]" />
+        <div className="bg-[#e8fd69] rounded-full w-full h-full rotate-[10deg]" />
+      </div>
+    </div> */}
+        </div>
+
+        {/* Features Bar */}
+        <div className="mt-6 max-w-6xl mx-auto bg-gray-200 rounded-xl shadow p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-center gap-4">
+          <div className="flex flex-col items-center text-sm">
+            <span className="text-xl mb-1">🛡️</span>
+            <span className="font-medium">1-year warranty</span>
+          </div>
+          <div className="flex flex-col items-center text-sm">
+            <span className="text-xl mb-1">🚚</span>
+            <span className="font-medium">Free standard shipping</span>
+          </div>
+          <div className="flex flex-col items-center text-sm">
+            <span className="text-xl mb-1">🔄</span>
+            <span className="font-medium">Free 30-day returns</span>
+          </div>
+          <div className="flex flex-col items-center text-sm">
+            <span className="text-xl mb-1">🎧</span>
+            <span className="font-medium">Friendly customer service</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

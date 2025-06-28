@@ -20,6 +20,17 @@ import Ratings from "./Ratings";
 import axios from "axios";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { TbTruckReturn } from "react-icons/tb";
+import {
+  FaBatteryHalf,
+  FaBolt,
+  FaCamera,
+  FaCheckCircle,
+  FaDatabase,
+  FaExpandArrowsAlt,
+  FaGem,
+  FaMicrochip,
+  FaMobileAlt,
+} from "react-icons/fa";
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
@@ -30,6 +41,9 @@ const ProductDetails = ({ data }) => {
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [selected, setSelected] = useState("Fair");
+  const [showMore, setShowMore] = useState(false);
+  
   const handleBuyNow = () => {
     // Clone original product data, aur quantity + selected image add karo
     const productData = {
@@ -55,6 +69,7 @@ const ProductDetails = ({ data }) => {
     } else {
       setClick(false);
     }
+    console.log(data);
   }, [data, wishlist]);
 
   const incrementCount = () => {
@@ -130,6 +145,22 @@ const ProductDetails = ({ data }) => {
     }
   };
   const [selectedColor, setSelectedColor] = useState(null);
+const specifications = [
+  { icon: <FaMobileAlt />, label: "Model", value: data?.name },
+  { icon: <FaMicrochip />, label: "Processor", value: "Snapdragon 8 Gen 1" },
+  { icon: <FaCamera />, label: "Camera", value: "Triple 50MP" },
+  { icon: <FaExpandArrowsAlt />, label: "Screen", value: '6.1" AMOLED' },
+  { icon: <FaBolt />, label: "Charging", value: "Fast charging supported" },
+  { icon: <FaDatabase />, label: "Storage", value: data?.storage },
+  { icon: "🎨", label: "Color", value: data?.color },
+  { icon: "📶", label: "Network", value: data?.network },
+  { icon: "🔓", label: "Carrier Compatibility", value: "Unlocked" },
+  { icon: "🧠", label: "Memory", value: data?.memory },
+  { icon: "🖥️", label: "Resolution", value: data?.resolution },
+  { icon: "📱", label: "Display Type", value: data?.displayType },
+  { icon: "⚙️", label: "OS", value: data?.os },
+  { icon: "🆔", label: "MPN", value: data?.manufacturerPartNo },
+];
 
   return (
     <div className="bg-white">
@@ -593,8 +624,279 @@ const ProductDetails = ({ data }) => {
           </div>
         </div>
       </div>
-    
+      {data ? (
+        <div className="min-h-screen  flex items-center justify-center px-4 py-10">
+          <div className="w-full max-w-5xl  rounded-2xl overflow-hidden">
+            {/* IMAGE & DESCRIPTION SECTION */}
+            <div className="flex flex-col md:flex-row">
+              {/* Image */}
+              <div className="md:w-1/2  p-8 flex flex-col justify-end relative">
+                <img
+                  src={data.images[select]?.url}
+                  alt="Phone"
+                  className="w-[300px] max-h-[400px] object-contain"
+                />
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
+                    ✨ Visible signs of use
+                  </span>
+                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
+                    <FaCheckCircle /> Verified parts
+                  </span>
+                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
+                    <FaBatteryHalf /> Battery for daily use
+                  </span>
+                </div>
+              </div>
 
+              {/* Description */}
+              <div className="md:w-1/2 p-10 space-y-6">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {data?.name} - Refurbished
+                </h2>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  {/* This refurbished Samsung Galaxy S21 has been tested and
+                  verified by certified technicians. It comes with verified
+                  parts, a reliable battery, and only minor signs of use. Great
+                  performance for daily tasks, camera use, and multitasking at
+                  an unbeatable price. */}
+                  {data?.description}
+                </p>
+                <div className="bg-blue-50 p-4 rounded-xl text-sm text-gray-600 shadow-sm">
+                  Refurbishers have restored devices to high quality based on a
+                  25-point inspection.
+                  <span className="ml-2 text-blue-600 underline cursor-pointer">
+                    Compare conditions
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* SPECIFICATIONS SECTION */}
+            <div className="px-6 py-8 border-t mt-6 bg-gradient-to-b from-white via-gray-50 to-white rounded-xl shadow-sm">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                📋 Product Specifications
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm text-gray-700">
+                {specifications.slice(0, 6).map((spec, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow border hover:shadow-md transition"
+                  >
+                    <div className="text-purple-600 text-lg bg-purple-100 p-2 rounded-full">
+                      {typeof spec.icon === "string" ? (
+                        spec.icon
+                      ) : (
+                        <span>{spec.icon}</span>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">{spec.label}</p>
+                      <p className="font-semibold text-gray-800">
+                        {spec.value}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {!showMore && (
+                <div className="text-center mt-6">
+                  <button
+                    onClick={() => setShowMore(true)}
+                    className="px-4 py-2 text-sm font-medium bg-gray-800 text-white rounded-md hover:bg-gray-700 transition"
+                  >
+                    See more
+                  </button>
+                </div>
+              )}
+
+              {showMore && (
+                <div className="mt-10 space-y-10 animate-fade-in-down">
+                  {/* Product Description */}
+                  <div className="text-gray-700 text-sm leading-relaxed">
+                    <h4 className="font-semibold text-lg mb-2">
+                      Key Features:
+                    </h4>
+                    <p>
+                      {/* The <strong>Galaxy S22 5G</strong> is a flagship-level
+                      smartphone that offers reliable performance and a sleek
+                      design. This model is part of Samsung’s 2022 lineup and
+                      features 5G connectivity, making it ideal for streaming,
+                      browsing, or gaming. As a pre-owned device, it has been
+                      refurbished to meet quality standards, offering great
+                      performance and affordability. */}
+                      {data?.description}
+                    </p>
+                    <ul className="list-disc pl-5 mt-3 space-y-1">
+                      <li>
+                        <strong>Model:</strong> {data?.model}
+                      </li>
+                      <li>
+                        <strong>Storage capacity:</strong> {data?.memory}
+                      </li>
+                      <li>
+                        <strong>Display:</strong> {data?.resolution}
+                      </li>
+                      <li>
+                        <strong>Processor:</strong> Snapdragon 8 Gen 1 or Exynos
+                        2200 (region-dependent)
+                      </li>
+                      <li>
+                        <strong>Camera:</strong> Triple rear cameras with 50MP
+                        main sensor
+                      </li>
+                      <li>
+                        <strong>Connectivity:</strong> {data?.network}
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Pros & Cons */}
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2">Pros & Cons:</h4>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border border-gray-300 text-sm text-gray-800">
+                        <thead className="bg-gray-100">
+                          <tr>
+                            <th className="border border-gray-300 p-2 font-medium">
+                              Pros
+                            </th>
+                            <th className="border border-gray-300 p-2 font-medium">
+                              Cons
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              High-quality AMOLED display with vibrant colors.
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              Limited storage options beyond 128GB in this
+                              model.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              Powerful Snapdragon 8 Gen 1 processor for smooth
+                              multitasking.
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              No headphone jack available.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="border border-gray-300 p-2">
+                              5G connectivity for fast internet speeds.
+                            </td>
+                            <td className="border border-gray-300 p-2">
+                              Refurbished condition may have minor cosmetic
+                              imperfections.
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Technical Specs Table */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-[15px] text-gray-800 border border-gray-200 rounded-md overflow-hidden">
+                    <div className="divide-y divide-gray-200">
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Manufacturing Part No:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.manufacturerPartNo}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Model:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.model}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Carrier Compatibility:
+                        </strong>{" "}
+                        <span className="ml-1">Unlocked</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Screen Type:
+                        </strong>{" "}
+                        <span className="ml-1">Dynamic AMOLED 2X</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Network:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.network}</span>
+                      </div>
+                    </div>
+                    <div className="divide-y divide-gray-200">
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Color:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.color}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          OS:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.os}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Storage:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.memory}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Memory:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.resolution}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Resolution:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.resolution}</span>
+                      </div>
+                      <div className="p-3">
+                        <strong className="text-gray-600 font-medium">
+                          Screen Size:
+                        </strong>{" "}
+                        <span className="ml-1">{data?.screenSize}"</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 text-center">
+                    <button
+                      onClick={() => {
+                        setShowMore(!showMore);
+                        if (!showMore) {
+                          setTimeout(() => {
+                            document
+                              .getElementById("specs-section")
+                              ?.scrollIntoView({ behavior: "smooth" });
+                          }, 100);
+                        }
+                      }}
+                      className="px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded hover:bg-gray-700 transition"
+                    >
+                      {showMore ? "Show Less" : "Show More"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

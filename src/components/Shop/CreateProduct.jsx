@@ -14,6 +14,16 @@ const CreateProduct = () => {
 
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
+  const [model, setModel] = useState("");
+  const [manufacturerPartNo, setManufacturerPartNo] = useState("");
+  const [screenSize, setScreenSize] = useState("");
+  const [resolution, setResolution] = useState("");
+  const [specColor, setSpecColor] = useState(""); // renamed to avoid conflict with general color
+  const [os, setOs] = useState("");
+  const [storage, setStorage] = useState("");
+  const [memory, setMemory] = useState("");
+  const [network, setNetwork] = useState("");
+
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState("");
@@ -76,6 +86,15 @@ const CreateProduct = () => {
         stock,
         shopId: seller._id,
         images,
+        model,
+        manufacturerPartNo,
+        screenSize,
+        resolution,
+        color: specColor,
+        os,
+        storage,
+        memory,
+        network,
       })
     );
   };
@@ -188,6 +207,101 @@ const CreateProduct = () => {
           />
         </div>
         <br />
+        <div className="mt-6 border-t pt-4">
+          <h4 className="text-lg font-semibold mb-4">Product Specifications</h4>
+
+          <div>
+            <label className="pb-2">Model</label>
+            <input
+              type="text"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="Galaxy S22 5G"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Manufacturer Part No.</label>
+            <input
+              type="text"
+              value={manufacturerPartNo}
+              onChange={(e) => setManufacturerPartNo(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="SM-S901W"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Screen Size</label>
+            <input
+              type="text"
+              value={screenSize}
+              onChange={(e) => setScreenSize(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder='6.1"'
+            />
+          </div>
+          <div>
+            <label className="pb-2">Resolution</label>
+            <input
+              type="text"
+              value={resolution}
+              onChange={(e) => setResolution(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="1080 x 2340"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Color</label>
+            <input
+              type="text"
+              value={specColor}
+              onChange={(e) => setSpecColor(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="Black"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Operating System</label>
+            <input
+              type="text"
+              value={os}
+              onChange={(e) => setOs(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="Android"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Storage</label>
+            <input
+              type="text"
+              value={storage}
+              onChange={(e) => setStorage(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="128 GB"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Memory</label>
+            <input
+              type="text"
+              value={memory}
+              onChange={(e) => setMemory(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="8 GB"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Network</label>
+            <input
+              type="text"
+              value={network}
+              onChange={(e) => setNetwork(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="5G"
+            />
+          </div>
+        </div>
+
         <div>
           <label className="pb-2">
             Upload Images <span className="text-red-500">*</span>
