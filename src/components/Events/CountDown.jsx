@@ -16,7 +16,7 @@ const CountDown = ({ data }) => {
       typeof timeLeft.minutes === 'undefined' &&
       typeof timeLeft.seconds === 'undefined'
     ) {
-      axios.delete(`http://localhost:9000/api/v2/event/delete-shop-event/${data._id}`);
+      axios.delete(`https://near-backend.vercel.app//api/v2/event/delete-shop-event/${data._id}`);
     }
     return () => clearTimeout(timer);
   });

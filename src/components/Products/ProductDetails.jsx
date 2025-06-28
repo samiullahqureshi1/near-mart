@@ -129,7 +129,7 @@ const ProductDetails = ({ data }) => {
       const userId = user._id;
       const sellerId = data.shop._id;
       await axios
-        .post(`http://localhost:9000/conversation/create-new-conversation`, {
+        .post(`https://near-backend.vercel.app//conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,
@@ -149,7 +149,7 @@ const specifications = [
   { icon: <FaMobileAlt />, label: "Model", value: data?.name },
   { icon: <FaMicrochip />, label: "Processor", value: "Snapdragon 8 Gen 1" },
   { icon: <FaCamera />, label: "Camera", value: "Triple 50MP" },
-  { icon: <FaExpandArrowsAlt />, label: "Screen", value: '6.1" AMOLED' },
+  { icon: <FaExpandArrowsAlt />, label: "Screen", value: data?.screenSize },
   { icon: <FaBolt />, label: "Charging", value: "Fast charging supported" },
   { icon: <FaDatabase />, label: "Storage", value: data?.storage },
   { icon: "🎨", label: "Color", value: data?.color },
@@ -230,7 +230,7 @@ const specifications = [
 
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-4">
-                  <button className="bg-black text-white px-12 py-3 text-lg font-semibold border rounded-lg hover:bg-gray-800">
+                  <button onClick={addToCartHandler} className="bg-black text-white px-12 py-3 text-lg font-semibold border rounded-lg hover:bg-gray-800">
                     Add to Cart
                   </button>
 
