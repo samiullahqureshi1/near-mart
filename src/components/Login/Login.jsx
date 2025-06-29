@@ -59,14 +59,14 @@ const handleSubmit = async (e) => {
 
     if (role === "Seller") {
       console.log("✅ Redirecting to Dashboard");
-      // navigate("/dashboard");
+      navigate("/dashboard");
     } else {
       console.log("✅ Redirecting to Homepage");
-      // navigate("/");
+      navigate("/");
     }
 
     console.log("🔄 Reloading window...");
-    // window.location.reload(true);
+    window.location.reload(true);
   } catch (err) {
     console.error("❌ Login API Error:", err);
     toast.error(err.response?.data?.message || "Login failed");
