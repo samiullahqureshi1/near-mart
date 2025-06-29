@@ -36,7 +36,11 @@ const Login = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+  console.log("🔵 Login Submit Clicked");
+
   try {
+    console.log("🔵 Sending login API request with data:", { email, password });
+
     const res = await axios.post(
       "https://near-backend.vercel.app/api/v2/user/login-user",
       {
@@ -46,18 +50,25 @@ const handleSubmit = async (e) => {
       { withCredentials: true }
     );
 
+    console.log("✅ Login API Response:", res);
+
     toast.success("Login Success!");
 
     const role = res.data.user?.role;
+    console.log("✅ User Role:", role);
 
     if (role === "Seller") {
-      navigate("/dashboard");
+      console.log("✅ Redirecting to Dashboard");
+      // navigate("/dashboard");
     } else {
-      navigate("/");
+      console.log("✅ Redirecting to Homepage");
+      // navigate("/");
     }
 
-    window.location.reload(true); // Optional: only needed if full reload required
+    console.log("🔄 Reloading window...");
+    // window.location.reload(true);
   } catch (err) {
+    console.error("❌ Login API Error:", err);
     toast.error(err.response?.data?.message || "Login failed");
   }
 };
