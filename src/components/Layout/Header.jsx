@@ -156,9 +156,9 @@ const Header = ({ activeHeading }) => {
           {/* Right - Icons */}
           <div className="flex items-center gap-6">
             {/* Trade-in Button (reuse or remove as needed) */}
-            <button className="flex items-center border px-4 py-2 rounded-md text-sm font-medium hover:shadow">
+            {/* <button className="flex items-center border px-4 py-2 rounded-md text-sm font-medium hover:shadow">
               <span className="mr-2">⇄</span> Trade-in
-            </button>
+            </button> */}
 
             {/* Wishlist */}
             <div
@@ -202,7 +202,7 @@ const Header = ({ activeHeading }) => {
         </div>
 
         {/* Bottom Nav Row */}
-        <div className="flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
+        {/* <div className="flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
           <span className="text-[#aa336a] flex items-center gap-1">
             ✨ Good deals
           </span>
@@ -229,7 +229,36 @@ const Header = ({ activeHeading }) => {
           <Link to="/faq" className="text-black hover:text-[#3bc177]">
             FAQ
           </Link>
-        </div>
+        </div> */}
+        <div className="hidden sm:flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
+  <span className="text-[#aa336a] flex items-center gap-1">
+    ✨ Good deals
+  </span>
+  <div
+    onClick={() => setDropDown(!dropDown)}
+    className="relative cursor-pointer"
+  >
+    <button className="text-black hover:text-[#3bc177]">
+      Categories
+    </button>
+    {dropDown && (
+      <DropDown
+        categoriesData={categoriesData}
+        setDropDown={setDropDown}
+      />
+    )}
+  </div>
+  <Link to="/" className="text-black hover:text-[#3bc177]">
+    Home
+  </Link>
+  <Link to="/best-selling" className="text-black hover:text-[#3bc177]">
+    Best Selling
+  </Link>
+  <Link to="/faq" className="text-black hover:text-[#3bc177]">
+    FAQ
+  </Link>
+</div>
+
       </div>
 
       {/* <div

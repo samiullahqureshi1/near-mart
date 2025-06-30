@@ -43,7 +43,7 @@ const ProductDetails = ({ data }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState("Fair");
   const [showMore, setShowMore] = useState(false);
-  
+
   const handleBuyNow = () => {
     // Clone original product data, aur quantity + selected image add karo
     const productData = {
@@ -145,22 +145,22 @@ const ProductDetails = ({ data }) => {
     }
   };
   const [selectedColor, setSelectedColor] = useState(null);
-const specifications = [
-  { icon: <FaMobileAlt />, label: "Model", value: data?.name },
-  { icon: <FaMicrochip />, label: "Processor", value: "Snapdragon 8 Gen 1" },
-  { icon: <FaCamera />, label: "Camera", value: "Triple 50MP" },
-  { icon: <FaExpandArrowsAlt />, label: "Screen", value: data?.screenSize },
-  { icon: <FaBolt />, label: "Charging", value: "Fast charging supported" },
-  { icon: <FaDatabase />, label: "Storage", value: data?.storage },
-  { icon: "🎨", label: "Color", value: data?.color },
-  { icon: "📶", label: "Network", value: data?.network },
-  { icon: "🔓", label: "Carrier Compatibility", value: "Unlocked" },
-  { icon: "🧠", label: "Memory", value: data?.memory },
-  { icon: "🖥️", label: "Resolution", value: data?.resolution },
-  { icon: "📱", label: "Display Type", value: data?.displayType },
-  { icon: "⚙️", label: "OS", value: data?.os },
-  { icon: "🆔", label: "MPN", value: data?.manufacturerPartNo },
-];
+  const specifications = [
+    { icon: <FaMobileAlt />, label: "Model", value: data?.name },
+    { icon: <FaMicrochip />, label: "Processor", value: "Snapdragon 8 Gen 1" },
+    { icon: <FaCamera />, label: "Camera", value: "Triple 50MP" },
+    { icon: <FaExpandArrowsAlt />, label: "Screen", value: data?.screenSize },
+    { icon: <FaBolt />, label: "Charging", value: "Fast charging supported" },
+    { icon: <FaDatabase />, label: "Storage", value: data?.storage },
+    { icon: "🎨", label: "Color", value: data?.color },
+    { icon: "📶", label: "Network", value: data?.network },
+    { icon: "🔓", label: "Carrier Compatibility", value: "Unlocked" },
+    { icon: "🧠", label: "Memory", value: data?.memory },
+    { icon: "🖥️", label: "Resolution", value: data?.resolution },
+    { icon: "📱", label: "Display Type", value: data?.displayType },
+    { icon: "⚙️", label: "OS", value: data?.os },
+    { icon: "🆔", label: "MPN", value: data?.manufacturerPartNo },
+  ];
 
   return (
     <div className="bg-white">
@@ -230,7 +230,17 @@ const specifications = [
 
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-4">
-                  <button onClick={addToCartHandler} className="bg-black text-white px-12 py-3 text-lg font-semibold border rounded-lg hover:bg-gray-800">
+                  <button
+                    onClick={addToCartHandler}
+                    className="
+    bg-black text-white font-semibold border rounded-lg transition duration-300
+    px-6 py-2 text-base     
+    sm:px-8 sm:py-2.5 sm:text-base 
+    md:px-10 md:py-3 md:text-lg      
+    lg:px-12 lg:py-3.5 lg:text-lg    
+    hover:bg-gray-800
+  "
+                  >
                     Add to Cart
                   </button>
 
