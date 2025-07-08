@@ -231,34 +231,33 @@ const Header = ({ activeHeading }) => {
           </Link>
         </div> */}
         <div className="hidden sm:flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
-  <span className="text-[#aa336a] flex items-center gap-1">
-    ✨ Good deals
-  </span>
-  <div
-    onClick={() => setDropDown(!dropDown)}
-    className="relative cursor-pointer"
-  >
-    <button className="text-black hover:text-[#3bc177]">
-      Categories
-    </button>
-    {dropDown && (
-      <DropDown
-        categoriesData={categoriesData}
-        setDropDown={setDropDown}
-      />
-    )}
-  </div>
-  <Link to="/" className="text-black hover:text-[#3bc177]">
-    Home
-  </Link>
-  <Link to="/best-selling" className="text-black hover:text-[#3bc177]">
-    Best Selling
-  </Link>
-  <Link to="/faq" className="text-black hover:text-[#3bc177]">
-    FAQ
-  </Link>
-</div>
-
+          <span className="text-[#aa336a] flex items-center gap-1">
+            ✨ Good deals
+          </span>
+          <div
+            onClick={() => setDropDown(!dropDown)}
+            className="relative cursor-pointer"
+          >
+            <button className="text-black hover:text-[#3bc177]">
+              Categories
+            </button>
+            {dropDown && (
+              <DropDown
+                categoriesData={categoriesData}
+                setDropDown={setDropDown}
+              />
+            )}
+          </div>
+          <Link to="/" className="text-black hover:text-[#3bc177]">
+            Home
+          </Link>
+          <Link to="/best-selling" className="text-black hover:text-[#3bc177]">
+            Best Selling
+          </Link>
+          <Link to="/faq" className="text-black hover:text-[#3bc177]">
+            FAQ
+          </Link>
+        </div>
       </div>
 
       {/* <div
