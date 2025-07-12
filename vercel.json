@@ -1,8 +1,8 @@
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/paused.html"
-    }
-  ]
-}
+// {
+//   "rewrites": [
+//     {
+//       "source": "/(.*)",
+//       "destination": "/paused.html"
+//     }
+//   ]
+// }
