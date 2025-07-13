@@ -189,76 +189,50 @@ export const brandingData = [
 
 // categories data
 export const categoriesData = [
-  // {
-  //   id: 1,
-  //   title: "Watches",
-  //   subTitle: "",
-  //   image_Url:
-  //     "https://img.freepik.com/free-photo/close-up-man-wearing-stylish-watch_53876-102070.jpg",
-  // },
   {
-    id: 2,
-    title: "iphone",
+    id: 1,
+    title: "Computer & Laptop",
     subTitle: "",
     image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/1bRy70V8KNknn628bf14h8/13839219487f92ab5a2ea6ac3622561c/Phone_HP_Category_Smartphone_desktop.jpg",
+      "https://www.apple.com/newsroom/images/product/imac/standard/Apple_imac-magickeyboardnum-magicmouse2-macos-wallpaper_08042020_big.jpg.large.jpg",
+  },
+  {
+    id: 2,
+    title: "SmartPhone",
+    subTitle: "",
+    image_Url:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRidE8NULuqzw2li2yo145xFelj-EwNFOn21A&s",
   },
   {
     id: 3,
-    title: "Mackbook",
+    title: "Headphones",
     subTitle: "",
     image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/5GjoGJCqWVngJRShjjG7a/afc9f93703e7ae2890a28cfd2678fb71/HP_Category_Laptop_desktop.jpg",
+      "https://appleman.pk/cdn/shop/products/Model-P9-Headphone-5.jpg",
   },
   {
     id: 4,
-    title: "ipad",
+    title: "Accessories",
     subTitle: "",
     image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/jW258Um5YCpwOTHNgEokq/bbb7e8a913b24a4b2f72fa24012a5a81/Phone_HP_Category_Tablet_desktop.jpg",
+      "https://c1.neweggimages.com/productimage/nb640/A4RES24071005XKGA7C.jpg",
   },
-  // {
-  //   id: 5,
-  //   title: "Ring",
-  //   subTitle: "",
-  //   image_Url:
-  //     "https://static.thenounproject.com/png/3961069-200.png",
-  // },
+  {
+    id: 5,
+    title: "Camera & Photo",
+    subTitle: "",
+    image_Url:
+      "https://images-cdn.ubuy.co.in/668d842c73ef8859fa389b5f-digital-camera-4k-64mp-cameras-for.jpg",
+  },
   {
     id: 6,
-    title: "Smartwatches",
+    title: "TV & Homes",
     subTitle: "",
     image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/1W08wc0KJB4db2rXsJyP1P/95133aae1afcd26249faa214d0ad3170/Phone_HP_Category_Watch_desktop__2_.jpg",
-  },
-  {
-    id: 7,
-    title: "Andriod",
-    subTitle: "",
-    image_Url: "https://images.ctfassets.net/mmeshd7gafk1/1kHjYTtX4lFsNMLAybrL15/22da3fd698698ff16212c521da51b50c/Modular_bloc_-_Samsung_-_Desktop.jpg",
-  },
-  {
-    id: 8,
-    title: "Window Laptops",
-    subTitle: "",
-    image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/5hkcYLitLSwmhC6mC9UkYI/84f6e4f4c8b0b1a1d52ec9126fe00dc5/Copy_of_most-wanted--all-laptops--desktop.webp",
-  },
-  {
-    id: 9,
-    title: "Airpods",
-    subTitle: "",
-    image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/2EN51erORsZuV5a2DkicAI/6296a9be9687445d51375b4979837f76/-WIP-_Universe_Page_-_Airpods.png",
-  },
-  {
-    id: 10,
-    title: "Great deals",
-    subTitle: "",
-    image_Url:
-      "https://images.ctfassets.net/mmeshd7gafk1/6NskjJVCrZH1ZbtUNVq8BT/07536713dad508f2a447cd0cf5438524/Deals_-_Desktop.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAYI9Zn76iRyidl1yarei2KQPR1KPkjbl-Ww&s",
   },
 ];
+
 
 // product Data
 export const productData = [

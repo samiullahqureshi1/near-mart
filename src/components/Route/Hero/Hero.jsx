@@ -1,137 +1,122 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { TbTruckDelivery, TbLock } from "react-icons/tb";
+import { BiSupport } from "react-icons/bi";
+import { FiRotateCcw } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const HeroSlider = () => {
-  const navigate=useNavigate()
   return (
-    <div className="w-full">
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 5000 }}
-        loop={true}
-        slidesPerView={1}
-      >
-        {/* Slide 1 – Play house */}
-        <SwiperSlide>
-          <div
-            className="w-full h-[250px] sm:h-[300px] md:h-[360px] lg:h-[420px] xl:h-[400px] bg-no-repeat bg-center bg-cover flex items-center justify-start px-4 sm:px-8 md:px-16"
-            style={{
-              backgroundImage:
-                "url('https://images.ctfassets.net/mmeshd7gafk1/1HffqGdvCNvzEd76biDWD8/7d2045b75dde4b454bf1744fd5d13432/WEB_HP_Dynamic_Top_Slider_dektop.jpg')",
-            }}
-          >
-            <div className="p-4 sm:p-6 md:p-8 rounded-md max-w-[90%] sm:max-w-[70%] md:max-w-[500px]">
-              <h1 className="text-[18px] sm:text-[22px] md:text-[28px] font-[700] text-[#0a0a23] leading-snug">
-                Save on college before it{" "}
-                <em className="italic font-semibold">starts</em>.
-              </h1>
-              <p className="mt-2 text-[13px] sm:text-[15px] md:text-[16px] text-[#0a0a23]">
-                Get $50 off any MacBook above $600, now through 6/30 with the
-                code <strong>MACBOOK50</strong>.
+    <div className="bg-white w-full px-4 py-8 flex justify-center">
+      <div className="w-full max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+          <div className="md:col-span-4 bg-[#f5f7f9] shadow rounded-md px-6 py-8 flex flex-col md:flex-row items-center justify-between min-h-[400px]">
+            <div className="w-full md:w-1/2 pr-6">
+              <p className="text-xs text-blue-600 font-semibold tracking-wide uppercase">
+                THE BEST PLACE TO PLAY
+              </p>
+              <h2 className="text-lg md:text-3xl font-semibold mt-2">
+                Xbox Consoles
+              </h2>
+              <p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">
+                Save up to 50% on select Xbox games. Get 3 months of PC Game Pass for $2 USD.
               </p>
               <Link to="/products">
-                <button className="mt-4 px-5 py-2 bg-[#0a0a23] text-white text-[14px] sm:text-[16px] font-medium rounded-md hover:bg-[#333] transition">
-                  Save now
+                <button className="mt-5 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded transition">
+                  SHOP NOW →
                 </button>
               </Link>
             </div>
+            <div className="relative mt-6 md:mt-0 w-full md:w-auto flex justify-center">
+              <div className="relative p-3 inline-block">
+                <img
+                  src="/xboxConsole.webp"
+                  alt="Xbox"
+                  className="w-[170px] md:w-[220px] object-contain"
+                />
+                <div className="absolute top-2 right-2">
+                  <div className="bg-sky-500 text-white text-xs font-bold rounded-full px-4 py-1.5 shadow-md">
+                    $299
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </SwiperSlide>
 
-        {/* Slide 2 – Your uploaded image with same text layout */}
-        <SwiperSlide>
-          <div
-            className="w-full h-[300px] md:h-[400px] bg-cover bg-center flex items-center justify-between px-6 md:px-20"
-            style={{
-              backgroundImage:
-                "url('https://images.ctfassets.net/mmeshd7gafk1/1hWDGbkNUwnOe8CEfFMlj1/e7821c195d5d5ce387ae195e54ef2181/MERCH_-_Dynamic_banners_-_Appliance_-_desktop__1_.jpg')", // save uploaded image here
-            }}
-          >
-            <div className="max-w-[600px]  p-4 rounded-md">
-              <h1 className="text-[26px] md:text-[36px] font-[700] text-[#0a0a23] leading-snug">
-                Play house, <em className="italic font-semibold">for less</em>.
-              </h1>
-              <p className="mt-3 text-[15px] md:text-[18px] text-[#0a0a23]">
-                Take $20 off your purchase of a home appliance above $250 now
-                through 6/30 with the code <strong>HOME20</strong>.
-              </p>
-              <Link to="/products">
-                <button className="mt-6 px-6 py-3 bg-[#0a0a23] text-white font-semibold rounded-md hover:bg-[#333] transition">
-                  Save now
-                </button>
-              </Link>
+          <div className="md:col-span-2 h-[400px] flex flex-col gap-4">
+            <div className="flex-1 relative bg-black text-white rounded-md shadow overflow-hidden flex items-center justify-between px-4 py-4">
+              <div className="max-w-[60%] z-10">
+                <p className="text-yellow-400 text-xs font-semibold">
+                  SUMMER SALES
+                </p>
+                <h3 className="text-sm font-semibold mt-1 leading-snug">
+                  New Google Pixel 6 Pro
+                </h3>
+                <Link to="/products">
+                  <button className="mt-3 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold rounded transition">
+                    SHOP NOW →
+                  </button>
+                </Link>
+              </div>
+              <div className="relative w-[40%] h-full flex justify-end items-start">
+                <img
+                  src="/googlepixel8.jpeg"
+                  alt="Pixel Phone"
+                  className="h-full object-cover rounded-tr-md"
+                />
+                <div className="absolute top-2 right-2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-1 rounded-sm shadow-md z-20">
+                  29% OFF
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-1 bg-white rounded-md shadow px-6 py-4 flex items-center h-full">
+              <div className="w-[90px] h-[90px] flex-shrink-0">
+                <img
+                  src="/earbuds.webp"
+                  alt="Earbuds"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="ml-5 flex flex-col justify-center">
+                <h3 className="text-base font-semibold mb-1">
+                  Xiaomi FlipBuds Pro
+                </h3>
+                <p className="text-sky-500 text-sm font-bold mb-3">$299 USD</p>
+                <Link to="/products">
+                  <button className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded transition w-fit">
+                    SHOP NOW →
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-        </SwiperSlide>
-         <SwiperSlide>
-          <div
-            className="w-full h-[300px] md:h-[400px] bg-cover bg-center flex items-center justify-between px-6 md:px-20"
-            style={{
-              backgroundImage:
-                "url('https://images.ctfassets.net/mmeshd7gafk1/7KykGDFIzL0ZXJGQsGTiBU/3d3691e94d8377ec08b2468964c605d4/WEB___HP_Banner_-_desktop_US.jpg')", // save uploaded image here
-            }}
-            onClick={()=>{
-              navigate('/products')
-            }}
-          >
-            {/* <div className="max-w-[600px]  p-4 rounded-md">
-              <h1 className="text-[26px] md:text-[36px] font-[700] text-[#0a0a23] leading-snug">
-                Play house, <em className="italic font-semibold">for less</em>.
-              </h1>
-              <p className="mt-3 text-[15px] md:text-[18px] text-[#0a0a23]">
-                Take $20 off your purchase of a home appliance above $250 now
-                through 6/30 with the code <strong>HOME20</strong>.
-              </p>
-              <Link to="/products">
-                <button className="mt-6 px-6 py-3 bg-[#0a0a23] text-white font-semibold rounded-md hover:bg-[#333] transition">
-                  Save now
-                </button>
-              </Link>
-            </div> */}
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 border-t pt-6 text-center text-sm">
+          <div className="flex flex-col items-center">
+            <TbTruckDelivery size={22} className="text-gray-700 mb-1" />
+            <p className="font-semibold text-xs">FASTED DELIVERY</p>
+            <p className="text-gray-500 text-xs">Delivery in 24H</p>
           </div>
-        </SwiperSlide>
-      </Swiper>
+          <div className="flex flex-col items-center">
+            <FiRotateCcw size={22} className="text-gray-700 mb-1" />
+            <p className="font-semibold text-xs">24 HOURS RETURN</p>
+            <p className="text-gray-500 text-xs">100% money-back guarantee</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <TbLock size={22} className="text-gray-700 mb-1" />
+            <p className="font-semibold text-xs">SECURE PAYMENT</p>
+            <p className="text-gray-500 text-xs">Your money is safe</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <BiSupport size={22} className="text-gray-700 mb-1" />
+            <p className="font-semibold text-xs">SUPPORT 24/7</p>
+            <p className="text-gray-500 text-xs">Live contact/message</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default HeroSlider;
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import styles from "../../../styles/styles";
-// import logo from "../../../Assests/Maskgroup.jpg";
-
-// const Hero = () => {
-//   return (
-//     <div
-//       className={`relative min-h-[40vh] 800px:min-h-[60vh] w-full bg-no-repeat bg-center ${styles.noramlFlex}`}
-//       style={{
-//         backgroundImage: `url(${logo})`,
-//         backgroundSize: "cover", // Ensures the image covers the whole background
-//         backgroundPosition: "center top", // Moves the image slightly down from the top
-//         maxWidth: "90%", // Reduces the width of the image
-//         margin: "0 auto", // Centers the image
-//         paddingTop: "10%", // Adds space from the top
-//       }}
-//     >
-//       <div className={`${styles.section} w-[90%] 800px:w-[60%]`}>
-//         {/* You can add text and other elements here as needed */}
-//         <Link to="/products" className="inline-block">
-//           <div className={`${styles.button} mt-48`}>
-//             <span className="text-[#fff] font-[Poppins] text-[18px]">
-//               Shop Now
-//             </span>
-//           </div>{" "}
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Hero;

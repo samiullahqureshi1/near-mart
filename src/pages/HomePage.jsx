@@ -7,20 +7,25 @@ import FeaturedProduct from "../components/Route/FeaturedProduct/FeaturedProduct
 import Events from "../components/Events/Events";
 import Sponsored from "../components/Route/Sponsored";
 import Footer from "../components/Layout/Footer";
-import LookbookBanner from '../components/Route/LookBanner/LookBanner';
 import TechBetterBanner from '../components/Route/LookBanner/LookBanner';
+import PromoBanner from '../components/Route/LookBanner/LookBanner';
+import ComputerProduct from '../components/Route/computer/computerProducts';
+import MacbookBanner from '../components/Route/banner/Macbook';
 
 const HomePage = () => {
   return (
     <div>
         <Header activeHeading={1} />
         <Hero />
-        <TechBetterBanner/>
+        {/* <TechBetterBanner/> */}
         
         <BestDeals />
         <Categories />
         <Events />
         <FeaturedProduct />
+        <PromoBanner/>
+        <ComputerProduct/>
+        <MacbookBanner/>
         <Sponsored />
         <Footer />
     </div>

@@ -3,15 +3,23 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "../../styles/styles";
 import { categoriesData, productData } from "../../static/data";
 import { CiHeart, CiShoppingCart, CiUser } from "react-icons/ci";
-import { FiUser } from "react-icons/fi";
+import { FiPhoneCall, FiUser } from "react-icons/fi";
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaPinterestP, FaReact } from 'react-icons/fa';
+import { BsChevronDown, BsChevronRight } from 'react-icons/bs';
+import { MdOutlineCategory } from 'react-icons/md';
+import { TbArrowsShuffle } from 'react-icons/tb';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
   AiOutlineHeart,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
-import { BiMenuAltLeft } from "react-icons/bi";
+import { BiMenuAltLeft, BiSupport } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
@@ -24,6 +32,7 @@ import logo from "../../Assests/nearmart.png";
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { isSeller } = useSelector((state) => state.seller);
+    const [showPassword, setShowPassword] = useState(false);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { allProducts } = useSelector((state) => state.products);
@@ -34,6 +43,45 @@ const Header = ({ activeHeading }) => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
+
+
+   const [showLogin, setShowLogin] = useState(false);
+  const modalRef = useRef(null);
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setShowLogin(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+    const navigate = useNavigate();
+
+ useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+   const handleCategoryClick = (categoryTitle) => {
+    navigate(`/products?category=${encodeURIComponent(categoryTitle)}`);
+    setDropDown(false);
+  };
+  const dropdownRef = useRef(null);
+
   const location = useLocation();
   useEffect(() => {
     if (location.state?.openCart) {
@@ -79,186 +127,268 @@ const Header = ({ activeHeading }) => {
   }, [setSearchData]);
   return (
     <>
-      <div className="w-full border-b border-gray-200">
-        {/* Top Header Row */}
-        <div className="flex items-center justify-between px-6 py-4 max-w-[1600px] mx-auto">
-          {/* Left - Logo */}
-          <div className="flex items-center">
-            <Link to="/">
-              <img src={logo} alt="Logo" className="w-[120px] object-contain" />
-            </Link>
-          </div>
-
-          {/* Center - Search Box */}
-          {/* <div className="flex-1 mx-6 max-w-[700px]">
-      <div className="relative w-full">
-        <input
-          type="text"
-          placeholder="What are you looking for ?"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="placeholder-black w-full pl-10 pr-4 py-2 rounded-full bg-[#f1f2f4] text-sm  focus:outline-none focus:ring-2 focus:ring-[#3bc177]"
-        />
-        <AiOutlineSearch
-          size={22}
-          className="absolute left-3 top-[10px] cursor-pointer text-gray-500"
-        />
-        {searchData && searchData.length !== 0 && (
-          <div className="absolute min-h-[30vh] bg-white shadow-lg z-30 p-4 max-h-[40vh] overflow-auto border-2 border-[#f0f0f0] rounded-md">
-            {searchData.map((i, index) => (
-              <Link to={`/product/${i._id}`} key={index}>
-                <div className="w-full flex items-start py-3 hover:bg-[#f1f1f1] rounded-md">
-                  <img
-                    src={`${i.images[0]?.url}`}
-                    alt={i.name}
-                    className="w-[40px] h-[40px] mr-[10px]"
-                  />
-                  <h1 className="text-sm text-gray-800">{i.name}</h1>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
+     <div className="w-full font-sans">
+  {/* Top Info Bar */}
+  <div className="bg-[#144e75] text-white text-xs py-1 px-4 flex justify-between items-center">
+    <span>Welcome to Neartmat online store.</span>
+    <div className="flex items-center gap-4">
+      <span className="hidden sm:block">Follow us:</span>
+      <div className="flex gap-2 text-base">
+        <FaTwitter />
+        <FaFacebookF />
+        <FaPinterestP />
+        <FaYoutube />
+        <FaInstagram />
       </div>
-    </div> */}
-          <div className="flex-1 mx-6 max-w-[700px]" ref={wrapperRef}>
-            <div className="relative w-full">
+      <div className="ml-4 flex items-center gap-2 cursor-pointer">Eng <BsChevronDown size={12} /></div>
+      <div className="flex items-center gap-2 cursor-pointer">USD <BsChevronDown size={12} /></div>
+    </div>
+  </div>
+
+  {/* Middle Header */}
+  <div className="bg-[#175f89] py-4 px-6   flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
+  {/* Logo (React Icon + Text) */}
+  <Link to="/" className="flex items-center gap-2 shrink-0 text-white">
+    <div className="bg-white rounded-full p-1">
+      <FaReact size={28} color="#175f89" />
+    </div>
+    <span className="text-2xl font-bold tracking-wide">NEARTMAT</span>
+  </Link>
+
+  {/* Search Bar */}
+  <div className="flex-1 relative max-w-[700px]" ref={wrapperRef}>
+    <input
+      type="text"
+      placeholder="Search for anything..."
+      value={searchTerm}
+      onChange={handleSearchChange}
+      className="w-full pl-10 pr-4 py-2 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+    />
+    <AiOutlineSearch className="absolute left-3 top-2.5 text-gray-500" size={20} />
+
+    {/* Search Suggestions */}
+    {searchData?.length > 0 && (
+      <div className="absolute top-full left-0 w-full mt-2 bg-white shadow-lg z-30 p-4 max-h-[40vh] overflow-auto border border-gray-200 rounded-md">
+        {searchData.map((item, index) => (
+          <Link to={`/product/${item._id}`} key={index}>
+            <div className="flex items-center gap-3 py-2 hover:bg-gray-100 rounded-md">
+              <img src={item.images[0]?.url} alt={item.name} className="w-10 h-10 object-cover" />
+              <span className="text-sm text-gray-800">{item.name}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
+
+  {/* Icons */}
+  <div className="flex items-center gap-5 text-white text-xl">
+    {/* Wishlist */}
+    <div className="relative cursor-pointer" onClick={() => setOpenWishlist(true)}>
+      <CiHeart />
+      {wishlist?.length > 0 && (
+        <span className="absolute -top-1 -right-2 text-[11px] bg-red-500 rounded-full px-[5px] text-white">
+          {wishlist.length}
+        </span>
+      )}
+    </div>
+
+    {/* Cart */}
+    <div className="relative cursor-pointer" onClick={() => setOpenCart(true)}>
+      <CiShoppingCart />
+      {cart?.length > 0 && (
+        <span className="absolute -top-1 -right-2 text-[11px] bg-red-500 rounded-full px-[5px] text-white">
+          {cart.length}
+        </span>
+      )}
+    </div>
+
+    {/* Profile */}
+      <div className="relative">
+      {/* Profile Icon */}
+      {isAuthenticated ? (
+        <Link to="/profile">
+          <CiUser size={22} />
+        </Link>
+      ) : (
+        <span onClick={() => setShowLogin((prev) => !prev)}>
+          <CgProfile size={22} />
+        </span>
+      )}
+
+      {/* Login Modal */}
+      {!isAuthenticated && showLogin && (
+        <div
+          ref={modalRef}
+          className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6 z-50"
+        >
+          <h3 className="text-center text-black text-lg font-semibold mb-6">
+            Sign in to your account
+          </h3>
+
+          <form className="space-y-4">
+            {/* Email */}
+            <div>
+              <label className="text-sm font-medium block mb-1">Email Address</label>
               <input
-                type="text"
-                placeholder="What are you looking for ?"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="placeholder-black w-full pl-10 pr-4 py-2 rounded-full bg-[#f1f2f4] text-sm focus:outline-none focus:ring-2 focus:ring-[#3bc177]"
+                type="email"
+                placeholder="Enter your email"
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              <AiOutlineSearch
-                size={22}
-                className="absolute left-3 top-[10px] cursor-pointer text-gray-500"
-              />
-
-              {searchData && searchData.length !== 0 && (
-                <div className="absolute top-full left-0 w-full mt-2 bg-white shadow-lg z-30 p-4 max-h-[40vh] overflow-auto border border-gray-200 rounded-md">
-                  {searchData.map((i, index) => (
-                    <Link to={`/product/${i._id}`} key={index}>
-                      <div className="flex items-start gap-3 py-2 px-2 hover:bg-[#f1f1f1] rounded-md">
-                        <img
-                          src={i.images[0]?.url}
-                          alt={i.name}
-                          className="w-[40px] h-[40px] object-cover"
-                        />
-                        <h1 className="text-sm text-gray-800">{i.name}</h1>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          {/* Right - Icons */}
-          <div className="flex items-center gap-6">
-            {/* Trade-in Button (reuse or remove as needed) */}
-            {/* <button className="flex items-center border px-4 py-2 rounded-md text-sm font-medium hover:shadow">
-              <span className="mr-2">⇄</span> Trade-in
-            </button> */}
-
-            {/* Wishlist */}
-            <div
-              className="relative cursor-pointer"
-              onClick={() => setOpenWishlist(true)}
-            >
-              <CiHeart size={30} color="black" />
-              <span className="absolute right-0 top-0 rounded-full bg-[#ff6f61] w-4 h-4 text-white text-[12px] leading-tight text-center">
-                {wishlist && wishlist.length}
-              </span>
             </div>
 
-            {/* Cart */}
-            <div
-              className="relative cursor-pointer"
-              onClick={() => setOpenCart(true)}
-            >
-              <CiShoppingCart size={30} color="black" />
-              <span className="absolute right-0 top-0 rounded-full bg-[#ff6f61] w-4 h-4 text-white text-[12px] leading-tight text-center">
-                {cart && cart.length}
-              </span>
-            </div>
-
-            {/* Profile */}
-            <div className="relative cursor-pointer">
-              {isAuthenticated ? (
-                <Link to="/profile">
-                  <CiUser className="w-[25px] h-[25px]" />
+            {/* Password */}
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="text-sm font-medium">Password</label>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-blue-500 hover:underline"
+                >
+                  Forget Password
                 </Link>
-              ) : (
-                <Link to="/login">
-                  <CgProfile size={30} color="black" />
-                </Link>
-              )}
+              </div>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <span
+                  className="absolute right-3 top-2.5 cursor-pointer text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible size={18} />
+                  ) : (
+                    <AiOutlineEye size={18} />
+                  )}
+                </span>
+              </div>
             </div>
 
-            {/* Side Panels */}
-            {openCart && <Cart setOpenCart={setOpenCart} />}
-            {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />}
-          </div>
-        </div>
+            {/* Login Button */}
+            <button
+              type="submit"
+              className="w-full bg-[#ff6600] hover:bg-[#e65c00] text-white font-semibold py-2 rounded text-sm flex items-center justify-center gap-2"
+            >
+              LOGIN <span className="text-base">→</span>
+            </button>
+          </form>
 
-        {/* Bottom Nav Row */}
-        {/* <div className="flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
-          <span className="text-[#aa336a] flex items-center gap-1">
-            ✨ Good deals
-          </span>
-          <div
-            onClick={() => setDropDown(!dropDown)}
-            className="relative cursor-pointer"
-          >
-            <button className="text-black hover:text-[#3bc177]">
-              Categories
-            </button>
-            {dropDown && (
-              <DropDown
-                categoriesData={categoriesData}
-                setDropDown={setDropDown}
-              />
-            )}
+          {/* Decorative text with horizontal lines */}
+          <div className="flex items-center my-5">
+            <div className="flex-grow h-px bg-gray-300" />
+            <span className="px-3 text-sm text-gray-500 whitespace-nowrap">
+              Don’t have account
+            </span>
+            <div className="flex-grow h-px bg-gray-300" />
           </div>
-          <Link to="/" className="text-black hover:text-[#3bc177]">
-            Home
-          </Link>
-          <Link to="/best-selling" className="text-black hover:text-[#3bc177]">
-            Best Selling
-          </Link>
-          <Link to="/faq" className="text-black hover:text-[#3bc177]">
-            FAQ
-          </Link>
-        </div> */}
-        <div className="hidden sm:flex justify-center items-center space-x-6 text-sm font-medium px-6 py-3 max-w-[1600px] mx-auto overflow-x-auto">
-          <span className="text-[#aa336a] flex items-center gap-1">
-            ✨ Good deals
-          </span>
-          <div
-            onClick={() => setDropDown(!dropDown)}
-            className="relative cursor-pointer"
+
+          {/* Create Account Button */}
+          <Link
+            to="/sign-up"
+            className="block w-full border border-orange-500 text-orange-500 py-2 text-sm font-semibold text-center rounded hover:bg-orange-50 transition"
           >
-            <button className="text-black hover:text-[#3bc177]">
-              Categories
-            </button>
-            {dropDown && (
-              <DropDown
-                categoriesData={categoriesData}
-                setDropDown={setDropDown}
-              />
-            )}
-          </div>
-          <Link to="/" className="text-black hover:text-[#3bc177]">
-            Home
-          </Link>
-          <Link to="/best-selling" className="text-black hover:text-[#3bc177]">
-            Best Selling
-          </Link>
-          <Link to="/faq" className="text-black hover:text-[#3bc177]">
-            FAQ
+            CREATE ACCOUNT
           </Link>
         </div>
-      </div>
+      )}
+    </div>
+  </div>
+
+  {/* Conditional Panels */}
+  {openCart && <Cart setOpenCart={setOpenCart} />}
+  {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />}
+</div>
+
+
+  {/* Bottom Utility Nav */}
+ <div className="bg-white mb-2 border-b-2  py-3 px-6 max-w-[1600px] mx-auto flex flex-wrap justify-between items-center text-sm font-medium gap-4">
+  {/* Left Items with Icons */}
+  <div className="flex flex-wrap items-center gap-5 text-gray-700">
+    {/* All Category */}
+      <div className="relative" ref={dropdownRef}>
+      {/* Button */}
+      <button
+        onClick={() => setDropDown((prev) => !prev)}
+        className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-100"
+      >
+        <MdOutlineCategory size={16} />
+        <span>All Category</span>
+        <BsChevronDown size={12} />
+      </button>
+
+      {/* Dropdown */}
+      {dropDown && (
+        <div className="absolute z-50 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-sm">
+          <ul className="py-1">
+            {categoriesData.map((category, index) => (
+              <li
+                key={index}
+                                onClick={() => handleCategoryClick(category.title)}
+
+                className="group relative px-4 py-2 text-sm text-[#333] hover:bg-gray-100 cursor-pointer flex items-center justify-between"
+              >
+                <span>{category.title}</span>
+                {category.subcategories && (
+                  <BsChevronRight size={12} className="ml-2" />
+                )}
+
+                {/* Subcategories */}
+                {category.subcategories && (
+                  <ul className="absolute top-0 left-full w-56 bg-white border border-l-0 border-gray-200 shadow-lg rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+                    {category.subcategories.map((sub, idx) => (
+                      <li
+                        key={idx}
+                        className="px-4 py-2 text-sm text-[#333] hover:bg-gray-100"
+                      >
+                        {sub}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+
+    {/* Track Order */}
+    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
+      <FaMapMarkerAlt size={16} />
+      <span>Track Order</span>
+    </div>
+
+    {/* Compare */}
+    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
+      <TbArrowsShuffle size={16} />
+      <span>Compare</span>
+    </div>
+
+    {/* Customer Support */}
+    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
+      <BiSupport size={16} />
+      <span>Customer Support</span>
+    </div>
+
+    {/* Need Help */}
+    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
+      <TbArrowsShuffle size={16} />
+      <span>Need Help</span>
+    </div>
+  </div>
+
+  {/* Right: Phone Number */}
+  <div className="flex items-center gap-2 text-gray-800 font-semibold text-sm whitespace-nowrap">
+    <FiPhoneCall size={16} className="text-blue-600" />
+    +1-202-555-0104
+  </div>
+</div>
+</div>
+
+
 
       {/* <div
         className={`${

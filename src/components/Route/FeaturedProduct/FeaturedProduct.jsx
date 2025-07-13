@@ -24,92 +24,71 @@ const FeaturedProduct = () => {
   };
 
   return (
-    <div className="w-full bg-[#f8f9fb] py-8 px-4 md:px-12 xl:px-24">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4">
-        Shop our best deals
-      </h2>
+    <div className="w-full bg-white py-8 px-4">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-12 xl:px-0">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* LEFT: Banner */}
+          <div
+            className="w-full lg:w-[260px] rounded-md overflow-hidden relative"
+            style={{
+              backgroundImage: "url('/sam.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "720px",
+            }}
+          >
+            {/* Soft Yellow Overlay to improve readability */}
+            <div className="absolute inset-0 "></div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Left Banner Image */}
-        <div className="w-full lg:w-[30%] rounded-lg overflow-hidden">
-          <img
-            src="https://images.ctfassets.net/mmeshd7gafk1/7cudeRsHd4wC6xa2xSqrfR/06c53d8fc0a8efb4d5e89818c587461f/Desktop.jpg"
-            alt="deal-banner"
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-
-        {/* Right Side Categories + Product Slider */}
-        <div className="w-full lg:w-[70%]">
-          {/* Categories Bar */}
-          <div className="flex gap-4 overflow-x-auto mb-4 scrollbar-hide cursor-pointer">
-            {categoriesData.slice(0, 8).map((cat) => (
-              <div
-                key={cat.id}
-                className="flex flex-col items-center min-w-[80px]"
-              >
-                <div className="w-20 h-20  rounded-md shadow-sm flex items-center justify-center mb-1">
-                  <img
-                    src={cat.image_Url}
-                    alt={cat.title}
-                    className="w-full h-full object-contain rounded-md"
-                  />
-                </div>
-                <span className="text-xs text-gray-700 text-center">
-                  {cat.title}
-                </span>
+            <div className="relative z-10 h-full flex flex-col justify-between p-4">
+              {/* Top Text Content */}
+              <div>
+                <p className="text-xs uppercase mb-1 text-[#3b3b3b] font-semibold tracking-wide">
+                  Computer & Accessories
+                </p>
+                <h3 className="text-2xl font-bold text-[#1a1a1a] mb-2">
+                  32% Discount
+                </h3>
+                <p className="text-[15px] text-[#333] mb-4">
+                  For all electronics products
+                </p>
+                {/* <p className="text-[13px] text-[#3b3b3b] mb-1">Offers ends in:</p>
+      <button className="px-3 py-[6px] bg-white border border-gray-300 text-[13px] font-semibold text-[#111] rounded-sm">
+        ENDS OF CHRISTMAS
+      </button> */}
               </div>
-            ))}
-          </div>
 
-          {/* Product Slider with Arrows */}
-          <div className="relative">
-            <div className="flex justify-end mb-3 gap-2">
-              <button
-                onClick={handlePrev}
-                disabled={slideIndex === 0}
-                className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  slideIndex === 0
-                    ? "bg-gray-300 text-white"
-                    : "bg-black text-white"
-                }`}
-              >
-                <FiChevronLeft size={18} />
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={slideIndex === 1}
-                className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  slideIndex === 1
-                    ? "bg-gray-300 text-white"
-                    : "bg-black text-white"
-                }`}
-              >
-                <FiChevronRight size={18} />
+              {/* CTA Button at bottom */}
+              <button className="w-full py-2 bg-orange-500 hover:bg-orange-600 transition text-white text-[14px] rounded-md font-semibold mt-4">
+                SHOP NOW →
               </button>
             </div>
+          </div>
 
-            <div className="w-full overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  width: "200%",
-                  transform: `translateX(-${slideIndex * 50}%)`,
-                }}
-              >
-                {[0, 1].map((slide) => (
-                  <div
-                    key={slide}
-                    className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                  >
-                    {data
-                      .slice(slide * 4, slide * 4 + 4)
-                      .map((product, idx) => (
-                        <ProductCard key={idx} product={product} />
-                      ))}
-                  </div>
-                ))}
+          {/* RIGHT: Content */}
+          <div className="w-full">
+            {/* Header + Filter */}
+            <div className="flex justify-between items-center mb-4 flex-wrap gap-y-2">
+              <h2 className="text-xl md:text-2xl font-semibold">
+                Featured Products
+              </h2>
+              <div className="flex gap-4 text-sm font-medium text-gray-600 flex-wrap">
+                {/* <button className="text-blue-600 underline">All Product</button>
+                <button>Smart Phone</button>
+                <button>Laptop</button>
+                <button>Headphone</button>
+                <button>TV</button> */}
+                <button className="text-orange-500 font-semibold">
+                  Browse All Product →
+                </button>
               </div>
+            </div>
+
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {data.map((product, idx) => (
+                <ProductCard key={idx} product={product} />
+              ))}
             </div>
           </div>
         </div>
@@ -118,49 +97,85 @@ const FeaturedProduct = () => {
   );
 };
 
-const ProductCard = ({ product }) => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const images = product.images || [];
+  const ProductCard = ({ product }) => {
+    const [currentImage, setCurrentImage] = useState(0);
+    const images = product.images || [];
 
-  return (
-    <div className="bg-white p-4  rounded-xl shadow hover:shadow-md transition">
-      <a href={`/product/${product.slug || product._id}`}>
-        <img
-          src={images[currentImage]?.url || "/placeholder.jpg"}
-          alt={product.name}
-          className="w-full h-[180px] object-contain mb-2"
-        />
-      </a>
-      <h3 className="text-[15px] font-semibold leading-tight mb-1">
-        {product.name?.split(" ")[0] + " " + product.name?.split(" ")[1] ||
-          "iPhone 13"}
-      </h3>{" "}
-      <p className="text-[13px] text-gray-600 mb-1">
-        {product.name || "iPhone 13 128GB - Midnight - Unlocked"}
-      </p>
-      <div className="text-xs mt-1">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <span key={index}>
-            {index < Math.round(product.ratings || 4.3) ? "★" : "☆"}
+    // badge colors
+    const badgeColor = {
+      hot: "bg-red-500",
+      sale: "bg-green-600",
+      best: "bg-blue-500",
+      deal: "bg-yellow-500",
+    };
+
+    // detect badge type (custom logic can vary)
+    const badge = product.badge?.toLowerCase(); // e.g. "hot", "sale", etc.
+
+    return (
+      <div className="bg-white rounded-md border hover:shadow-md transition p-3 relative">
+        {/* Badge */}
+        {badge && (
+          <span
+            className={`absolute top-2 left-2 px-2 py-1 text-[10px] text-white font-semibold uppercase rounded-sm ${
+              badge === "hot"
+                ? badgeColor.hot
+                : badge === "sale"
+                ? badgeColor.sale
+                : badge === "best deals"
+                ? badgeColor.best
+                : badgeColor.deal
+            }`}
+          >
+            {product.badge}
           </span>
-        ))}
-        <span className="ml-1">{(product.ratings || 4.3).toFixed(1)}/5</span>
-        <span className="ml-1 text-gray-500">
-          ({product.reviews || 3888})
-        </span>{" "}
-      </div>
-      <div className="mt-1">
-        <p className="text-sm font-semibold">
-          ${product.discountPrice || product.price}
-        </p>
-        {product.originalPrice && (
-          <p className="text-xs text-gray-400 line-through">
-            ${product.originalPrice}
-          </p>
         )}
+
+        {/* Product Image */}
+        <a href={`/product/${product.slug || product._id}`}>
+          <img
+            src={images[currentImage]?.url || "/placeholder.jpg"}
+            alt={product.name}
+            className="w-full h-[160px] object-contain mb-2"
+          />
+        </a>
+
+        {/* Name */}
+        <h3 className="text-[14px] font-medium text-gray-800 leading-tight mb-1">
+          {product.name?.split(" ").slice(0, 2).join(" ") || "Product Name"}
+        </h3>
+
+        {/* Description */}
+        <p className="text-[12px] text-gray-600 mb-2">
+          {product.name || "Product full title"}
+        </p>
+
+        {/* Rating */}
+        <div className="text-xs text-yellow-500 flex items-center mb-1">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <span key={index}>
+              {index < Math.round(product.ratings || 4.3) ? "★" : "☆"}
+            </span>
+          ))}
+          <span className="ml-1 text-gray-700 font-medium">
+            {(product.ratings || 4.3).toFixed(1)}/5
+          </span>
+          <span className="ml-1 text-gray-500">({product.reviews || 3888})</span>
+        </div>
+
+        {/* Pricing */}
+        <div className="mt-1">
+          <p className="text-sm font-semibold text-[#1a1a1a]">
+            ${product.discountPrice || product.price}
+          </p>
+          {product.originalPrice && (
+            <p className="text-xs text-gray-400 line-through">
+              ${product.originalPrice}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default FeaturedProduct;
