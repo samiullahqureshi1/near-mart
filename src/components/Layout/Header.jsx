@@ -182,123 +182,72 @@ const Header = ({ activeHeading }) => {
   </div>
 
   {/* Icons */}
-  <div className="flex items-center gap-5 text-white text-xl">
-    {/* Wishlist */}
-    <div className="relative cursor-pointer" onClick={() => setOpenWishlist(true)}>
-      <CiHeart />
-      {wishlist?.length > 0 && (
-        <span className="absolute -top-1 -right-2 text-[11px] bg-red-500 rounded-full px-[5px] text-white">
-          {wishlist.length}
-        </span>
-      )}
-    </div>
+  <div className="flex items-center gap-6 text-white text-xl">
+  {/* Wishlist */}
+  <div
+    className="relative cursor-pointer flex items-center justify-center"
+    onClick={() => setOpenWishlist(true)}
+  >
+    <CiHeart size={26} />
+    {wishlist?.length > 0 && (
+      <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] bg-red-500 text-white text-[11px] rounded-full flex items-center justify-center leading-none px-[6px]">
+        {wishlist.length}
+      </span>
+    )}
+  </div>
 
-    {/* Cart */}
-    <div className="relative cursor-pointer" onClick={() => setOpenCart(true)}>
-      <CiShoppingCart />
+  {/* Cart */}
+  <div className="relative">
+    <div
+      className="cursor-pointer flex items-center justify-center"
+      onClick={() => setOpenCart(!openCart)}
+    >
+      <CiShoppingCart size={26} />
       {cart?.length > 0 && (
-        <span className="absolute -top-1 -right-2 text-[11px] bg-red-500 rounded-full px-[5px] text-white">
+        <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] bg-red-500 text-white text-[11px] rounded-full flex items-center justify-center leading-none px-[6px]">
           {cart.length}
         </span>
       )}
     </div>
 
-    {/* Profile */}
-      <div className="relative">
-      {/* Profile Icon */}
-      {isAuthenticated ? (
-        <Link to="/profile">
-          <CiUser size={22} />
-        </Link>
-      ) : (
-        <span onClick={() => setShowLogin((prev) => !prev)}>
-          <CgProfile size={22} />
-        </span>
-      )}
-
-      {/* Login Modal */}
-      {!isAuthenticated && showLogin && (
-        <div
-          ref={modalRef}
-          className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6 z-50"
-        >
-          <h3 className="text-center text-black text-lg font-semibold mb-6">
-            Sign in to your account
-          </h3>
-
-          <form className="space-y-4">
-            {/* Email */}
-            <div>
-              <label className="text-sm font-medium block mb-1">Email Address</label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-sm font-medium">Password</label>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-blue-500 hover:underline"
-                >
-                  Forget Password
-                </Link>
-              </div>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-                <span
-                  className="absolute right-3 top-2.5 cursor-pointer text-gray-600"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <AiOutlineEyeInvisible size={18} />
-                  ) : (
-                    <AiOutlineEye size={18} />
-                  )}
-                </span>
-              </div>
-            </div>
-
-            {/* Login Button */}
-            <button
-              type="submit"
-              className="w-full bg-[#ff6600] hover:bg-[#e65c00] text-white font-semibold py-2 rounded text-sm flex items-center justify-center gap-2"
-            >
-              LOGIN <span className="text-base">→</span>
-            </button>
-          </form>
-
-          {/* Decorative text with horizontal lines */}
-          <div className="flex items-center my-5">
-            <div className="flex-grow h-px bg-gray-300" />
-            <span className="px-3 text-sm text-gray-500 whitespace-nowrap">
-              Don’t have account
-            </span>
-            <div className="flex-grow h-px bg-gray-300" />
-          </div>
-
-          {/* Create Account Button */}
-          <Link
-            to="/sign-up"
-            className="block w-full border border-orange-500 text-orange-500 py-2 text-sm font-semibold text-center rounded hover:bg-orange-50 transition"
-          >
-            CREATE ACCOUNT
-          </Link>
-        </div>
-      )}
-    </div>
+    {/* Cart Dropdown */}
+    {openCart && (
+      <div className="absolute right-0 mt-2 z-50">
+        <Cart setOpenCart={setOpenCart} />
+      </div>
+    )}
   </div>
 
+  {/* Profile */}
+  <div className="relative">
+    {isAuthenticated ? (
+      <Link to="/profile">
+        <CiUser size={26} />
+      </Link>
+    ) : (
+      <span
+        onClick={() => setShowLogin((prev) => !prev)}
+        className="cursor-pointer"
+      >
+        <CgProfile size={26} />
+      </span>
+    )}
+
+    {/* Login Modal */}
+    {!isAuthenticated && showLogin && (
+      <div
+        ref={modalRef}
+        className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6 z-50"
+      >
+        {/* --- Existing Login Modal Code --- */}
+      </div>
+    )}
+  </div>
+</div>
+
+
   {/* Conditional Panels */}
-  {openCart && <Cart setOpenCart={setOpenCart} />}
+  {/* {openCart && <Cart setOpenCart={setOpenCart} />} */}
   {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />}
 </div>
 
@@ -390,233 +339,7 @@ const Header = ({ activeHeading }) => {
 
 
 
-      {/* <div
-        className={`${
-          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        } transition hidden 800px:flex items-center justify-between w-full bg-[#1c1d22] h-[70px]`}
-      >
-        <div
-          className={`${styles.section} relative ${styles.noramlFlex} justify-between`}
-        >
-          <div onClick={() => setDropDown(!dropDown)}>
-            <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
-              <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
-              <button
-                className={`h-[100%] w-full flex justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
-              >
-                All Categories
-              </button>
-              <IoIosArrowDown
-                size={20}
-                className="absolute right-2 top-4 cursor-pointer"
-                onClick={() => setDropDown(!dropDown)}
-              />
-              {dropDown ? (
-                <DropDown
-                  categoriesData={categoriesData}
-                  setDropDown={setDropDown}
-                />
-              ) : null}
-            </div>
-          </div>
-          <div className={`${styles.noramlFlex}`}>
-            <Navbar active={activeHeading} />
-          </div>
-
-          <div className="flex">
-            <div className={`${styles.noramlFlex}`}>
-              <div
-                className="relative cursor-pointer mr-[15px]"
-                onClick={() => setOpenWishlist(true)}
-              >
-                <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  {wishlist && wishlist.length}
-                </span>
-              </div>
-            </div>
-
-            <div className={`${styles.noramlFlex}`}>
-              <div
-                className="relative cursor-pointer mr-[15px]"
-                onClick={() => setOpenCart(true)}
-              >
-                <AiOutlineShoppingCart
-                  size={30}
-                  color="rgb(255 255 255 / 83%)"
-                />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  {cart && cart.length}
-                </span>
-              </div>
-            </div>
-
-            <div className={`${styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
-                {isAuthenticated ? (
-                  <Link to="/profile">
-                    <img
-                      src={`${user?.avatar?.url}`}
-                      className="w-[35px] h-[35px] rounded-full"
-                      alt=""
-                    />
-                  </Link>
-                ) : (
-                  <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
-                  </Link>
-                )}
-              </div>
-            </div>
-
-            {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
-
-            {openWishlist ? (
-              <Wishlist setOpenWishlist={setOpenWishlist} />
-            ) : null}
-          </div>
-        </div>
-      </div> */}
-
-      {/* mobile header */}
-      {/* <div
-        className={`${
-          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        }
-      w-full h-[60px] bg-[#fff] z-50 top-0 left-0 shadow-sm 800px:hidden`}
-      >
-        <div className="w-full flex items-center justify-between">
-          <div>
-            <BiMenuAltLeft
-              size={40}
-              className="ml-4"
-              onClick={() => setOpen(true)}
-            />
-          </div>
-          <div>
-            <Link to="/">
-              <img
-                src={logo}
-                alt="logo"
-                className="w-[80px] 400px:w-[100px] 600px:w-[120px] mt-3 cursor-pointer" 
-              />
-            </Link>
-          </div>
-          <div>
-            <div
-              className="relative mr-[20px]"
-              onClick={() => setOpenCart(true)}
-            >
-              <AiOutlineShoppingCart size={30} />
-              <span class="absolute right-0 top-0 rounded-full bg-[#6397d7]  w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px]  leading-tight text-center">
-                {cart && cart.length}
-              </span>
-            </div>
-          </div>
-          {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
-
-          {openWishlist ? <Wishlist setOpenWishlist={setOpenWishlist} /> : null}
-        </div>
-
-        {open && (
-          <div
-            className={`fixed w-full bg-[#0000005f] z-20 h-full top-0 left-0`}
-          >
-            <div className="fixed w-[70%] bg-[#fff] h-screen top-0 left-0 z-10 overflow-y-scroll">
-              <div className="w-full justify-between flex pr-3">
-                <div>
-                  <div
-                    className="relative mr-[15px]"
-                    onClick={() => setOpenWishlist(true) || setOpen(false)}
-                  >
-                    <AiOutlineHeart size={30} className="mt-5 ml-3" />
-                    <span class="absolute right-0 top-0 rounded-full bg-[#6397d7]  w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px]  leading-tight text-center">
-                      {wishlist && wishlist.length}
-                    </span>
-                  </div>
-                </div>
-                <RxCross1
-                  size={30}
-                  className="ml-4 mt-5"
-                  onClick={() => setOpen(false)}
-                />
-              </div>
-
-              <div className="my-8 w-[92%] m-auto h-[40px relative]">
-                <input
-                  type="search"
-                  placeholder="Search Product..."
-                  className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                {searchData && (
-                  <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
-                    {searchData.map((i) => {
-                      const d = i.name;
-
-                      const Product_name = d.replace(/\s+/g, "-");
-                      return (
-                        <Link to={`/product/${Product_name}`}>
-                          <div className="flex items-center">
-                            <img
-                              src={i.image_Url[0]?.url}
-                              alt=""
-                              className="w-[50px] mr-2"
-                            />
-                            <h5>{i.name}</h5>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              <Navbar active={activeHeading} />
-              <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                <Link to="/shop-create">
-                  <h1 className="text-[#fff] flex items-center">
-                    Become Seller <IoIosArrowForward className="ml-1" />
-                  </h1>
-                </Link>
-              </div>
-              <br />
-              <br />
-              <br />
-
-              <div className="flex w-full justify-center">
-                {isAuthenticated ? (
-                  <div>
-                    <Link to="/profile">
-                      <img
-                        src={`${user.avatar?.url}`}
-                        alt=""
-                        className="w-[60px] h-[60px] rounded-full border-[3px] border-[#0eae88]"
-                      />
-                    </Link>
-                  </div>
-                ) : (
-                  <>
-                    <Link
-                      to="/login"
-                      className="text-[18px] pr-[10px] text-[#000000b7]"
-                    >
-                      Login /
-                    </Link>
-                    <Link
-                      to="/sign-up"
-                      className="text-[18px] text-[#000000b7]"
-                    >
-                      Sign up
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-      </div> */}
+     
       {/* Mobile Header */}
       <div
         className={`fixed top-0 left-0 z-50 w-full bg-white shadow-sm 800px:hidden`}

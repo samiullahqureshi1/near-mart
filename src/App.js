@@ -118,9 +118,9 @@ const App = () => {
         <Route
           path="/checkout"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <CheckoutPage />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
         <Route path="/order/success" element={<OrderSuccessPage />} />

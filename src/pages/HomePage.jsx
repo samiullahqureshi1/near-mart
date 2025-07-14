@@ -11,6 +11,7 @@ import TechBetterBanner from '../components/Route/LookBanner/LookBanner';
 import PromoBanner from '../components/Route/LookBanner/LookBanner';
 import ComputerProduct from '../components/Route/computer/computerProducts';
 import MacbookBanner from '../components/Route/banner/Macbook';
+import Newsletter from '../components/Layout/Newsletter';
 
 const HomePage = () => {
   return (
@@ -27,6 +28,7 @@ const HomePage = () => {
         <ComputerProduct/>
         <MacbookBanner/>
         <Sponsored />
+        <Newsletter/>
         <Footer />
     </div>
   )

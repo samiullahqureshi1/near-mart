@@ -5,7 +5,7 @@ const FooterWithNewsletter = () => {
   return (
     <footer className="text-white">
       {/* Newsletter Section */}
-      <div className="bg-[#21669a] py-12 px-4 text-center">
+      {/* <div className="bg-[#21669a] py-12 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-semibold mb-3">Subscribe to our newsletter</h2>
         <p className="max-w-xl mx-auto text-sm text-gray-200">
           Praesent fringilla erat a lacinia egestas. Donec vehicula tempor libero et cursus. 
@@ -32,7 +32,7 @@ const FooterWithNewsletter = () => {
           <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Toshiba_logo.svg" alt="Toshiba" className="h-5" />
           <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung" className="h-5" />
         </div>
-      </div>
+      </div> */}
 
       {/* Footer Section */}
       <div className="bg-[#1a1a1a] py-12 px-6">

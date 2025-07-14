@@ -44,6 +44,90 @@ const ProductDetails = ({ data }) => {
   const [selected, setSelected] = useState("Fair");
   const [showMore, setShowMore] = useState(false);
 
+ const productGroups = [
+  {
+    title: "FLASH SALE TODAY",
+    products: [
+      {
+        name: "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+        price: "$1,500",
+        img: "https://discountstore.pk/cdn/shop/files/bose-sport-true-wireless-in-ear-headphones.jpg?v=1750833615",
+      },
+      {
+        name: "Simple Mobile 4G LTE Prepaid Smartphone",
+        price: "$1,500",
+        img: "https://images-na.ssl-images-amazon.com/images/I/71L1ezoIH9L._AC_UL495_SR435,495_.jpg",
+      },
+      {
+        name: "4K UHD LED Smart TV with Chromecast Built-in",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-34.jpg",
+      },
+    ],
+  },
+  {
+    title: "BEST SELLERS",
+    products: [
+      {
+        name: "Samsung Electronics Samsung Galaxy S21 5G",
+        price: "$1,500",
+        img: "https://images.samsung.com/is/image/samsung/p6pim/pk/galaxy-s21/gallery/pk-galaxy-s21-5g-g991-366070-sm-g991bzagmea-362622379",
+      },
+      {
+        name: "Simple Mobile 5G LTE Galaxy 12 Mini 512GB Gaming Phone",
+        price: "$1,500",
+        img: "https://s.alicdn.com/@sc04/kf/H93b436371a1844d4858a34e210bf75d24.jpg_300x300.jpg",
+      },
+      {
+        name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
+        price: "$1,500",
+        img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
+      },
+    ],
+  },
+  {
+    title: "TOP RATED",
+    products: [
+      {
+        name: "Portable Wishing Machine, 11lbs capacity Model 18NMF...",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-14.jpg",
+      },
+      {
+        name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
+        price: "$1,500",
+        img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
+      },
+      {
+        name: "Dell Optiplex 7000x7480 All-in-One Computer Monitor",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-16.jpg",
+      },
+    ],
+  },
+  {
+    title: "NEW ARRIVAL",
+    products: [
+      {
+        name: "TOZO T6 True Wireless Earbuds Bluetooth Headphones...",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-11.jpg",
+      },
+      {
+        name: "JBL FLIP 4 - Waterproof Portable Bluetooth Speaker...",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-17.jpg",
+      },
+      {
+        name: "Wyze Cam Pan v2 1080p Pan/Tilt/Zoom Wi-Fi Indoor Smart...",
+        price: "$1,500",
+        img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-19.jpg",
+      },
+    ],
+  },
+];
+
+
   const handleBuyNow = () => {
     // Clone original product data, aur quantity + selected image add karo
     const productData = {
@@ -165,748 +249,220 @@ const ProductDetails = ({ data }) => {
   return (
     <div className="bg-white">
       {data ? (
-        <div className="w-[90%] 800px:w-[80%] mx-auto py-10">
-          <div className="block 800px:flex gap-8">
-            {/* IMAGE SECTION (Left) */}
-            <div className="w-full 800px:w-[50%] flex flex-col items-center">
-              {/* Thumbnails for the images */}
-
-              {/* Main Image */}
-              <div className="w-full rounded-lg p-6 flex justify-center items-center">
-                <img
-                  src={data.images[select]?.url}
-                  alt="Main Product Image"
-                  className="w-[300px] max-h-[400px] object-contain"
-                />
-              </div>
-              <div className="flex gap-4 mb-4">
-                {data.images.map((i, index) => (
-                  <img
-                    key={index}
-                    src={i.url}
-                    alt="Product Thumbnail"
-                    onClick={() => setSelect(index)}
-                    className={`w-[50px] h-[50px] object-cover p-1 border rounded-md cursor-pointer ${
-                      select === index ? "border-black" : "border-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* PRODUCT DETAILS SECTION (Right) */}
-            <div className="w-full 800px:w-[50%] pt-4">
-              {/* Product Title */}
-              <h1 className="text-2xl font-semibold text-[#333] mb-2">
-                {data.name}
-              </h1>
-
-              {/* Ratings */}
-              <div className="flex items-center gap-2 mb-3">
-                <Ratings rating={data.ratings} />
-                <p className="text-sm text-gray-600">
-                  ({totalReviewsLength} reviews)
-                </p>
-              </div>
-
-              {/* Price Section */}
-              <div className="flex justify-between items-center mt-2">
-                <div>
-                  <p className="font-semibold text-lg text-gray-600">
-                    ${data.discountPrice}
-                  </p>
-
-                  {data.originalPrice && (
-                    <div className="flex items-center gap-3 ">
-                      <h3 className="line-through text-gray-500 text-sm font-semibold">
-                        ${data.originalPrice}
-                      </h3>
-                      <p className="text-green-800 bg-green-300 px-2 py-1 border rounded-md font-medium text-xs">
-                        Save ${data.originalPrice - data.discountPrice}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex items-center space-x-4">
-                  <button
-                    onClick={addToCartHandler}
-                    className="
-    bg-black text-white font-semibold border rounded-lg transition duration-300
-    px-6 py-2 text-base     
-    sm:px-8 sm:py-2.5 sm:text-base 
-    md:px-10 md:py-3 md:text-lg      
-    lg:px-12 lg:py-3.5 lg:text-lg    
-    hover:bg-gray-800
-  "
-                  >
-                    Add to Cart
-                  </button>
-
-                  {/* Wishlist Button */}
-                  <div className="w-11 h-11 flex items-center justify-center border border-gray-300 rounded-lg cursor-pointer">
-                    {click ? (
-                      <AiFillHeart
-                        size={24}
-                        className="text-red-500"
-                        onClick={() => removeFromWishlistHandler(data)}
-                      />
-                    ) : (
-                      <AiOutlineHeart
-                        size={24}
-                        className="text-gray-700"
-                        onClick={() => addToWishlistHandler(data)}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 mt-3 p-2">
-                <img
-                  src="https://front-office.statics.backmarket.com/4c0e9d9b15f341bd9f72a93cf94fe65a56bf7197/img/payment/methods-v5/affirm.svg"
-                  alt="Affirm"
-                  className="w-10 h-auto"
-                />
-                <p className="text-sm">Buy Now, pay later</p>
-              </div>
-              <div className="flex flex-wrap gap-3 mt-4  border-b-2">
-                {/* Trade-in Option */}
-                <div className="mb-2 flex items-center border border-black rounded-full px-4 py-1.5 cursor-pointer hover:bg-gray-100 transition">
-                  {/* Icon (custom trade icon as SVG) */}
-                  <svg
-                    className="w-4 h-4 text-purple-600 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M10 6H6v4M14 18h4v-4M6 10l4-4m8 8l-4 4"
-                    />
-                  </svg>
-                  <p className="text-sm text-black">
-                    Get this for even less with Trade-in
-                  </p>
-                  <svg
-                    className="w-4 h-4 ml-2 text-gray-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-
-                {/* Save Big Option */}
-                <div className="mb-2 flex items-center bg-[#f5f5f5] rounded-full px-4 py-1.5 cursor-pointer hover:bg-gray-200 transition">
-                  {/* Smile Icon */}
-                  <svg
-                    className="w-4 h-4 text-purple-600 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-4 8a1 1 0 110-2 1 1 0 010 2zm8 0a1 1 0 110-2 1 1 0 010 2zm-4 8a5 5 0 01-4.546-2.914l1.832-.774A3 3 0 0012 16a3 3 0 002.714-1.688l1.832.774A5 5 0 0112 18z" />
-                  </svg>
-                  <p className="text-sm text-black">
-                    Save big: $20/month unlimited
-                  </p>
-                  <svg
-                    className="w-4 h-4 ml-2 text-gray-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Additional Info Section below buttons */}
-              <div className="mt-6">
-                {/* <div className="flex gap-4">
-    <p className="text-sm text-gray-600 flex items-center">
-      <span className="mr-2">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 9V5a1 1 0 011-1h14a1 1 0 011 1v4M4 9l8 6 8-6M4 9l8 6 8-6"></path>
-        </svg>
-      </span>
-      Free delivery by Jun 26 - Jun 27
-    </p>
-    <p className="text-sm text-gray-600 flex items-center">
-      <span className="mr-2">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 9V5a1 1 0 011-1h14a1 1 0 011 1v4M4 9l8 6 8-6M4 9l8 6 8-6"></path>
-        </svg>
-      </span>
-      Express delivery by Jun 26 - Jun 27 from $15.00
-    </p>
-  </div> */}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                  {/* Free Delivery */}
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-md">
-                      {/* Truck Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 16v-1a2 2 0 012-2h3V9a2 2 0 012-2h6l3 5v5h-1m-6 4a2 2 0 100-4 2 2 0 000 4zm-6 0a2 2 0 100-4 2 2 0 000 4z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        Free delivery by Jun 26 - Jun 27
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-md">
-                      {/* Lock Open Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 11c1.105 0 2 .672 2 1.5S13.105 14 12 14s-2-.672-2-1.5S10.895 11 12 11zM5 12v4a2 2 0 002 2h10a2 2 0 002-2v-4M7 10V7a5 5 0 0110 0v3"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        Works with all carriers
-                      </p>
-                    </div>
-                  </div>
-                  {/* Free Returns + Warranty */}
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-md">
-                      {/* Shield Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 3l8 4v5c0 5.25-3.5 9.75-8 11-4.5-1.25-8-5.75-8-11V7l8-4z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        Free 30-day returns
-                      </p>
-                      <p className="text-sm text-gray-600">1-year warranty</p>
-                    </div>
-                  </div>
-
-                  {/* Works with all carriers */}
-
-                  {/* Verified Refurbished */}
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-md">
-                      {/* Badge Check Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        Verified Refurbished
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-      <div className="w-full bg-white py-10">
-        {/* Heading */}
-        <h2 className="text-center text-lg md:text-xl font-semibold text-gray-900 mb-8">
-          All devices are restored professionally based on a 25-point inspection
-        </h2>
-
-        {/* Icons row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-6 justify-items-center text-center text-sm text-gray-400">
-          {/* Buttons */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 12H9m0 0l3-3m-3 3l3 3"
-                />
-              </svg>
-            </div>
-            <p>Buttons</p>
-          </div>
-
-          {/* SIM/memory card reader */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"
-                />
-              </svg>
-            </div>
-            <p>SIM/memory card reader</p>
-          </div>
-
-          {/* Data deletion */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 10h4l3 10h8l3-10h4M5 6h14"
-                />
-              </svg>
-            </div>
-            <p>Data deletion</p>
-          </div>
-
-          {/* Chargers/cables */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 16v-4m10 4v-4M5 12h14"
-                />
-              </svg>
-            </div>
-            <p>Chargers/cables</p>
-          </div>
-
-          {/* Unlocked by previous owner */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 11c1.105 0 2 .672 2 1.5S13.105 14 12 14s-2-.672-2-1.5S10.895 11 12 11zM5 12v4a2 2 0 002 2h10a2 2 0 002-2v-4M7 10V7a5 5 0 0110 0v3"
-                />
-              </svg>
-            </div>
-            <p>Unlocked by previous owner</p>
-          </div>
-
-          {/* GPS/positioning system */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 9v3m0 0h.01"
-                />
-              </svg>
-            </div>
-            <p>GPS/positioning system</p>
-          </div>
-
-          {/* Cameras */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 7h4l3-3h4l3 3h4v13H3V7z"
-                />
-              </svg>
-            </div>
-            <p>Cameras</p>
-          </div>
-
-          {/* External sensors */}
-          <div>
-            <div className="mb-2">
-              <svg
-                className="w-5 h-5 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 12H9m0 0l3-3m-3 3l3 3"
-                />
-              </svg>
-            </div>
-            <p>External sensors</p>
-          </div>
-        </div>
+       <div className="w-full max-w-[1200px] mx-auto py-10">
+  <div className="flex flex-col lg:flex-row gap-10">
+    {/* LEFT - IMAGE GALLERY */}
+    <div className="w-full lg:w-[50%]">
+      {/* Main Image */}
+      <div className="border p-4 rounded-md mb-4 flex justify-center">
+        <img
+          src={data.images[select]?.url}
+          alt="Main Product"
+          className="w-[80%] object-contain max-h-[400px]"
+        />
       </div>
-      {data ? (
-        <div className="min-h-screen  flex items-center justify-center px-4 py-10">
-          <div className="w-full max-w-5xl  rounded-2xl overflow-hidden">
-            {/* IMAGE & DESCRIPTION SECTION */}
-            <div className="flex flex-col md:flex-row">
-              {/* Image */}
-              <div className="md:w-1/2  p-8 flex flex-col justify-end relative">
-                <img
-                  src={data.images[select]?.url}
-                  alt="Phone"
-                  className="w-[300px] max-h-[400px] object-contain"
-                />
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
-                    ✨ Visible signs of use
-                  </span>
-                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
-                    <FaCheckCircle /> Verified parts
-                  </span>
-                  <span className="px-3 py-1 text-sm bg-gray-100 rounded-full flex items-center gap-1">
-                    <FaBatteryHalf /> Battery for daily use
-                  </span>
-                </div>
-              </div>
 
-              {/* Description */}
-              <div className="md:w-1/2 p-10 space-y-6">
-                <h2 className="text-2xl font-bold text-gray-800">
-                  {data?.name} - Refurbished
-                </h2>
-                <p className="text-gray-600 leading-relaxed text-sm">
-                  {/* This refurbished Samsung Galaxy S21 has been tested and
-                  verified by certified technicians. It comes with verified
-                  parts, a reliable battery, and only minor signs of use. Great
-                  performance for daily tasks, camera use, and multitasking at
-                  an unbeatable price. */}
-                  {data?.description}
-                </p>
-                <div className="bg-blue-50 p-4 rounded-xl text-sm text-gray-600 shadow-sm">
-                  Refurbishers have restored devices to high quality based on a
-                  25-point inspection.
-                  <span className="ml-2 text-blue-600 underline cursor-pointer">
-                    Compare conditions
-                  </span>
-                </div>
-              </div>
-            </div>
+      {/* Thumbnails */}
+      <div className="flex items-center gap-3 justify-center">
+        <button className="border rounded-full p-1 px-2 hover:bg-gray-100">←</button>
+        <div className="flex gap-2">
+          {data.images.map((i, index) => (
+            <img
+              key={index}
+              src={i.url}
+              onClick={() => setSelect(index)}
+              className={`w-[60px] h-[60px] object-cover border rounded-md cursor-pointer ${
+                select === index ? "border-orange-500" : "border-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+        <button className="border rounded-full p-1 px-2 hover:bg-gray-100">→</button>
+      </div>
+    </div>
 
-            {/* SPECIFICATIONS SECTION */}
-            <div className="px-6 py-8 border-t mt-6 bg-gradient-to-b from-white via-gray-50 to-white rounded-xl shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                📋 Product Specifications
-              </h3>
+   <div className="w-full lg:w-[50%] space-y-4 px-2">
+  {/* Title & Rating */}
+  <h1 className="text-[20px] font-semibold leading-snug">{data.name}</h1>
+  <div className="flex items-center gap-1 text-sm text-[#555]">
+    <Ratings rating={data.ratings} />
+    <span className="ml-1">({totalReviewsLength} User feedback)</span>
+  </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm text-gray-700">
-                {specifications.slice(0, 6).map((spec, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow border hover:shadow-md transition"
-                  >
-                    <div className="text-purple-600 text-lg bg-purple-100 p-2 rounded-full">
-                      {typeof spec.icon === "string" ? (
-                        spec.icon
-                      ) : (
-                        <span>{spec.icon}</span>
-                      )}
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">{spec.label}</p>
-                      <p className="font-semibold text-gray-800">
-                        {spec.value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+  {/* SKU / Brand / Category / Availability */}
+  <div className="text-[13px] space-y-[2px] text-gray-600">
+    <p><b>Sku:</b> {data._id}</p>
+    <p><b>Brand:</b> {data.category}</p>
+    <p><b>Availability:</b> <span className="text-green-600 font-medium">In Stock</span></p>
+    {/* <p><b>Category:</b> Electronics Devices</p> */}
+  </div>
 
-              {!showMore && (
-                <div className="text-center mt-6">
-                  <button
-                    onClick={() => setShowMore(true)}
-                    className="px-4 py-2 text-sm font-medium bg-gray-800 text-white rounded-md hover:bg-gray-700 transition"
-                  >
-                    See more
-                  </button>
-                </div>
-              )}
+  {/* Price Row */}
+  <div className="flex items-center gap-3">
+    <span className="text-[22px] font-bold text-[#f97316]">${data.discountPrice}</span>
+    <span className="line-through text-gray-400 text-[14px]">${data.originalPrice}</span>
+    <span className="text-xs bg-yellow-300 text-[#000] px-2 py-[2px] font-semibold rounded-sm">
+      {Math.round(((data.originalPrice - data.discountPrice) / data.originalPrice) * 100)}% OFF
+    </span>
+  </div>
 
-              {showMore && (
-                <div className="mt-10 space-y-10 animate-fade-in-down">
-                  {/* Product Description */}
-                  <div className="text-gray-700 text-sm leading-relaxed">
-                    <h4 className="font-semibold text-lg mb-2">
-                      Key Features:
-                    </h4>
-                    <p>
-                      {/* The <strong>Galaxy S22 5G</strong> is a flagship-level
-                      smartphone that offers reliable performance and a sleek
-                      design. This model is part of Samsung’s 2022 lineup and
-                      features 5G connectivity, making it ideal for streaming,
-                      browsing, or gaming. As a pre-owned device, it has been
-                      refurbished to meet quality standards, offering great
-                      performance and affordability. */}
-                      {data?.description}
-                    </p>
-                    <ul className="list-disc pl-5 mt-3 space-y-1">
-                      <li>
-                        <strong>Model:</strong> {data?.model}
-                      </li>
-                      <li>
-                        <strong>Storage capacity:</strong> {data?.memory}
-                      </li>
-                      <li>
-                        <strong>Display:</strong> {data?.resolution}
-                      </li>
-                      <li>
-                        <strong>Processor:</strong> Snapdragon 8 Gen 1 or Exynos
-                        2200 (region-dependent)
-                      </li>
-                      <li>
-                        <strong>Camera:</strong> Triple rear cameras with 50MP
-                        main sensor
-                      </li>
-                      <li>
-                        <strong>Connectivity:</strong> {data?.network}
-                      </li>
-                    </ul>
-                  </div>
+  {/* Variants: Color, Size, Memory, Storage */}
+  <div className="grid grid-cols-2 gap-3 text-[14px]">
+    <div>
+      <label className="block text-sm mb-1">Color</label>
+      <div className="flex items-center gap-2">
+        <div className="w-[24px] h-[24px] rounded-full border-2 border-orange-500 bg-[#f2f2f2] cursor-pointer" />
+        <div className="w-[24px] h-[24px] rounded-full border border-gray-300 bg-[#999] cursor-pointer" />
+      </div>
+    </div>
 
-                  {/* Pros & Cons */}
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2">Pros & Cons:</h4>
-                    <div className="overflow-x-auto">
-                      <table className="w-full border border-gray-300 text-sm text-gray-800">
-                        <thead className="bg-gray-100">
-                          <tr>
-                            <th className="border border-gray-300 p-2 font-medium">
-                              Pros
-                            </th>
-                            <th className="border border-gray-300 p-2 font-medium">
-                              Cons
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="border border-gray-300 p-2">
-                              High-quality AMOLED display with vibrant colors.
-                            </td>
-                            <td className="border border-gray-300 p-2">
-                              Limited storage options beyond 128GB in this
-                              model.
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-gray-300 p-2">
-                              Powerful Snapdragon 8 Gen 1 processor for smooth
-                              multitasking.
-                            </td>
-                            <td className="border border-gray-300 p-2">
-                              No headphone jack available.
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-gray-300 p-2">
-                              5G connectivity for fast internet speeds.
-                            </td>
-                            <td className="border border-gray-300 p-2">
-                              Refurbished condition may have minor cosmetic
-                              imperfections.
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+    <div>
+      <label className="block text-sm mb-1">Resolution</label>
+      <select className="w-full border rounded px-2 py-1 text-sm">
+        <option>{data.resolution}</option>
+      </select>
+    </div>
 
-                  {/* Technical Specs Table */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-[15px] text-gray-800 border border-gray-200 rounded-md overflow-hidden">
-                    <div className="divide-y divide-gray-200">
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Manufacturing Part No:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.manufacturerPartNo}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Model:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.model}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Carrier Compatibility:
-                        </strong>{" "}
-                        <span className="ml-1">Unlocked</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Screen Type:
-                        </strong>{" "}
-                        <span className="ml-1">Dynamic AMOLED 2X</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Network:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.network}</span>
-                      </div>
-                    </div>
-                    <div className="divide-y divide-gray-200">
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Color:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.color}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          OS:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.os}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Storage:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.memory}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Memory:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.resolution}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Resolution:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.resolution}</span>
-                      </div>
-                      <div className="p-3">
-                        <strong className="text-gray-600 font-medium">
-                          Screen Size:
-                        </strong>{" "}
-                        <span className="ml-1">{data?.screenSize}"</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-6 text-center">
-                    <button
-                      onClick={() => {
-                        setShowMore(!showMore);
-                        if (!showMore) {
-                          setTimeout(() => {
-                            document
-                              .getElementById("specs-section")
-                              ?.scrollIntoView({ behavior: "smooth" });
-                          }, 100);
-                        }
-                      }}
-                      className="px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded hover:bg-gray-700 transition"
-                    >
-                      {showMore ? "Show Less" : "Show More"}
-                    </button>
-                  </div>
-                </div>
-              )}
+    <div>
+      <label className="block text-sm mb-1">Memory</label>
+      <select className="w-full border rounded px-2 py-1 text-sm">
+        <option>{data.memory}</option>
+      </select>
+    </div>
+
+    <div>
+      <label className="block text-sm mb-1">Storage</label>
+      <select className="w-full border rounded px-2 py-1 text-sm">
+        <option>{data.memory}</option>
+      </select>
+    </div>
+  </div>
+
+  {/* Quantity Selector & Action Buttons */}
+  <div className="flex items-center gap-3 mt-3">
+    <div className="flex items-center border border-gray-300 rounded px-3 py-[6px]">
+      <button className="text-[16px] font-bold">-</button>
+      <span className="px-3">1</span>
+      <button className="text-[16px] font-bold">+</button>
+    </div>
+
+    <button
+      onClick={addToCartHandler}
+      className="bg-[#f97316] text-white font-medium px-6 py-[10px] rounded hover:bg-[#e16510]"
+    >
+      ADD TO CART
+    </button>
+
+    <button className="border border-[#f97316] text-[#f97316] font-medium px-6 py-[10px] rounded hover:bg-orange-50">
+      BUY NOW
+    </button>
+  </div>
+
+  {/* Wishlist, Compare, Share */}
+  <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">
+    <div className="flex items-center gap-1 cursor-pointer">
+      {click ? (
+        <AiFillHeart
+          size={20}
+          className="text-red-500"
+          onClick={() => removeFromWishlistHandler(data)}
+        />
+      ) : (
+        <AiOutlineHeart
+          size={20}
+          className="text-gray-500"
+          onClick={() => addToWishlistHandler(data)}
+        />
+      )}
+      <span>Add to Wishlist</span>
+    </div>
+
+    <span className="cursor-pointer hover:underline">Add to Compare</span>
+    <span className="cursor-pointer">Share product: <span className="text-[18px]">🔗</span></span>
+  </div>
+
+  {/* Trust Image Row */}
+  <div className="pt-4">
+    <h4 className="text-sm font-medium mb-2">100% Guarantee Safe Checkout</h4>
+    <img
+      src="/guarantee-site-checkout.png"
+      alt="Secure icons"
+      className="w-full max-w-[300px]"
+    />
+  </div>
+</div>
+
+  </div>
+
+  {/* TAB SECTION */}
+  <div className="mt-12">
+    <div className="border-b mb-4">
+      <div className="flex gap-8 text-sm font-medium text-gray-600">
+        <button className="border-b-2 border-[#f97316] text-[#f97316] pb-2">DESCRIPTION</button>
+        <button className="pb-2 hover:text-[#f97316]">ADDITIONAL INFORMATION</button>
+        <button className="pb-2 hover:text-[#f97316]">SPECIFICATION</button>
+        <button className="pb-2 hover:text-[#f97316]">REVIEW</button>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Description */}
+      <div className="lg:col-span-1">
+        <p className="text-sm text-gray-800 leading-6">{data.description}</p>
+      </div>
+
+      {/* Feature */}
+      <div className="space-y-2">
+        <p>✅ Free 1 Year Warranty</p>
+        <p>🚚 Free Shipping</p>
+        <p>🔒 Secure Payment</p>
+        <p>💬 24/7 Customer Support</p>
+      </div>
+
+      {/* Shipping */}
+      <div className="space-y-2">
+        <p><strong>Courier:</strong> 2–4 days, Free Shipping</p>
+        <p><strong>Local Shipping:</strong> $19.00</p>
+        <p><strong>UPS Ground:</strong> $29.00</p>
+        <p><strong>Global Export:</strong> $39.00</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+      ) : null}
+     <div className="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  {productGroups.map((group, idx) => (
+    <div key={idx}>
+      <h3 className="text-sm font-semibold mb-4 text-[#333] uppercase">
+        {group.title}
+      </h3>
+      <div className="flex flex-col gap-4">
+        {group.products.map((item, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-4 border rounded-md p-3 hover:shadow-sm transition h-[100px]"
+          >
+            <img
+              src={item.img}
+              alt={item.name}
+              className="w-16 h-16 object-contain rounded"
+            />
+            <div className="flex flex-col justify-between h-full py-1">
+              <p className="text-sm text-gray-700 leading-tight line-clamp-2">
+                {item.name}
+              </p>
+              <p className="text-sm text-blue-600 font-semibold">
+                {item.price}
+              </p>
             </div>
           </div>
-        </div>
-      ) : null}
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+   
     </div>
   );
 };

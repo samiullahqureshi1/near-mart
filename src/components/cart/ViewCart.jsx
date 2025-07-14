@@ -32,201 +32,163 @@ const CartPage = () => {
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* Banner */}
-      <div
-        className="w-full h-[100px] flex items-center justify-center bg-cover bg-center mb-8"
-        style={{
-          backgroundImage:
-            "url('https://demo-kalles-4-1.myshopify.com/cdn/shop/files/shopping-cart-head.jpg?v=1652080767')",
-        }}
-      >
-        <h1 className="text-white text-[26px] font-semibold tracking-wide">
-          SHOPPING CART
-        </h1>
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-6 lg:px-12 mb-20">
+        {/* Cart Table Left */}
+        <div className="col-span-2 bg-white border border-gray-200 rounded-md overflow-x-auto self-start">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-100 text-left text-gray-600 uppercase text-xs">
+                <th className="p-4">Products</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Quantity</th>
+                <th className="p-4">Sub-total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item, index) => (
+                <tr key={index} className="border-t text-gray-800">
+                  <td className="p-4">
+                    <div className="flex gap-4 items-center">
+                      {/* Remove button */}
+                      <button
+                        onClick={() => removeFromCartHandler(item)}
+                        className="text-red-500 hover:text-red-700 text-lg"
+                      >
+                        <RxCross1 />
+                      </button>
 
-      {cart.length === 0 ? (
-        // -------------------- EMPTY CART UI --------------------
-        <div className="flex flex-col items-center justify-center mt-16 mb-20 px-4">
-          <BsCartX className="text-[90px] text-gray-500 mb-6" />
-          <h2 className="text-[22px] font-bold text-gray-800 mb-2">
-            YOUR CART IS EMPTY.
-          </h2>
-          <p className="text-gray-500 text-center mb-4 max-w-md">
-            Before proceed to checkout you must add some products to your
-            shopping cart. <br />
-            You will find a lot of interesting products on our "Shop" page.
-          </p>
-          <Link to="/products">
-            <button className="bg-[#37cfee] text-white font-semibold px-8 py-3 rounded-full hover:bg-[#2fb8d7] transition">
-              RETURN TO SHOP
-            </button>
-          </Link>
-          <p className="text-sm text-gray-500 mt-4">
-            Free Shipping for all orders over{" "}
-            <span className="text-red-600 font-semibold">$100.00</span>
-          </p>
-        </div>
-      ) : (
-        // -------------------- CART ITEMS UI --------------------
-        <>
-          {/* Cart Table */}
-          <div className="w-full px-10 mb-10 overflow-x-auto">
-            <table className="w-full min-w-[900px] border-collapse">
-              <thead>
-                <tr className="text-left text-gray-600 text-[13px] uppercase border-b">
-                  <th className="py-3">Product</th>
-                  <th className="py-3">Price</th>
-                  <th className="py-3">Quantity</th>
-                  <th className="py-3">Total</th>
+                      {/* Product image */}
+                      <img
+                        src={item.images[0]?.url}
+                        alt={item.name}
+                        className="w-[60px] h-[60px] object-contain"
+                      />
+
+                      {/* Product name */}
+                      <div className="text-sm font-medium text-gray-800">
+                        {item.name}
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* Price */}
+                  <td className="p-4 text-sm font-medium text-gray-700">
+                    {item.originalPrice &&
+                    item.originalPrice > item.discountPrice ? (
+                      <div className="space-x-2">
+                        <span className="line-through text-gray-400">
+                          ${item.originalPrice}
+                        </span>
+                        <span>${item.discountPrice.toFixed(2)}</span>
+                      </div>
+                    ) : (
+                      <span>${item.discountPrice.toFixed(2)}</span>
+                    )}
+                  </td>
+
+                  {/* Quantity Controls */}
+                  <td className="p-4">
+                    <div className="flex items-center justify-center border border-gray-300 rounded-md w-[110px]">
+                      <button
+                        className="px-3 py-1 text-gray-700"
+                        onClick={() =>
+                          handleQuantityChange(
+                            item,
+                            item.qty > 1 ? item.qty - 1 : 1
+                          )
+                        }
+                      >
+                        <HiOutlineMinus />
+                      </button>
+                      <span className="px-4 text-sm">
+                        {item.qty.toString().padStart(2, "0")}
+                      </span>
+                      <button
+                        className="px-3 py-1 text-gray-700"
+                        onClick={() => handleQuantityChange(item, item.qty + 1)}
+                      >
+                        <HiPlus />
+                      </button>
+                    </div>
+                  </td>
+
+                  {/* Subtotal */}
+                  <td className="p-4 font-semibold text-sm">
+                    ${calculateTotal(item.discountPrice, item.qty)}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {cart.map((item, i) => (
-                  <tr key={i} className="border-b">
-                    <td className="py-6">
-                      <div className="flex items-center gap-5">
-                        <img
-                          src={item.images[0]?.url}
-                          alt={item.name}
-                          className="w-[150px] rounded-md object-cover"
-                        />
-                        <div>
-                          <h2 className="font-semibold text-[15px] text-gray-800">
-                            {item.name}
-                          </h2>
-                          <button
-                            onClick={() => removeFromCartHandler(item)}
-                            className="text-gray-500 mt-2 hover:text-black transition"
-                          >
-                            <RxCross1 />
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="text-[14px] text-gray-700 font-medium">
-                      ${item.discountPrice.toFixed(2)}
-                    </td>
-                    <td>
-                      <div className="flex items-center border border-black rounded-full px-4 py-1 w-fit">
-                        <button
-                          onClick={() =>
-                            handleQuantityChange(
-                              item,
-                              item.qty > 1 ? item.qty - 1 : 1
-                            )
-                          }
-                          className="text-[15px] text-gray-700"
-                        >
-                          <HiOutlineMinus />
-                        </button>
-                        <span className="mx-4 text-[14px]">{item.qty}</span>
-                        <button
-                          onClick={() =>
-                            handleQuantityChange(item, item.qty + 1)
-                          }
-                          className="text-[15px] text-gray-700"
-                        >
-                          <HiPlus />
-                        </button>
-                      </div>
-                    </td>
-                    <td className="text-[15px] text-gray-900 font-semibold">
-                      ${calculateTotal(item.discountPrice, item.qty)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Bottom Action Buttons */}
+          <div className="flex justify-between items-center p-5 border-t bg-white">
+            <Link to="/products">
+              <button className="flex items-center gap-2 text-sm font-semibold text-blue-600 border border-blue-500 px-4 py-2 rounded hover:bg-blue-50 transition">
+                <span className="text-lg">←</span> RETURN TO SHOP
+              </button>
+            </Link>
+
+            <button className="text-sm font-semibold border border-blue-500 text-blue-600 px-5 py-2 rounded hover:bg-blue-50 transition">
+              UPDATE CART
+            </button>
           </div>
+        </div>
 
-          {/* Extra Options */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-10 mb-20">
-            {/* Left */}
-            <div className="space-y-8">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <BsGift className="text-xl text-black" />
-                  <p className="text-sm text-black">
-                    Do you want a gift wrap?{" "}
-                    <span className="font-semibold">$5.00</span>
-                  </p>
-                </div>
-                <button className="border border-black px-5 py-2 rounded-full font-medium text-sm hover:bg-black hover:text-white transition">
-                  Add A Gift Wrap
-                </button>
+        {/* Right Sidebar */}
+        <div className="space-y-6">
+          {/* Totals Card */}
+          <div className="border border-gray-200 rounded-md p-6">
+            <h3 className="font-semibold text-gray-700 mb-4 text-sm">
+              Card Totals
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Sub-total:</span>
+                <span className="font-medium">${totalPrice.toFixed(2)}</span>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-black mb-2">
-                  Add Order Note
-                </label>
-                <textarea
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
-                  rows="4"
-                  placeholder="How can we help you?"
-                ></textarea>
+              <div className="flex justify-between">
+                <span>Shipping:</span>
+                <span className="font-medium">Free</span>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-black mb-2">
-                  Coupon:
-                </label>
-                <p className="text-sm text-gray-500 mb-2">
-                  Coupon code will work on checkout page
-                </p>
-                <input
-                  type="text"
-                  placeholder="Coupon code"
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm"
-                />
+              <div className="flex justify-between">
+                <span>Discount:</span>
+                <span className="font-medium">$24</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tax:</span>
+                <span className="font-medium">$61.99</span>
+              </div>
+              <hr />
+              <div className="flex justify-between font-semibold text-base">
+                <span>Total</span>
+                <span>${(totalPrice + 61.99 - 24).toFixed(2)} USD</span>
               </div>
             </div>
 
-            {/* Right */}
-            <div className="space-y-6">
-              <div>
-                <p className="text-sm text-gray-700 text-right">
-                  Almost there, add{" "}
-                  <span className="text-yellow-500 font-semibold">
-                    ${remaining}
-                  </span>{" "}
-                  more to get <span className="font-bold">FREE SHIPPING!</span>
-                </p>
-                <div className="relative mt-2 h-3 rounded-full bg-gray-200 overflow-hidden">
-                  <div
-                    className="absolute top-0 left-0 h-full bg-yellow-400"
-                    style={{
-                      width: `${Math.min(
-                        (totalPrice / shippingThreshold) * 100,
-                        100
-                      )}%`,
-                    }}
-                  ></div>
-                  <BsTruck className="absolute top-[-20px] left-[50%] text-yellow-600 text-lg" />
-                </div>
-              </div>
-
-              <div className="flex justify-between text-lg font-semibold text-black">
-                <p>SUBTOTAL:</p>
-                <p>${totalPrice.toFixed(2)}</p>
-              </div>
-
-              <p className="text-sm text-gray-500">
-                Taxes and shipping calculated at checkout
-              </p>
-
-              
-
-              <Link to="/checkout">
-                <button className="mt-6 w-full bg-[#37cfee] hover:bg-[#2fb8d7] text-white text-sm font-semibold py-3 rounded-full transition">
-                  Check Out
-                </button>
-              </Link>
-            </div>
+            <Link to="/checkout">
+              <button className="mt-5 w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold py-3 rounded transition flex items-center justify-center gap-2">
+                PROCEED TO CHECKOUT →
+              </button>
+            </Link>
           </div>
-        </>
-      )}
+
+          {/* Coupon Code */}
+          <div className="border border-gray-200 rounded-md p-6">
+            <h3 className="font-semibold text-gray-700 mb-3 text-sm">
+              Coupon Code
+            </h3>
+            <input
+              type="text"
+              placeholder="Email address"
+              className="w-full border border-gray-300 rounded px-3 py-2 text-sm mb-3"
+            />
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold py-2 rounded transition">
+              APPLY COUPON
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
       <Footer />
