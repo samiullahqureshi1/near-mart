@@ -11,7 +11,8 @@ const CreateProduct = () => {
   const { success, error } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [specifications, setSpecifications] = useState("");
+  const [size, setSize] = useState("");
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
@@ -95,6 +96,7 @@ const CreateProduct = () => {
         storage,
         memory,
         network,
+        size,
       })
     );
   };
@@ -278,6 +280,16 @@ const CreateProduct = () => {
               onChange={(e) => setStorage(e.target.value)}
               className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="128 GB"
+            />
+          </div>
+          <div>
+            <label className="pb-2">Size / Dimensions</label>
+            <input
+              type="text"
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="E.g. 146.3 x 70.9 x 7.6 mm"
             />
           </div>
           <div>

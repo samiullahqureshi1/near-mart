@@ -9,7 +9,7 @@ export const getAllOrdersOfUser = (userId) => async (dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://near-backend.vercel.app/api/v2/order/get-all-orders/${userId}`
+      `http://localhost:9000/api/v2/order/get-all-orders/${userId}`
     );
 
     dispatch({
@@ -32,7 +32,7 @@ export const getAllOrdersOfShop = (shopId) => async (dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://near-backend.vercel.app/api/v2/order/get-seller-all-orders/${shopId}`
+      `http://localhost:9000/api/v2/order/get-seller-all-orders/${shopId}`
     );
 
     dispatch({
@@ -54,7 +54,7 @@ export const getAllOrdersOfAdmin = () => async (dispatch) => {
       type: "adminAllOrdersRequest",
     });
 
-    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/order/admin-all-orders`, {
+    const { data } = await axios.get(`http://localhost:9000/api/v2/order/admin-all-orders`, {
       withCredentials: true,
     });
 

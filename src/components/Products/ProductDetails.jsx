@@ -28,9 +28,13 @@ import {
   FaDatabase,
   FaExpandArrowsAlt,
   FaGem,
+  FaHeadset,
+  FaLock,
   FaMicrochip,
   FaMobileAlt,
+  FaShippingFast,
 } from "react-icons/fa";
+import { MdVerifiedUser } from "react-icons/md";
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
@@ -213,7 +217,7 @@ const ProductDetails = ({ data }) => {
       const userId = user._id;
       const sellerId = data.shop._id;
       await axios
-        .post(`https://near-backend.vercel.app/conversation/create-new-conversation`, {
+        .post(`http://localhost:9000/conversation/create-new-conversation`, {
           groupTitle,
           userId,
           sellerId,
@@ -245,6 +249,7 @@ const ProductDetails = ({ data }) => {
     { icon: "⚙️", label: "OS", value: data?.os },
     { icon: "🆔", label: "MPN", value: data?.manufacturerPartNo },
   ];
+const [activeTab, setActiveTab] = useState("description");
 
   return (
     <div className="bg-white">
@@ -398,35 +403,113 @@ const ProductDetails = ({ data }) => {
   <div className="mt-12">
     <div className="border-b mb-4">
       <div className="flex gap-8 text-sm font-medium text-gray-600">
-        <button className="border-b-2 border-[#f97316] text-[#f97316] pb-2">DESCRIPTION</button>
-        <button className="pb-2 hover:text-[#f97316]">ADDITIONAL INFORMATION</button>
-        <button className="pb-2 hover:text-[#f97316]">SPECIFICATION</button>
-        <button className="pb-2 hover:text-[#f97316]">REVIEW</button>
+      <button
+  onClick={() => setActiveTab("description")}
+  className={`pb-2 ${
+    activeTab === "description" ? "border-b-2 border-[#f97316] text-[#f97316]" : "hover:text-[#f97316]"
+  }`}
+>
+  DESCRIPTION
+</button>
+
+<button
+  onClick={() => setActiveTab("additional")}
+  className={`pb-2 ${
+    activeTab === "additional" ? "border-b-2 border-[#f97316] text-[#f97316]" : "hover:text-[#f97316]"
+  }`}
+>
+  ADDITIONAL INFORMATION
+</button>
+
+<button
+  onClick={() => setActiveTab("specification")}
+  className={`pb-2 ${
+    activeTab === "specification" ? "border-b-2 border-[#f97316] text-[#f97316]" : "hover:text-[#f97316]"
+  }`}
+>
+  SPECIFICATION
+</button>
+
+<button
+  onClick={() => setActiveTab("review")}
+  className={`pb-2 ${
+    activeTab === "review" ? "border-b-2 border-[#f97316] text-[#f97316]" : "hover:text-[#f97316]"
+  }`}
+>
+  REVIEW
+</button>
+
       </div>
     </div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Description */}
-      <div className="lg:col-span-1">
-        <p className="text-sm text-gray-800 leading-6">{data.description}</p>
-      </div>
-
-      {/* Feature */}
-      <div className="space-y-2">
-        <p>✅ Free 1 Year Warranty</p>
-        <p>🚚 Free Shipping</p>
-        <p>🔒 Secure Payment</p>
-        <p>💬 24/7 Customer Support</p>
-      </div>
-
-      {/* Shipping */}
-      <div className="space-y-2">
-        <p><strong>Courier:</strong> 2–4 days, Free Shipping</p>
-        <p><strong>Local Shipping:</strong> $19.00</p>
-        <p><strong>UPS Ground:</strong> $29.00</p>
-        <p><strong>Global Export:</strong> $39.00</p>
-      </div>
+    {/* DESCRIPTION TAB */}
+{activeTab === "description" && (
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="lg:col-span-1">
+      <p className="text-sm text-gray-800 leading-6">{data.description}</p>
     </div>
+  <div className="space-y-2 text-sm text-gray-800">
+  <p className="flex items-center gap-2">
+    <MdVerifiedUser className="text-[#f97316]" /> Free 1 Year Warranty
+  </p>
+  <p className="flex items-center gap-2">
+    <FaShippingFast className="text-[#f97316]" /> Free Shipping
+  </p>
+  <p className="flex items-center gap-2">
+    <FaLock className="text-[#f97316]" /> Secure Payment
+  </p>
+  <p className="flex items-center gap-2">
+    <FaHeadset className="text-[#f97316]" /> 24/7 Customer Support
+  </p>
+</div>
+
+    <div className="space-y-2">
+      <p><strong>Courier:</strong> 2–4 days, Free Shipping</p>
+      <p><strong>Local Shipping:</strong> $19.00</p>
+      <p><strong>UPS Ground:</strong> $29.00</p>
+      <p><strong>Global Export:</strong> $39.00</p>
+    </div>
+  </div>
+)}
+
+{/* ADDITIONAL INFORMATION TAB */}
+{activeTab === "additional" && (
+  <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
+    {/* <div><strong>SKU:</strong> {data.sku || "N/A"}</div> */}
+    <div><strong>Warranty:</strong> {data.warranty || "1 Year Manufacturer Warranty"}</div>
+    <div><strong>Shipping:</strong> Ships within 2-4 days</div>
+    <div><strong>Return Policy:</strong> 30 Days Easy Returns</div>
+    <div><strong>Country of Origin:</strong> {data.origin || "Imported"}</div>
+    <div><strong>Included Items:</strong> {data.includedItems || "Box, Charger, Manual"}</div>
+  </div>
+)}
+
+{/* SPECIFICATION TAB */}
+{activeTab === "specification" && (
+  <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
+    <div><strong>Model:</strong> {data.model}</div>
+    <div><strong>Part No.:</strong> {data.manufacturerPartNo}</div>
+    <div><strong>Screen Size:</strong> {data.screenSize}</div>
+    <div><strong>Resolution:</strong> {data.resolution}</div>
+    <div><strong>Color:</strong> {data.color}</div>
+    <div><strong>Operating System:</strong> {data.os}</div>
+    <div><strong>Storage:</strong> {data.storage}</div>
+    <div><strong>Memory:</strong> {data.memory}</div>
+    <div><strong>Network:</strong> {data.network}</div>
+    <div className="col-span-2">
+      <strong>Specifications:</strong>
+      <p className="mt-1">{data.specifications}</p>
+    </div>
+  </div>
+)}
+
+{/* REVIEW TAB */}
+{activeTab === "review" && (
+  <div className="text-gray-600 text-sm">
+    <p>No reviews yet. Be the first to write a review!</p>
+  </div>
+)}
+
   </div>
 </div>
 

@@ -10,6 +10,7 @@ import { MdOutlineCategory } from 'react-icons/md';
 import { TbArrowsShuffle } from 'react-icons/tb';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   AiOutlineEye,
@@ -28,14 +29,18 @@ import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
 import logo from "../../Assests/nearmart.png";
+import axios from "axios";
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { isSeller } = useSelector((state) => state.seller);
+  const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { allProducts } = useSelector((state) => state.products);
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -43,7 +48,45 @@ const Header = ({ activeHeading }) => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  console.log("🔵 Login Submit Clicked");
+
+  try {
+    console.log("🔵 Sending login API request with data:", { email, password });
+
+    const res = await axios.post(
+      "http://localhost:9000/api/v2/user/login-user",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+
+    console.log("✅ Login API Response:", res);
+
+    toast.success("Login Success!");
+
+    const role = res.data.user?.role;
+    console.log("✅ User Role:", role);
+
+    if (role === "Seller") {
+      console.log("✅ Redirecting to Dashboard");
+      navigate("/dashboard");
+    } else {
+      console.log("✅ Redirecting to Homepage");
+      navigate("/");
+    }
+
+    console.log("🔄 Reloading window...");
+    window.location.reload(true);
+  } catch (err) {
+    console.error("❌ Login API Error:", err);
+    toast.error(err.response?.data?.message || "Login failed");
+  }
+};
 
    const [showLogin, setShowLogin] = useState(false);
   const modalRef = useRef(null);
@@ -186,7 +229,7 @@ const Header = ({ activeHeading }) => {
   {/* Wishlist */}
   <div
     className="relative cursor-pointer flex items-center justify-center"
-    onClick={() => setOpenWishlist(true)}
+  onClick={() => navigate("/wishlist")} // ✅ go to wishlist page
   >
     <CiHeart size={26} />
     {wishlist?.length > 0 && (
@@ -220,35 +263,108 @@ const Header = ({ activeHeading }) => {
 
   {/* Profile */}
   <div className="relative">
-    {isAuthenticated ? (
-      <Link to="/profile">
-        <CiUser size={26} />
-      </Link>
-    ) : (
-      <span
-        onClick={() => setShowLogin((prev) => !prev)}
-        className="cursor-pointer"
-      >
-        <CgProfile size={26} />
-      </span>
-    )}
+      {/* Profile Icon */}
+      {isAuthenticated ? (
+        <Link to="/profile">
+          <CiUser size={22} />
+        </Link>
+      ) : (
+        <span onClick={() => setShowLogin((prev) => !prev)}>
+          <CgProfile size={22} />
+        </span>
+      )}
 
-    {/* Login Modal */}
-    {!isAuthenticated && showLogin && (
-      <div
-        ref={modalRef}
-        className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6 z-50"
-      >
-        {/* --- Existing Login Modal Code --- */}
-      </div>
-    )}
-  </div>
+      {/* Login Modal */}
+      {!isAuthenticated && showLogin && (
+        <div
+          ref={modalRef}
+          className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6 z-50"
+        >
+          <h3 className="text-center text-black text-lg font-semibold mb-6">
+            Sign in to your account
+          </h3>
+
+          <form className="space-y-4"  onSubmit={handleSubmit}>
+            {/* Email */}
+            <div>
+              <label className="text-sm font-medium block mb-1">Email Address</label>
+              <input
+                type="email"
+                value={email}
+                  onChange={(e) => setEmail(e.target.value)} // ✅ Add this
+
+                placeholder="Enter your email"
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="text-sm font-medium">Password</label>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-blue-500 hover:underline"
+                >
+                  Forget Password
+                </Link>
+              </div>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                    onChange={(e) => setPassword(e.target.value)} // ✅ Add this
+
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <span
+                  className="absolute right-3 top-2.5 cursor-pointer text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible size={18} />
+                  ) : (
+                    <AiOutlineEye size={18} />
+                  )}
+                </span>
+              </div>
+            </div>
+
+            {/* Login Button */}
+            <button
+              type="submit"
+              className="w-full bg-[#ff6600] hover:bg-[#e65c00] text-white font-semibold py-2 rounded text-sm flex items-center justify-center gap-2"
+            >
+              LOGIN <span className="text-base">→</span>
+            </button>
+          </form>
+
+          {/* Decorative text with horizontal lines */}
+          <div className="flex items-center my-5">
+            <div className="flex-grow h-px bg-gray-300" />
+            <span className="px-3 text-sm text-gray-500 whitespace-nowrap">
+              Don’t have account
+            </span>
+            <div className="flex-grow h-px bg-gray-300" />
+          </div>
+
+          {/* Create Account Button */}
+          <Link
+            to="/sign-up"
+            className="block w-full border border-orange-500 text-orange-500 py-2 text-sm font-semibold text-center rounded hover:bg-orange-50 transition"
+          >
+            CREATE ACCOUNT
+          </Link>
+        </div>
+      )}
+    </div>
 </div>
 
 
   {/* Conditional Panels */}
   {/* {openCart && <Cart setOpenCart={setOpenCart} />} */}
-  {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />}
+  {/* {openWishlist && <Wishlist setOpenWishlist={setOpenWishlist} />} */}
 </div>
 
 
@@ -317,16 +433,20 @@ const Header = ({ activeHeading }) => {
     </div>
 
     {/* Customer Support */}
-    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
-      <BiSupport size={16} />
-      <span>Customer Support</span>
-    </div>
+    <Link to="/customer-support">
+  <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
+    <BiSupport size={16} />
+    <span>Customer Support</span>
+  </div>
+</Link>
 
     {/* Need Help */}
+    <Link to={"/help-center"}>
     <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
       <TbArrowsShuffle size={16} />
       <span>Need Help</span>
     </div>
+    </Link>
   </div>
 
   {/* Right: Phone Number */}

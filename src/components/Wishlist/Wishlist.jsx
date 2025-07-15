@@ -1,104 +1,135 @@
-import React, { useState } from "react";
-import { RxCross1 } from "react-icons/rx";
+import React from "react";
 import { BsCartPlus } from "react-icons/bs";
-import styles from "../../styles/styles";
-import { AiOutlineHeart } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromWishlist } from "../../redux/actions/wishlist";
+import { RxCross1 } from "react-icons/rx";
+import { useSelector, useDispatch } from "react-redux";
 import { addTocart } from "../../redux/actions/cart";
+import { removeFromWishlist } from "../../redux/actions/wishlist";
+import Header from "../Layout/Header";
+import FooterWithNewsletter from "../Layout/Footer";
 
-const Wishlist = ({ setOpenWishlist }) => {
-  const { wishlist } = useSelector((state) => state.wishlist);
+const WishlistTable = () => {
   const dispatch = useDispatch();
+  const { wishlist } = useSelector((state) => state.wishlist);
 
-  const removeFromWishlistHandler = (data) => {
-    dispatch(removeFromWishlist(data));
+  const addToCartHandler = (item) => {
+    const newItem = { ...item, qty: 1 };
+    dispatch(addTocart(newItem));
   };
 
-  const addToCartHandler = (data) => {
-    const newData = {...data, qty:1};
-    dispatch(addTocart(newData));
-    setOpenWishlist(false);
-  }
+  const removeFromWishlistHandler = (item) => {
+    dispatch(removeFromWishlist(item));
+  };
 
-  return (
-    <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
-      <div className="fixed top-0 right-0 h-full w-[80%] overflow-y-scroll 800px:w-[25%] bg-white flex flex-col justify-between shadow-sm">
-        {wishlist && wishlist.length === 0 ? (
-          <div className="w-full h-screen flex items-center justify-center">
-            <div className="flex w-full justify-end pt-5 pr-5 fixed top-3 right-3">
-              <RxCross1
-                size={25}
-                className="cursor-pointer"
-                onClick={() => setOpenWishlist(false)}
-              />
-            </div>
-            <h5>Wishlist Items is empty!</h5>
-          </div>
-        ) : (
-          <>
-            <div>
-              <div className="flex w-full justify-end pt-5 pr-5">
-                <RxCross1
-                  size={25}
-                  className="cursor-pointer"
-                  onClick={() => setOpenWishlist(false)}
-                />
-              </div>
-              {/* Item length */}
-              <div className={`${styles.noramlFlex} p-4`}>
-                <AiOutlineHeart size={25} />
-                <h5 className="pl-2 text-[20px] font-[500]">
-                  {wishlist && wishlist.length} items
-                </h5>
-              </div>
 
-              {/* cart Single Items */}
-              <br />
-              <div className="w-full border-t">
-                {wishlist &&
-                  wishlist.map((i, index) => (
-                    <CartSingle key={index} data={i} removeFromWishlistHandler={removeFromWishlistHandler} addToCartHandler={addToCartHandler} />
-                  ))}
-              </div>
+ return (
+  <>
+    <Header />
+    <div className="px-4 py-10">
+      <div className="max-w-[880px] mx-auto border rounded-lg overflow-hidden bg-white shadow-sm">
+        {/* Heading */}
+        <div className="bg-white px-6 py-4 border-b">
+          <h2 className="text-lg font-semibold text-gray-800">Wishlist</h2>
+        </div>
+
+        {/* Conditional content */}
+        <div className="p-6">
+          {wishlist.length === 0 ? (
+            <div className="text-center text-gray-600 text-base py-12">
+              Your wishlist is empty.
             </div>
-          </>
-        )}
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead className="bg-gray-100 text-left text-gray-600 uppercase text-xs">
+                  <tr>
+                    <th className="px-4 py-3">Products</th>
+                    <th className="px-4 py-3">Price</th>
+                    <th className="px-4 py-3">Stock Status</th>
+                    <th className="px-4 py-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {wishlist.map((item, idx) => {
+                    const price = item.discountPrice || item.price;
+                    const original = item.originalPrice || "";
+                    const inStock = item.stock > 0;
+
+                    return (
+                      <tr
+                        key={idx}
+                        className="border-t hover:bg-gray-50 transition-all"
+                      >
+                        <td className="px-4 py-4 flex items-center gap-4">
+                          <img
+                            src={item.images[0]?.url}
+                            alt={item.name}
+                            className="w-14 h-14 object-cover rounded"
+                          />
+                          <span className="text-sm font-medium text-gray-800 max-w-xs line-clamp-2">
+                            {item.name}
+                          </span>
+                        </td>
+
+                        <td className="px-4 py-4 text-sm">
+                          {original && (
+                            <span className="line-through text-gray-400 mr-2">
+                              ${original}
+                            </span>
+                          )}
+                          <span className="text-[#d02222] font-semibold">
+                            ${price}
+                          </span>
+                        </td>
+
+                        <td className="px-4 py-4 font-medium">
+                          <span
+                            className={inStock ? "text-green-600" : "text-red-500"}
+                          >
+                            {inStock ? "IN STOCK" : "OUT OF STOCK"}
+                          </span>
+                        </td>
+
+                        <td className="px-4 py-4">
+                          <div className="flex items-center justify-between gap-3 w-full">
+                            {inStock ? (
+                              <button
+                                className="text-sm px-4 py-2 rounded font-semibold transition bg-[#ff6600] text-white hover:bg-[#e65c00] flex items-center gap-2"
+                                onClick={() => addToCartHandler(item)}
+                              >
+                                ADD TO CART <BsCartPlus size={16} />
+                              </button>
+                            ) : (
+                              <button
+                                className="text-sm px-4 py-2 rounded font-semibold bg-gray-300 text-gray-600 cursor-not-allowed flex items-center gap-2"
+                                disabled
+                              >
+                                ADD TO CART <BsCartPlus size={16} />
+                              </button>
+                            )}
+
+                            <button
+                              onClick={() => removeFromWishlistHandler(item)}
+                              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:text-red-500 hover:border-red-400 transition"
+                              title="Remove"
+                            >
+                              <RxCross1 size={16} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  );
+    <FooterWithNewsletter />
+  </>
+);
+
 };
 
-const CartSingle = ({ data,removeFromWishlistHandler,addToCartHandler }) => {
-  const [value, setValue] = useState(1);
-  const totalPrice = data.discountPrice * value;
-
-  return (
-    <div className="border-b p-4">
-      <div className="w-full 800px:flex items-center">
-        <RxCross1 className="cursor-pointer 800px:mb-['unset'] 800px:ml-['unset'] mb-2 ml-2"
-        onClick={() => removeFromWishlistHandler(data)}
-        />
-        <img
-          src={`${data?.images[0]?.url}`}
-          alt=""
-          className="w-[130px] h-min ml-2 mr-2 rounded-[5px]"
-        />
-
-        <div className="pl-[5px]">
-          <h1>{data.name}</h1>
-          <h4 className="font-[600] pt-3 800px:pt-[3px] text-[17px] text-[#d02222] font-Roboto">
-            Rs.{totalPrice}
-          </h4>
-        </div>
-        <div>
-          <BsCartPlus size={20} className="cursor-pointer" tile="Add to cart"
-           onClick={() => addToCartHandler(data)}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Wishlist;
+export default WishlistTable;

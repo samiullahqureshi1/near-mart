@@ -62,13 +62,16 @@ import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CartPage from "./components/cart/ViewCart.jsx";
+import WishlistTable from "./components/Wishlist/Wishlist.jsx";
+import SupportPage from "./components/Route/CustomerSupport/CustomerSupport.jsx";
+import HelpCenter from "./components/Route/Help/Help.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
 
   async function getStripeApikey() {
     const { data } = await axios.get(
-      `https://near-backend.vercel.app/api/v2/payment/stripeapikey`
+      `http://localhost:9000/api/v2/payment/stripeapikey`
     );
     setStripeApiKey(data.stripeApikey);
   }
@@ -103,6 +106,18 @@ const App = () => {
         <Route
           path="/activation/:activation_token"
           element={<ActivationPage />}
+        />
+         <Route
+          path="/wishlist"
+          element={<WishlistTable />}
+        />
+         <Route
+          path="/customer-support"
+          element={<SupportPage />}
+        />
+          <Route
+          path="/help-center"
+          element={<HelpCenter />}
         />
         <Route
           path="/seller/activation/:activation_token"
@@ -165,18 +180,16 @@ const App = () => {
         <Route
           path="/shop/:id"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopHomePage />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/settings"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopSettingsPage />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard"
@@ -197,83 +210,74 @@ const App = () => {
         <Route
           path="/dashboard-orders"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopAllOrders />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-refunds"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopAllRefunds />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
 
         <Route
           path="/order/:id"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopOrderDetails />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-products"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopAllProducts />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-create-event"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopCreateEvents />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-events"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopAllEvents />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-coupouns"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopAllCoupouns />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-withdraw-money"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopWithDrawMoneyPage />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         <Route
           path="/dashboard-messages"
           element={
-            <SellerProtectedRoute>
+                       <SellerProtectedRoute>
               <ShopInboxPage />
-            </SellerProtectedRoute>
-          }
+           </SellerProtectedRoute>          }
         />
         {/* Admin Routes */}
         <Route
           path="/admin/dashboard"
           element={
-            <ProtectedAdminRoute>
+            // <ProtectedAdminRoute>
               <AdminDashboardPage />
-            </ProtectedAdminRoute>
+            // </ProtectedAdminRoute>
           }
         />
         <Route

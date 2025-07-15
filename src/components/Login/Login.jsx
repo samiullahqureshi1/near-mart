@@ -17,7 +17,7 @@ const Login = () => {
 
   //   await axios
   //     .post(
-  //       `https://near-backend.vercel.app/api/v2/user/login-user`,
+  //       `http://localhost:9000/api/v2/user/login-user`,
   //       {
   //         email,
   //         password,
@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
     console.log("🔵 Sending login API request with data:", { email, password });
 
     const res = await axios.post(
-      "https://near-backend.vercel.app/api/v2/user/login-user",
+      "http://localhost:9000/api/v2/user/login-user",
       {
         email,
         password,
