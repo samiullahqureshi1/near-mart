@@ -73,11 +73,11 @@ const WishlistTable = () => {
                         <td className="px-4 py-4 text-sm">
                           {original && (
                             <span className="line-through text-gray-400 mr-2">
-                              ${original}
+                              GH₵{original}
                             </span>
                           )}
                           <span className="text-[#d02222] font-semibold">
-                            ${price}
+                            GH₵{price}
                           </span>
                         </td>
 

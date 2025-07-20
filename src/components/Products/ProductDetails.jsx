@@ -54,17 +54,17 @@ const ProductDetails = ({ data }) => {
     products: [
       {
         name: "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://discountstore.pk/cdn/shop/files/bose-sport-true-wireless-in-ear-headphones.jpg?v=1750833615",
       },
       {
         name: "Simple Mobile 4G LTE Prepaid Smartphone",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://images-na.ssl-images-amazon.com/images/I/71L1ezoIH9L._AC_UL495_SR435,495_.jpg",
       },
       {
         name: "4K UHD LED Smart TV with Chromecast Built-in",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-34.jpg",
       },
     ],
@@ -74,17 +74,17 @@ const ProductDetails = ({ data }) => {
     products: [
       {
         name: "Samsung Electronics Samsung Galaxy S21 5G",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://images.samsung.com/is/image/samsung/p6pim/pk/galaxy-s21/gallery/pk-galaxy-s21-5g-g991-366070-sm-g991bzagmea-362622379",
       },
       {
         name: "Simple Mobile 5G LTE Galaxy 12 Mini 512GB Gaming Phone",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://s.alicdn.com/@sc04/kf/H93b436371a1844d4858a34e210bf75d24.jpg_300x300.jpg",
       },
       {
         name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
       },
     ],
@@ -94,17 +94,17 @@ const ProductDetails = ({ data }) => {
     products: [
       {
         name: "Portable Wishing Machine, 11lbs capacity Model 18NMF...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-14.jpg",
       },
       {
         name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
       },
       {
         name: "Dell Optiplex 7000x7480 All-in-One Computer Monitor",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-16.jpg",
       },
     ],
@@ -114,17 +114,17 @@ const ProductDetails = ({ data }) => {
     products: [
       {
         name: "TOZO T6 True Wireless Earbuds Bluetooth Headphones...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-11.jpg",
       },
       {
         name: "JBL FLIP 4 - Waterproof Portable Bluetooth Speaker...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-17.jpg",
       },
       {
         name: "Wyze Cam Pan v2 1080p Pan/Tilt/Zoom Wi-Fi Indoor Smart...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-19.jpg",
       },
     ],
@@ -304,8 +304,8 @@ const [activeTab, setActiveTab] = useState("description");
 
   {/* Price Row */}
   <div className="flex items-center gap-3">
-    <span className="text-[22px] font-bold text-[#f97316]">${data.discountPrice}</span>
-    <span className="line-through text-gray-400 text-[14px]">${data.originalPrice}</span>
+    <span className="text-[22px] font-bold text-[#f97316]">GH₵{data.discountPrice}</span>
+    <span className="line-through text-gray-400 text-[14px]">GH₵{data.originalPrice}</span>
     <span className="text-xs bg-yellow-300 text-[#000] px-2 py-[2px] font-semibold rounded-sm">
       {Math.round(((data.originalPrice - data.discountPrice) / data.originalPrice) * 100)}% OFF
     </span>
@@ -465,9 +465,9 @@ const [activeTab, setActiveTab] = useState("description");
 
     <div className="space-y-2">
       <p><strong>Courier:</strong> 2–4 days, Free Shipping</p>
-      <p><strong>Local Shipping:</strong> $19.00</p>
-      <p><strong>UPS Ground:</strong> $29.00</p>
-      <p><strong>Global Export:</strong> $39.00</p>
+      <p><strong>Local Shipping:</strong> GH₵19.00</p>
+      <p><strong>UPS Ground:</strong> GH₵29.00</p>
+      <p><strong>Global Export:</strong> GH₵39.00</p>
     </div>
   </div>
 )}

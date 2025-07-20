@@ -15,9 +15,16 @@ body {
     background: #ffffff;
     scroll-behavior: smooth;
 }
-input,select{
+/* input,select{
   outline: none;
+} */
+
+/* global.css or tailwind.config.js */
+.input {
+  @apply w-full border border-gray-300 px-3 py-2 rounded text-sm;
 }
+
+
 .batch_heart{
   background: tomato;
   width: 15px;

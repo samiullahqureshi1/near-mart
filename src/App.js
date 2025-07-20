@@ -65,6 +65,8 @@ import CartPage from "./components/cart/ViewCart.jsx";
 import WishlistTable from "./components/Wishlist/Wishlist.jsx";
 import SupportPage from "./components/Route/CustomerSupport/CustomerSupport.jsx";
 import HelpCenter from "./components/Route/Help/Help.jsx";
+import TrackOrder from "./components/Route/TrackOrders/TrackOrder.jsx";
+import OrderDetails from "./components/Route/TrackOrders/OrderDetails.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -115,6 +117,10 @@ const App = () => {
           path="/customer-support"
           element={<SupportPage />}
         />
+         <Route
+          path="/track-order"
+          element={<TrackOrder />}
+        />
           <Route
           path="/help-center"
           element={<HelpCenter />}
@@ -142,9 +148,9 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <ProfilePage />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -161,6 +167,12 @@ const App = () => {
             <ProtectedRoute>
               <OrderDetailsPage />
             </ProtectedRoute>
+          }
+        />
+           <Route
+          path="/order-details/:id"
+          element={
+              <OrderDetails />
           }
         />
         <Route

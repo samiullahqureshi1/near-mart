@@ -421,10 +421,12 @@ const handleSubmit = async (e) => {
     </div>
 
     {/* Track Order */}
+    <Link to={'/track-order'}>
     <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">
       <FaMapMarkerAlt size={16} />
       <span>Track Order</span>
     </div>
+    </Link>
 
     {/* Compare */}
     <div className="flex items-center gap-1 cursor-pointer hover:text-blue-500">

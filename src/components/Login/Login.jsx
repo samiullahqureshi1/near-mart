@@ -1,182 +1,210 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { server } from "../../server";
 import { toast } from "react-toastify";
+import Header from "../Layout/Header";
+import FooterWithNewsletter from "../Layout/Footer";
 
-const Login = () => {
+const Auth = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [activeTab, setActiveTab] = useState("login");
+
+  // Shared states
   const [visible, setVisible] = useState(false);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  // Login states
+  const [emailLogin, setEmailLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
 
-  //   await axios
-  //     .post(
-  //       `http://localhost:9000/api/v2/user/login-user`,
-  //       {
-  //         email,
-  //         password,
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     .then((res) => {
-  //       toast.success("Login Success!");
-  //       navigate("/");
-  //       window.location.reload(true); 
-  //     })
-  //     .catch((err) => {
-  //       toast.error(err.response.data.message);
-  //     });
-  // };
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // Sign Up states
+  const [nameSignup, setNameSignup] = useState("");
+  const [emailSignup, setEmailSignup] = useState("");
+  const [passwordSignup, setPasswordSignup] = useState("");
 
-  console.log("🔵 Login Submit Clicked");
-
-  try {
-    console.log("🔵 Sending login API request with data:", { email, password });
-
-    const res = await axios.post(
-      "http://localhost:9000/api/v2/user/login-user",
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    );
-
-    console.log("✅ Login API Response:", res);
-
-    toast.success("Login Success!");
-
-    const role = res.data.user?.role;
-    console.log("✅ User Role:", role);
-
-    if (role === "Seller") {
-      console.log("✅ Redirecting to Dashboard");
-      navigate("/dashboard");
-    } else {
-      console.log("✅ Redirecting to Homepage");
-      navigate("/");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:9000/api/v2/user/login-user",
+        {
+          email: emailLogin,
+          password: passwordLogin,
+        },
+        { withCredentials: true }
+      );
+      toast.success("Login Success!");
+      const role = res.data.user?.role;
+      if (role === "Seller") navigate("/dashboard");
+      else navigate("/");
+      window.location.reload(true);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Login failed");
     }
+  };
 
-    console.log("🔄 Reloading window...");
-    window.location.reload(true);
-  } catch (err) {
-    console.error("❌ Login API Error:", err);
-    toast.error(err.response?.data?.message || "Login failed");
-  }
-};
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:9000/api/v2/user/create-user",
+        {
+          name: nameSignup,
+          email: emailSignup,
+          password: passwordSignup,
+        },
+        { withCredentials: true }
+      );
+      toast.success("Account created successfully!");
+      navigate("/");
+      window.location.reload(true);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Signup failed");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
-        </h2>
-      </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <div className="mt-1">
+    <>
+      <Header />
+      <div className="min-h-screen bg-white flex items-center justify-center px-4 py-8">
+        <div className="bg-white w-full max-w-md border border-gray-200 shadow-xl rounded-md">
+          {/* Tabs */}
+          <div className="flex border-b border-gray-200">
+            <button
+              className={`w-1/2 text-center py-3 text-sm font-semibold ${
+                activeTab === "login"
+                  ? "text-black border-b-2 border-orange-500"
+                  : "text-gray-400"
+              }`}
+              onClick={() => setActiveTab("login")}
+            >
+              Sign In
+            </button>
+            <button
+              className={`w-1/2 text-center py-3 text-sm font-semibold ${
+                activeTab === "signup"
+                  ? "text-black border-b-2 border-orange-500"
+                  : "text-gray-400"
+              }`}
+              onClick={() => setActiveTab("signup")}
+            >
+              Sign Up
+            </button>
+          </div>
+
+          {/* Sign In Form */}
+          {activeTab === "login" && (
+            <form onSubmit={handleLogin} className="px-6 pt-6 pb-4">
+              <div className="mb-4">
+                <label className="text-sm text-gray-700">Email Address</label>
                 <input
                   type="email"
-                  name="email"
-                  autoComplete="email"
+                  value={emailLogin}
+                  onChange={(e) => setEmailLogin(e.target.value)}
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-orange-500 focus:outline-none"
                 />
               </div>
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  type={visible ? "text" : "password"}
-                  name="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-                {visible ? (
-                  <AiOutlineEye
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(false)}
+              <div className="mb-4">
+                <label className="text-sm text-gray-700">Password</label>
+                <div className="relative">
+                  <input
+                    type={visible ? "text" : "password"}
+                    value={passwordLogin}
+                    onChange={(e) => setPasswordLogin(e.target.value)}
+                    required
+                    className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-orange-500 focus:outline-none"
                   />
-                ) : (
-                  <AiOutlineEyeInvisible
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(true)}
-                  />
-                )}
+                  <div
+                    className="absolute right-3 top-2.5 text-gray-600 cursor-pointer"
+                    onClick={() => setVisible(!visible)}
+                  >
+                    {visible ? <AiOutlineEye size={20} /> : <AiOutlineEyeInvisible size={20} />}
+                  </div>
+                  <a
+                    href="/forgot-password"
+                    className="absolute right-0 -bottom-5 text-xs text-blue-500 hover:underline"
+                  >
+                    Forgot Password?
+                  </a>
+                </div>
               </div>
-            </div>
-            <div className={`${styles.noramlFlex} justify-between`}>
-              <div className={`${styles.noramlFlex}`}>
-                <input
-                  type="checkbox"
-                  name="remember-me"
-                  id="remember-me"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-              <div className="text-sm">
-                <a
-                  href="/forgot-password"
-                  className="font-medium text-blue-600 hover:text-blue-500"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-            <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded text-sm font-semibold transition"
               >
-                Submit
+                SIGN IN →
               </button>
-            </div>
-            <div className={`${styles.noramlFlex} w-full`}>
-              <h4>Not have any account?</h4>
-              <Link to="/sign-up" className="text-blue-600 pl-2">
-                Sign Up
-              </Link>
-            </div>
-          </form>
+            </form>
+          )}
+
+          {/* Sign Up Form */}
+          {activeTab === "signup" && (
+            <form onSubmit={handleSignup} className="px-6 pt-6 pb-4">
+              <div className="mb-4">
+                <label className="text-sm text-gray-700">Name</label>
+                <input
+                  type="text"
+                  value={nameSignup}
+                  onChange={(e) => setNameSignup(e.target.value)}
+                  required
+                  className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-orange-500 focus:outline-none"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="text-sm text-gray-700">Email Address</label>
+                <input
+                  type="email"
+                  value={emailSignup}
+                  onChange={(e) => setEmailSignup(e.target.value)}
+                  required
+                  className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-orange-500 focus:outline-none"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="text-sm text-gray-700">Password</label>
+                <input
+                  type={visible ? "text" : "password"}
+                  value={passwordSignup}
+                  onChange={(e) => setPasswordSignup(e.target.value)}
+                  required
+                  className="mt-1 w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-orange-500 focus:outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded text-sm font-semibold transition"
+              >
+                SIGN UP →
+              </button>
+            </form>
+          )}
+
+          {/* Divider */}
+          <div className="flex items-center my-4 px-6">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="mx-3 text-sm text-gray-400">or</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+
+          {/* Social Logins */}
+          <div className="px-6 pb-6">
+            <button className="w-full flex items-center justify-center border border-gray-300 rounded py-2 mb-2 text-sm font-medium hover:bg-gray-100 transition">
+              <FcGoogle className="mr-2" size={20} />
+              Login with Google
+            </button>
+            <button className="w-full flex items-center justify-center border border-gray-300 rounded py-2 text-sm font-medium hover:bg-gray-100 transition">
+              <FaApple className="mr-2" size={20} />
+              Login with Apple
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      <FooterWithNewsletter />
+    </>
   );
 };
 
-export default Login;
+export default Auth;

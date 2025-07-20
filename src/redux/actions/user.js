@@ -4,22 +4,37 @@ import { server } from "../../server";
 // load user
 export const loadUser = () => async (dispatch) => {
   try {
+    console.log("[loadUser] Dispatching LoadUserRequest");
     dispatch({
       type: "LoadUserRequest",
     });
+
+    console.log("[loadUser] Making API call to getuser...");
     const { data } = await axios.get(`http://localhost:9000/api/v2/user/getuser`, {
       withCredentials: true,
     });
+
+    console.log("[loadUser] API call successful, data received:", data);
+
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,
     });
+
+    console.log("[loadUser] Dispatching LoadUserSuccess with user:", data.user);
   } catch (error) {
-    dispatch({
-      type: "LoadUserFail",
-      payload: error.response.data.message,
-    });
-  }
+  const errMsg = error?.response?.data?.message || error.message || "Something went wrong";
+
+  console.error("[loadUser] API call failed:", errMsg);
+  console.log("[loadUser] Full error object:", error); // Optional for deeper debug
+
+  dispatch({
+    type: "LoadUserFail",
+    payload: errMsg,
+  });
+
+  console.error("[loadUser] Dispatching LoadUserFail");
+}
 };
 
 // load seller
@@ -162,6 +177,34 @@ export const getAllUsers = () => async (dispatch) => {
     dispatch({
       type: "getAllUsersFailed",
       payload: error.response.data.message,
+    });
+  }
+};
+
+// update full user info (includes billing & shipping)
+export const updateFullUserInfo = (userId, updatedUserData) => async (dispatch) => {
+  try {
+    dispatch({ type: "updateFullUserRequest" });
+
+    const { data } = await axios.put(
+      `http://localhost:9000/api/v2/user/update-user/${userId}`,
+      updatedUserData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    dispatch({
+      type: "updateFullUserSuccess",
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateFullUserFailed",
+      payload: error.response?.data?.message || "Update failed",
     });
   }
 };
