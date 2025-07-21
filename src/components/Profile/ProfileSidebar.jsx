@@ -212,7 +212,7 @@ const ProfileSidebar = ({ setActive, active }) => {
     { id: 3, label: "Track Order", icon: <MdOutlineTrackChanges size={20} /> },
     { id: 4, label: "Shopping Cart", icon: <HiOutlineReceiptRefund size={20} /> },
     { id: 5, label: "Wishlist", icon: <AiOutlineMessage size={20} /> },
-    { id: 6, label: "Change Password", icon: <RiLockPasswordLine size={20} /> },
+    // { id: 6, label: "Change Password", icon: <RiLockPasswordLine size={20} /> },
     // { id: 7, label: "Cards & Address", icon: <TbAddressBook size={20} /> },
     // { id: 8, label: "Browsing History", icon: <MdOutlineAdminPanelSettings size={20} /> },
     { id: 9, label: "Setting", icon: <RiLockPasswordLine size={20} /> },

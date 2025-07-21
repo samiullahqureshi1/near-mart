@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineShoppingCart, AiOutlineEye } from "react-icons/ai";
+import { FaRegHeart } from "react-icons/fa";
+import { addTocart } from "../../../redux/actions/cart";
+import { addToWishlist } from "../../../redux/actions/wishlist";
+import { toast } from "react-toastify";
 
 const BestDeals = () => {
   const { allProducts } = useSelector((state) => state.products);
@@ -54,42 +59,117 @@ const BestDeals = () => {
   );
 };
 
+
 const ProductCard = ({ product, highlight = false, compact = false }) => {
+  const { wishlistItems } = useSelector((state) => state.wishlist);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!product || !product._id) {
+      toast.error("Product not valid");
+      return;
+    }
+
+    dispatch(addTocart({ ...product, qty: 1 }));
+    toast.success("Added to cart");
+  };
+
+  const handleAddToWishlist = () => {
+    if (!product || !product._id) {
+      toast.error("Product not valid");
+      return;
+    }
+
+    const alreadyExists = wishlistItems.find(
+      (item) => item._id === product._id || item.id === product._id
+    );
+
+    if (alreadyExists) {
+      toast.info("Already in wishlist");
+    } else {
+      dispatch(addToWishlist(product));
+      toast.success("Added to wishlist");
+    }
+  };
+
+  const handleViewProduct = () => {
+    navigate(`/product/${product.slug || product.handle || product._id}`);
+  };
+
   return (
-    <div className="text-[#1c1c1c] h-full flex flex-col justify-between p-4">
+    <div
+      className={`group relative text-[#1c1c1c] h-full flex flex-col justify-between p-4 transition-transform duration-300 ease-in-out
+        hover:shadow-md hover:-translate-y-1 rounded 
+        ${highlight ? "bg-white" : "bg-white"}`}
+    >
       {/* Discount badge */}
       {product.discountPercent && (
-        <span className="bg-yellow-400 text-[10px] font-semibold px-2 py-[2px] rounded text-black mb-1 inline-block">
+        <span className="text-[10px] font-semibold px-2 py-[2px] rounded text-black mb-1 inline-block bg-yellow-400">
           {product.discountPercent}% OFF
         </span>
       )}
+
+      {/* Hover icons */}
+      <div className="absolute top-2 right-2 flex-col gap-2 hidden group-hover:flex z-10">
+        <button
+          onClick={handleAddToCart}
+          className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:border-blue-500"
+        >
+          <AiOutlineShoppingCart size={16} />
+        </button>
+        {/* <button
+          onClick={handleAddToWishlist}
+          className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-600 hover:text-red-500 hover:border-red-400"
+        >
+          <FaRegHeart size={14} />
+        </button> */}
+        <button
+          onClick={handleViewProduct}
+          className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-600 hover:text-green-600 hover:border-green-400"
+        >
+          <AiOutlineEye size={16} />
+        </button>
+      </div>
 
       {/* Image */}
       <div className="w-full flex-1 flex items-center justify-center mb-2">
         <img
           src={product?.images?.[0]?.url || "/placeholder.jpg"}
           alt={product.name}
-          className={`object-contain ${compact ? "max-h-[70px]" : "max-h-[140px]"}`}
+          className={`object-contain ${
+            compact ? "max-h-[70px]" : "max-h-[140px]"
+          } transition-transform duration-300 group-hover:scale-105`}
         />
       </div>
 
-      {/* Title - now clickable */}
+      {/* Title */}
       <Link
         to={`/product/${product.slug || product.handle || product._id}`}
-        className={`${compact ? "text-xs" : "text-sm"} font-semibold line-clamp-2 mb-1 hover:text-blue-600 transition`}
+        className={`${
+          compact ? "text-xs" : "text-sm"
+        } font-semibold line-clamp-2 mb-1 hover:text-blue-600 transition`}
       >
         {product.name}
       </Link>
 
       {/* Price */}
-      <p className={`${compact ? "text-sm" : "text-base"} font-semibold text-blue-600`}>
+      <p
+        className={`${
+          compact ? "text-sm" : "text-base"
+        } font-semibold text-blue-600`}
+      >
         ${product.discountPrice || product.price}
       </p>
       {product.originalPrice && (
-        <p className="text-xs text-gray-400 line-through">${product.originalPrice}</p>
+        <p className="text-xs text-gray-400 line-through">
+          ${product.originalPrice}
+        </p>
       )}
     </div>
   );
 };
+
+
 
 export default BestDeals;

@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addTocart } from "../../../redux/actions/cart";
+import { toast } from "react-toastify";
+import { addToWishlist } from "../../../redux/actions/wishlist";
+import { AiFillHeart, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { BiExpand } from "react-icons/bi";
 
 const ComputerProduct = () => {
   const { allProducts } = useSelector((state) => state.products);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    if (allProducts?.length > 0) {
-      const sorted = [...allProducts].sort((a, b) => b.sold_out - a.sold_out);
-      setData(sorted.slice(0, 8));
-    }
-  }, [allProducts]);
+ useEffect(() => {
+  if (allProducts?.length > 0) {
+    const filtered = allProducts.filter(
+      (p) => p.category?.trim().toLowerCase() === "computer & laptop".toLowerCase()
+    );
+
+    const sorted = filtered.sort((a, b) => b.sold_out - a.sold_out);
+    setData(sorted.slice(0, 8)); // or remove `.slice(0, 8)` to show all
+  }
+}, [allProducts]);
+
 
   return (
     <div className="w-full bg-white py-8 px-4">
@@ -78,8 +89,18 @@ const ComputerProduct = () => {
 };
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentImage, setCurrentImage] = useState(0);
+
   const images = product.images || [];
+  const discountPercentage = product.originalPrice
+    ? Math.round(
+        ((product.originalPrice - (product.discountPrice || product.price)) /
+          product.originalPrice) *
+          100
+      )
+    : 0;
 
   const badgeColor = {
     hot: "bg-red-500",
@@ -89,71 +110,121 @@ const ProductCard = ({ product }) => {
   };
 
   const badge = product.badge?.toLowerCase();
+  const { wishlistItems = [] } = useSelector((state) => state.wishlist || {});
+  const isWishlisted = wishlistItems.some(
+    (item) => item._id === product._id || item.id === product._id
+  );
+
+  const handleNavigate = () => {
+    navigate(`/product/${product.slug || product._id}`);
+  };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    dispatch(addTocart({ ...product, qty: 1 }));
+    toast.success("Added to cart");
+  };
+
+  const handleWishlist = (e) => {
+    e.stopPropagation();
+    if (isWishlisted) {
+      toast.info("Already in wishlist");
+    } else {
+      dispatch(addToWishlist(product));
+      toast.success("Added to wishlist");
+    }
+  };
 
   return (
-    <div className="bg-white rounded-md border hover:shadow-md transition p-3 relative">
+    <div
+      onClick={handleNavigate}
+      className="relative bg-white border hover:shadow-lg p-3 rounded-md group cursor-pointer transition-all duration-300"
+    >
       {/* Badge */}
       {badge && (
-        <span
-          className={`absolute top-2 left-2 px-2 py-1 text-[10px] text-white font-semibold uppercase rounded-sm ${
-            badge === "hot"
-              ? badgeColor.hot
-              : badge === "sale"
-              ? badgeColor.sale
-              : badge === "best deals"
-              ? badgeColor.best
-              : badgeColor.deal
+        <div
+          className={`absolute top-2 left-2 z-10 text-white text-xs px-2 py-0.5 rounded uppercase ${
+            badgeColor[badge] || "bg-gray-500"
           }`}
         >
           {product.badge}
-        </span>
+        </div>
       )}
 
-      {/* Image */}
-      <a href={`/product/${product.slug || product._id}`}>
+      {/* Discount Tag */}
+      {discountPercentage > 0 && (
+        <div className="absolute top-2 right-2 z-10 bg-yellow-400 text-black text-[11px] font-bold px-1.5 py-0.5 rounded">
+          {discountPercentage}% OFF
+        </div>
+      )}
+
+      {/* Product Image */}
+      <div className="relative h-[180px] flex items-center justify-center mb-3">
         <img
           src={images[currentImage]?.url || "/placeholder.jpg"}
           alt={product.name}
-          className="w-full h-[160px] object-contain mb-2"
+          className="max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
         />
-      </a>
 
-      {/* Name */}
-      <h3 className="text-[14px] font-medium text-gray-800 leading-tight mb-1 line-clamp-2">
-        {product.name?.split(" ").slice(0, 2).join(" ") || "Product Name"}
-      </h3>
+        {/* Hover Icons */}
+        <div className="absolute inset-0 bg-black/5 hidden group-hover:flex items-center justify-center gap-3 z-10">
+          <button
+            onClick={handleWishlist}
+            className="bg-white p-2 rounded-full shadow"
+          >
+            {isWishlisted ? (
+              <AiFillHeart className="text-red-500" />
+            ) : (
+              <AiOutlineHeart />
+            )}
+          </button>
+          <button
+            onClick={handleAddToCart}
+            className="bg-white p-2 rounded-full shadow"
+          >
+            <AiOutlineShoppingCart />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toast.info("Zoom/Expand coming soon");
+            }}
+            className="bg-white p-2 rounded-full shadow"
+          >
+            <BiExpand />
+          </button>
+        </div>
+      </div>
 
-      {/* Description */}
-      <p className="text-[12px] text-gray-600 mb-2">
-        {product.name || "Product full title"}
-      </p>
+      {/* Title */}
+      <h4 className="text-[13px] font-medium leading-snug truncate mb-1 line-clamp-2">
+        {product.name}
+      </h4>
 
       {/* Rating */}
-      <div className="text-xs text-yellow-500 flex items-center mb-1">
+      <div className="text-[12px] flex items-center mb-1">
         {Array.from({ length: 5 }).map((_, index) => (
-          <span key={index}>
-            {index < Math.round(product.ratings || 4.3) ? "★" : "☆"}
+          <span key={index} className="text-yellow-500">
+            {index < Math.round(product.ratings || 4.2) ? "★" : "☆"}
           </span>
         ))}
-        <span className="ml-1 text-gray-700 font-medium">
-          {(product.ratings || 4.3).toFixed(1)}/5
+        <span className="ml-1 text-gray-500">
+          ({product.reviews || 1200})
         </span>
-        <span className="ml-1 text-gray-500">({product.reviews || 3888})</span>
       </div>
 
       {/* Pricing */}
-      <div className="mt-1">
-        <p className="text-sm font-semibold text-[#1a1a1a]">
-          ${product.discountPrice || product.price}
-        </p>
+      <div className="text-[14px] font-semibold text-blue-500">
+        ${product.discountPrice || product.price}
         {product.originalPrice && (
-          <p className="text-xs text-gray-400 line-through">
+          <span className="ml-2 text-gray-400 line-through text-[12px]">
             ${product.originalPrice}
-          </p>
+          </span>
         )}
       </div>
     </div>
   );
 };
+
 
 export default ComputerProduct;
