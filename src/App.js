@@ -67,6 +67,7 @@ import SupportPage from "./components/Route/CustomerSupport/CustomerSupport.jsx"
 import HelpCenter from "./components/Route/Help/Help.jsx";
 import TrackOrder from "./components/Route/TrackOrders/TrackOrder.jsx";
 import OrderDetails from "./components/Route/TrackOrders/OrderDetails.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -188,6 +189,7 @@ const App = () => {
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route
           path="/shop/:id"

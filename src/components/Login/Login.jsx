@@ -125,7 +125,7 @@ const Auth = () => {
                   </div>
                   <a
                     href="/forgot-password"
-                    className="absolute right-0 -bottom-5 text-xs text-blue-500 hover:underline"
+                    className="absolute right-0  -bottom-5 text-xs text-blue-500 hover:underline"
                   >
                     Forgot Password?
                   </a>
@@ -133,7 +133,7 @@ const Auth = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded text-sm font-semibold transition"
+                className="w-full mt-3 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded text-sm font-semibold transition"
               >
                 SIGN IN →
               </button>
@@ -183,14 +183,14 @@ const Auth = () => {
           )}
 
           {/* Divider */}
-          <div className="flex items-center my-4 px-6">
+          {/* <div className="flex items-center my-4 px-6">
             <div className="flex-grow h-px bg-gray-300"></div>
             <span className="mx-3 text-sm text-gray-400">or</span>
             <div className="flex-grow h-px bg-gray-300"></div>
-          </div>
+          </div> */}
 
           {/* Social Logins */}
-          <div className="px-6 pb-6">
+          {/* <div className="px-6 pb-6">
             <button className="w-full flex items-center justify-center border border-gray-300 rounded py-2 mb-2 text-sm font-medium hover:bg-gray-100 transition">
               <FcGoogle className="mr-2" size={20} />
               Login with Google
@@ -199,7 +199,7 @@ const Auth = () => {
               <FaApple className="mr-2" size={20} />
               Login with Apple
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <FooterWithNewsletter />

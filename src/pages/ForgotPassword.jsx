@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { server } from "../server";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axios.post(`http://localhost:9000/forgot-password`, { email });
       toast.success("Password reset email sent successfully!");
@@ -18,44 +16,66 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Forgot Your Password?
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white rounded-md shadow-lg p-8">
+        <h2 className="text-center text-lg font-semibold text-gray-900 mb-2">
+          Forget Password
         </h2>
-      </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <div className="mt-1">
-                <input
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                Send Reset Email
-              </button>
-            </div>
-          </form>
+        <p className="text-sm text-center text-gray-500 mb-6">
+          Enter the email address or mobile phone number associated with your
+          Clicon account.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-md transition duration-200 flex items-center justify-center gap-1"
+          >
+            SEND CODE <span className="text-xl">→</span>
+          </button>
+        </form>
+
+        <div className="mt-6 text-sm text-center">
+          <p className="text-gray-600">
+            Already have account?{" "}
+            <a href="/login" className="text-blue-600 hover:underline">
+              Sign In
+            </a>
+          </p>
+          <p className="text-gray-600 mt-1">
+            Don’t have account?{" "}
+            <a href="/register" className="text-blue-600 hover:underline">
+              Sign Up
+            </a>
+          </p>
         </div>
+
+        <hr className="my-6" />
+
+        <p className="text-xs text-center text-gray-500">
+          You may contact{" "}
+          <a href="/support" className="text-orange-500 hover:underline">
+            Customer Service
+          </a>{" "}
+          for help restoring access to your account.
+        </p>
       </div>
     </div>
   );
