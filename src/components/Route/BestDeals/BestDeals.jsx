@@ -159,11 +159,11 @@ const ProductCard = ({ product, highlight = false, compact = false }) => {
           compact ? "text-sm" : "text-base"
         } font-semibold text-blue-600`}
       >
-        ${product.discountPrice || product.price}
+        GH₵{product.discountPrice || product.price}
       </p>
       {product.originalPrice && (
         <p className="text-xs text-gray-400 line-through">
-          ${product.originalPrice}
+          GH₵{product.originalPrice}
         </p>
       )}
     </div>

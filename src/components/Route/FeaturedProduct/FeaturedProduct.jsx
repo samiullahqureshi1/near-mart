@@ -226,10 +226,10 @@ const isWishlisted = (wishlistItems || []).some(
 
       {/* Pricing */}
       <div className="text-[14px] font-semibold text-blue-500">
-        ${product.discountPrice || product.price}
+        GH₵{product.discountPrice || product.price}
         {product.originalPrice && (
           <span className="ml-2 text-gray-400 line-through text-[12px]">
-            ${product.originalPrice}
+            GH₵{product.originalPrice}
           </span>
         )}
       </div>

@@ -57,7 +57,7 @@
 //         setAvatar(reader.result);
 //         axios
 //           .put(
-//             `http://localhost:9000/api/v2/user/update-avatar`,
+//             `https://near-backend.vercel.app/api/v2/user/update-avatar`,
 //             { avatar: reader.result },
 //             {
 //               withCredentials: true,
@@ -468,7 +468,7 @@
 
 //     await axios
 //       .put(
-//         `http://localhost:9000/api/v2/user/update-user-password`,
+//         `https://near-backend.vercel.app/api/v2/user/update-user-password`,
 //         { oldPassword, newPassword, confirmPassword },
 //         { withCredentials: true }
 //       )
@@ -846,7 +846,7 @@ const ProfileContent = ({ active }) => {
         setAvatar(reader.result);
         axios
           .put(
-            `http://localhost:9000/api/v2/user/update-avatar`,
+            `https://near-backend.vercel.app/api/v2/user/update-avatar`,
             { avatar: reader.result },
             {
               withCredentials: true,

@@ -73,7 +73,7 @@
 //     };
 
 //     await axios
-//       .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+//       .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
 //       .then(() => {
 //         setOpen(false);
 //         navigate("/order/success");
@@ -97,7 +97,7 @@
 //       };
 
 //       const { data } = await axios.post(
-//         `http://localhost:9000/api/v2/payment/process`,
+//         `https://near-backend.vercel.app/api/v2/payment/process`,
 //         paymentData,
 //         config
 //       );
@@ -122,7 +122,7 @@
 //         };
 
 //         await axios
-//           .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+//           .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
 //           .then(() => {
 //             setOpen(false);
 //             navigate("/order/success");
@@ -149,7 +149,7 @@
 //     };
 
 //     await axios
-//       .post(`http://localhost:9000/api/v2/order/create-order`, order, config)
+//       .post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config)
 //       .then(() => {
 //         setOpen(false);
 //         navigate("/order/success");
@@ -410,7 +410,7 @@ const Payment = () => {
     e.preventDefault();
     order.paymentInfo = { type: "Cash On Delivery" };
     try {
-      await axios.post(`http://localhost:9000/api/v2/order/create-order`, order, config);
+      await axios.post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config);
       toast.success("Order placed successfully!");
       clearCartAndRedirect();
     } catch (err) {
@@ -427,7 +427,7 @@ const Payment = () => {
 
     try {
       const { data } = await axios.post(
-        `http://localhost:9000/api/v2/payment/process`,
+        `https://near-backend.vercel.app/api/v2/payment/process`,
         paymentData,
         config
       );
@@ -451,7 +451,7 @@ const Payment = () => {
           type: "Credit Card",
         };
 
-        await axios.post(`http://localhost:9000/api/v2/order/create-order`, order, config);
+        await axios.post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config);
         toast.success("Payment successful!");
         clearCartAndRedirect();
       }
@@ -487,7 +487,7 @@ const Payment = () => {
           status: "succeeded",
           type: "Paypal",
         };
-        await axios.post(`http://localhost:9000/api/v2/order/create-order`, order, config);
+        await axios.post(`https://near-backend.vercel.app/api/v2/order/create-order`, order, config);
         toast.success("PayPal payment successful!");
         clearCartAndRedirect();
       }

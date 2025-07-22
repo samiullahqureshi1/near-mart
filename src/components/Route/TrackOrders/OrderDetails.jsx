@@ -43,7 +43,7 @@ const getStepIndex = (status) => {
     const fetchOrder = async () => {
       try {
         const res = await fetch(
-          `http://localhost:9000/api/v2/order/get-order/${id}`,
+          `https://near-backend.vercel.app/api/v2/order/get-order/${id}`,
           {
             credentials: "include",
           }

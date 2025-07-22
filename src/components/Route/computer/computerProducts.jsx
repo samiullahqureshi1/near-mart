@@ -56,7 +56,7 @@ const ComputerProduct = () => {
           Escape the noise. It’s time to hear the magic with Xiaomi Earbuds.
         </p>
         <p className="text-[14px] font-semibold text-[#3b3b3b] mb-5">
-          Only for: <span className="bg-white px-3 py-1 rounded text-[14px] font-semibold text-[#1a1a1a] border"> $299 USD </span>
+          Only for: <span className="bg-white px-3 py-1 rounded text-[14px] font-semibold text-[#1a1a1a] border"> GH₵299  </span>
         </p>
       </div>
       <button className="w-full bg-[#FF6B00] hover:bg-[#e95d00] transition text-white text-[13px] font-semibold py-2 rounded flex items-center justify-center gap-1">
@@ -215,10 +215,10 @@ const ProductCard = ({ product }) => {
 
       {/* Pricing */}
       <div className="text-[14px] font-semibold text-blue-500">
-        ${product.discountPrice || product.price}
+        GH₵{product.discountPrice || product.price}
         {product.originalPrice && (
           <span className="ml-2 text-gray-400 line-through text-[12px]">
-            ${product.originalPrice}
+            GH₵{product.originalPrice}
           </span>
         )}
       </div>

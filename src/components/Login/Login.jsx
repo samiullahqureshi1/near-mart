@@ -28,7 +28,7 @@ const Auth = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:9000/api/v2/user/login-user",
+        "https://near-backend.vercel.app/api/v2/user/login-user",
         {
           email: emailLogin,
           password: passwordLogin,
@@ -49,7 +49,7 @@ const Auth = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:9000/api/v2/user/create-user",
+        "https://near-backend.vercel.app/api/v2/user/create-user",
         {
           name: nameSignup,
           email: emailSignup,

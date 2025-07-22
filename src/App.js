@@ -74,7 +74,7 @@ const App = () => {
 
   async function getStripeApikey() {
     const { data } = await axios.get(
-      `http://localhost:9000/api/v2/payment/stripeapikey`
+      `https://near-backend.vercel.app/api/v2/payment/stripeapikey`
     );
     setStripeApiKey(data.stripeApikey);
   }

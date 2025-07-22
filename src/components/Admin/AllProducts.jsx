@@ -15,7 +15,7 @@ const AllProducts = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:9000/api/v2/product/admin-all-products`, {withCredentials: true}).then((res) => {
+    axios.get(`https://near-backend.vercel.app/api/v2/product/admin-all-products`, {withCredentials: true}).then((res) => {
         setData(res.data.products);
     })
   }, []);

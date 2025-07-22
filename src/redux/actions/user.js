@@ -10,7 +10,7 @@ export const loadUser = () => async (dispatch) => {
     });
 
     console.log("[loadUser] Making API call to getuser...");
-    const { data } = await axios.get(`http://localhost:9000/api/v2/user/getuser`, {
+    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/user/getuser`, {
       withCredentials: true,
     });
 
@@ -43,7 +43,7 @@ export const loadSeller = () => async (dispatch) => {
     dispatch({
       type: "LoadSellerRequest",
     });
-    const { data } = await axios.get(`http://localhost:9000/api/v2/shop/getSeller`, {
+    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/shop/getSeller`, {
       withCredentials: true,
     });
     dispatch({
@@ -67,7 +67,7 @@ export const updateUserInformation =
       });
 
       const { data } = await axios.put(
-        `http://localhost:9000/api/v2/user/update-user-info`,
+        `https://near-backend.vercel.app/api/v2/user/update-user-info`,
         {
           email,
           password,
@@ -104,7 +104,7 @@ export const updatUserAddress =
       });
 
       const { data } = await axios.put(
-        `http://localhost:9000/api/v2/user/update-user-addresses`,
+        `https://near-backend.vercel.app/api/v2/user/update-user-addresses`,
         {
           country,
           city,
@@ -139,7 +139,7 @@ export const deleteUserAddress = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.delete(
-      `http://localhost:9000/api/v2/user/delete-user-address/${id}`,
+      `https://near-backend.vercel.app/api/v2/user/delete-user-address/${id}`,
       { withCredentials: true }
     );
 
@@ -165,7 +165,7 @@ export const getAllUsers = () => async (dispatch) => {
       type: "getAllUsersRequest",
     });
 
-    const { data } = await axios.get(`http://localhost:9000/api/v2/user/admin-all-users`, {
+    const { data } = await axios.get(`https://near-backend.vercel.app/api/v2/user/admin-all-users`, {
       withCredentials: true,
     });
 
@@ -187,7 +187,7 @@ export const updateFullUserInfo = (userId, updatedUserData) => async (dispatch) 
     dispatch({ type: "updateFullUserRequest" });
 
     const { data } = await axios.put(
-      `http://localhost:9000/api/v2/user/update-user/${userId}`,
+      `https://near-backend.vercel.app/api/v2/user/update-user/${userId}`,
       updatedUserData,
       {
         withCredentials: true,

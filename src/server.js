@@ -1,1 +1,1 @@
-export const server = "http://localhost:9000/api/v2";
+export const server = "https://near-backend.vercel.app/api/v2";

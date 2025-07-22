@@ -21,7 +21,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.put(`http://localhost:9000/reset-password/${token}`, {
+      await axios.put(`https://near-backend.vercel.app/reset-password/${token}`, {
         password,
       });
       toast.success("Password reset successful!");

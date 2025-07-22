@@ -20,7 +20,7 @@
 //  const {user} = useSelector((state) => state.user);
 //   const logoutHandler = () => {
 //     axios
-//       .get(`http://localhost:9000/api/v2/user/logout`, { withCredentials: true })
+//       .get(`https://near-backend.vercel.app/api/v2/user/logout`, { withCredentials: true })
 //       .then((res) => {
 //         toast.success(res.data.message);
 //         window.location.reload(true);
@@ -193,7 +193,7 @@ const ProfileSidebar = ({ setActive, active }) => {
 
   const logoutHandler = () => {
     axios
-      .get("http://localhost:9000/api/v2/user/logout", {
+      .get("https://near-backend.vercel.app/api/v2/user/logout", {
         withCredentials: true,
       })
       .then((res) => {
