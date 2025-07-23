@@ -77,12 +77,12 @@ const CartPage = () => {
                     item.originalPrice > item.discountPrice ? (
                       <div className="space-x-2">
                         <span className="line-through text-gray-400">
-                          ${item.originalPrice}
+                          GH₵{item.originalPrice}
                         </span>
-                        <span>${item.discountPrice.toFixed(2)}</span>
+                        <span>GH₵{item.discountPrice.toFixed(2)}</span>
                       </div>
                     ) : (
-                      <span>${item.discountPrice.toFixed(2)}</span>
+                      <span>GH₵{item.discountPrice.toFixed(2)}</span>
                     )}
                   </td>
 
@@ -114,7 +114,7 @@ const CartPage = () => {
 
                   {/* Subtotal */}
                   <td className="p-4 font-semibold text-sm">
-                    ${calculateTotal(item.discountPrice, item.qty)}
+                    GH₵{calculateTotal(item.discountPrice, item.qty)}
                   </td>
                 </tr>
               ))}
@@ -145,24 +145,26 @@ const CartPage = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span>Sub-total:</span>
-                <span className="font-medium">${totalPrice.toFixed(2)}</span>
+                <span className="font-medium">GH₵{totalPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping:</span>
                 <span className="font-medium">Free</span>
               </div>
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <span>Discount:</span>
-                <span className="font-medium">$24</span>
+                <span className="font-medium">GH₵24</span>
               </div>
               <div className="flex justify-between">
                 <span>Tax:</span>
                 <span className="font-medium">$61.99</span>
-              </div>
+              </div> */}
               <hr />
               <div className="flex justify-between font-semibold text-base">
                 <span>Total</span>
-                <span>${(totalPrice + 61.99 - 24).toFixed(2)} USD</span>
+                {/* <span>GH₵{(totalPrice + 61.99 - 24).toFixed(2)} USD</span> */}
+                            <span>GH₵{(totalPrice).toFixed(2)}</span>
+
               </div>
             </div>
 

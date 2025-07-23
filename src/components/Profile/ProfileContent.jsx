@@ -868,8 +868,8 @@ console.log(user)
   return (
     <div className="w-full">
       {/* profile */}
-      {active === 1 && (
-        <div className="w-full px-6 py-4">
+     {active === 1 && (
+        <div className="w-full px-10 py-4">
           {/* Welcome */}
           <h2 className="text-[22px] font-semibold mb-2">
             Hello, {user?.name}
@@ -931,9 +931,6 @@ console.log(user)
                 Sec Email: {user?.secondaryEmail || "N/A"}
               </p>
               <p className="text-sm mb-3">Phone: {user?.phoneNumber}</p>
-              {/* <button className="w-fit text-sm px-4 py-1 border border-blue-500 text-blue-500 rounded hover:bg-blue-100">
-                EDIT ACCOUNT
-              </button> */}
             </div>
 
             {/* Billing Address */}
@@ -945,30 +942,24 @@ console.log(user)
               </p>
               <p className="text-sm mb-1">Phone: {user?.phoneNumber}</p>
               <p className="text-sm mb-3">Email: {user?.email}</p>
-              {/* <button className="w-fit text-sm px-4 py-1 border border-blue-500 text-blue-500 rounded hover:bg-blue-100">
-                EDIT ADDRESS
-              </button> */}
             </div>
 
             {/* Order Stats */}
             <div className="flex flex-col justify-between gap-4">
               <div className="bg-blue-100 rounded-md p-4">
-                {/* <p className="text-[22px] font-bold text-center">{totalOrders}</p> */}
                 <p className="text-center text-sm">Total Orders</p>
               </div>
               <div className="bg-orange-100 rounded-md p-4">
-                {/* <p className="text-[22px] font-bold text-center">{pendingOrders}</p> */}
                 <p className="text-center text-sm">Pending Orders</p>
               </div>
               <div className="bg-green-100 rounded-md p-4">
-                {/* <p className="text-[22px] font-bold text-center">{completedOrders}</p> */}
                 <p className="text-center text-sm">Completed Orders</p>
               </div>
             </div>
           </div>
 
           {/* Payment Option */}
-          <div className="border rounded-md shadow-sm p-4 mb-6 mt-3">
+          {/* <div className="border rounded-md shadow-sm p-4 mb-6 mt-3">
             <div className="flex justify-between items-center mb-4">
               <h4 className="font-semibold">PAYMENT OPTION</h4>
               <button className="text-sm text-orange-500 font-medium">
@@ -1004,12 +995,12 @@ console.log(user)
                   )
               )}
             </div>
-          </div>
+          </div> */}
 
           {/* Recent Order Table */}
-          <div className="border rounded-md shadow-sm">
+          {/* <div className="border rounded-md shadow-sm">
             <AllOrders />
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -1498,7 +1489,7 @@ const CartPage = () => {
           </table>
 
           {/* Bottom Action Buttons */}
-          <div className="flex justify-between items-center p-5 border-t bg-white">
+          {/* <div className="flex justify-between items-center p-5 border-t bg-white">
             <Link to="/products">
               <button className="flex items-center gap-2 text-sm font-semibold text-blue-600 border border-blue-500 px-4 py-2 rounded hover:bg-blue-50 transition">
                 <span className="text-lg">←</span> RETURN TO SHOP
@@ -1508,7 +1499,7 @@ const CartPage = () => {
             <button className="text-sm font-semibold border border-blue-500 text-blue-600 px-5 py-2 rounded hover:bg-blue-50 transition">
               UPDATE CART
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Sidebar */}

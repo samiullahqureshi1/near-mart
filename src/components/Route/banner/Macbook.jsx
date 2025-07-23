@@ -7,17 +7,17 @@ const MacbookBannerWithGrid = () => {
     products: [
       {
         name: "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://discountstore.pk/cdn/shop/files/bose-sport-true-wireless-in-ear-headphones.jpg?v=1750833615",
       },
       {
         name: "Simple Mobile 4G LTE Prepaid Smartphone",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://images-na.ssl-images-amazon.com/images/I/71L1ezoIH9L._AC_UL495_SR435,495_.jpg",
       },
       {
         name: "4K UHD LED Smart TV with Chromecast Built-in",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-34.jpg",
       },
     ],
@@ -27,17 +27,17 @@ const MacbookBannerWithGrid = () => {
     products: [
       {
         name: "Samsung Electronics Samsung Galaxy S21 5G",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://images.samsung.com/is/image/samsung/p6pim/pk/galaxy-s21/gallery/pk-galaxy-s21-5g-g991-366070-sm-g991bzagmea-362622379",
       },
       {
         name: "Simple Mobile 5G LTE Galaxy 12 Mini 512GB Gaming Phone",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://s.alicdn.com/@sc04/kf/H93b436371a1844d4858a34e210bf75d24.jpg_300x300.jpg",
       },
       {
         name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
       },
     ],
@@ -47,17 +47,17 @@ const MacbookBannerWithGrid = () => {
     products: [
       {
         name: "Portable Wishing Machine, 11lbs capacity Model 18NMF...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-14.jpg",
       },
       {
         name: "Sony DSCHX8 High Zoom Point & Shoot Camera",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://m.media-amazon.com/images/I/81y6Sj1S91L._UF1000,1000_QL80_.jpg",
       },
       {
         name: "Dell Optiplex 7000x7480 All-in-One Computer Monitor",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-16.jpg",
       },
     ],
@@ -67,17 +67,17 @@ const MacbookBannerWithGrid = () => {
     products: [
       {
         name: "TOZO T6 True Wireless Earbuds Bluetooth Headphones...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-11.jpg",
       },
       {
         name: "JBL FLIP 4 - Waterproof Portable Bluetooth Speaker...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-17.jpg",
       },
       {
         name: "Wyze Cam Pan v2 1080p Pan/Tilt/Zoom Wi-Fi Indoor Smart...",
-        price: "$1,500",
+        price: "GH₵1,500",
         img: "https://demo.theme-sky.com/gostore/wp-content/uploads/2021/02/electronic-19.jpg",
       },
     ],
@@ -92,7 +92,7 @@ const MacbookBannerWithGrid = () => {
         <div className="max-w-[1200px] mx-auto bg-[#e1eff7] rounded-md px-6 py-10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="flex-1 text-center lg:text-left">
             <span className="inline-block bg-[#2196f3] text-white text-[11px] font-semibold px-3 py-[6px] rounded mb-3 tracking-wide">
-              SAVE UP TO $200.00
+              SAVE UP TO GH₵200.00
             </span>
             <h2 className="text-[28px] lg:text-[32px] font-bold text-[#1a1a1a] leading-tight mb-2">
               Macbook Pro
@@ -113,7 +113,7 @@ const MacbookBannerWithGrid = () => {
               className="w-full max-w-[200px] h-auto object-contain"
             />
             <div className="absolute top-4 right-6 bg-white text-[#1a1a1a] border-2 border-[#FFEADB] rounded-full px-5 py-2 text-[13px] font-semibold shadow-md">
-              $1999
+              GH₵1999
             </div>
           </div>
         </div>

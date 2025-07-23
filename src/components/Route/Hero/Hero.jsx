@@ -18,7 +18,7 @@ const HeroSlider = () => {
                 Xbox Consoles
               </h2>
               <p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">
-                Save up to 50% on select Xbox games. Get 3 months of PC Game Pass for $2 USD.
+                Save up to 50% on select Xbox games. Get 3 months of PC Game Pass for GH₵2 USD.
               </p>
               <Link to="/products">
                 <button className="mt-5 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded transition">
@@ -35,7 +35,7 @@ const HeroSlider = () => {
                 />
                 <div className="absolute top-2 right-2">
                   <div className="bg-sky-500 text-white text-xs font-bold rounded-full px-4 py-1.5 shadow-md">
-                    $299
+                    GH₵299
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@ const HeroSlider = () => {
                 <h3 className="text-base font-semibold mb-1">
                   Xiaomi FlipBuds Pro
                 </h3>
-                <p className="text-sky-500 text-sm font-bold mb-3">$299 USD</p>
+                <p className="text-sky-500 text-sm font-bold mb-3">GH₵299 USD</p>
                 <Link to="/products">
                   <button className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded transition w-fit">
                     SHOP NOW →

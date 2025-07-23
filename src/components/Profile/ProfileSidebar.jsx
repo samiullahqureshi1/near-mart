@@ -187,6 +187,65 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+// const ProfileSidebar = ({ setActive, active }) => {
+//   const navigate = useNavigate();
+//   const { user } = useSelector((state) => state.user);
+
+//   const logoutHandler = () => {
+//     axios
+//       .get("https://near-backend.vercel.app/api/v2/user/logout", {
+//         withCredentials: true,
+//       })
+//       .then((res) => {
+//         toast.success(res.data.message);
+//         window.location.reload(true);
+//         navigate("/login");
+//       })
+//       .catch((error) => {
+//         console.log(error.response.data.message);
+//       });
+//   };
+
+//   const menuItems = [
+//     { id: 1, label: "Dashboard", icon: <RxPerson size={20} /> },
+//     { id: 2, label: "Order History", icon: <HiOutlineShoppingBag size={20} /> },
+//     { id: 3, label: "Track Order", icon: <MdOutlineTrackChanges size={20} /> },
+//     { id: 4, label: "Shopping Cart", icon: <HiOutlineReceiptRefund size={20} /> },
+//     { id: 5, label: "Wishlist", icon: <AiOutlineMessage size={20} /> },
+//     // { id: 6, label: "Change Password", icon: <RiLockPasswordLine size={20} /> },
+//     // { id: 7, label: "Cards & Address", icon: <TbAddressBook size={20} /> },
+//     // { id: 8, label: "Browsing History", icon: <MdOutlineAdminPanelSettings size={20} /> },
+//     { id: 9, label: "Setting", icon: <RiLockPasswordLine size={20} /> },
+//   ];
+
+//   return (
+//     <div className="w-full bg-white rounded shadow-md overflow-hidden">
+//       {menuItems.map((item) => (
+//         <div
+//           key={item.id}
+//           onClick={() => setActive(item.id)}
+//           className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150 ${
+//             active === item.id
+//               ? "bg-orange-500 text-white"
+//               : "text-gray-700 hover:bg-gray-50"
+//           }`}
+//         >
+//           <div className="min-w-[20px]">{item.icon}</div>
+//           <span className="text-sm font-medium">{item.label}</span>
+//         </div>
+//       ))}
+
+//       {/* Logout */}
+//       <div
+//         onClick={logoutHandler}
+//         className={`flex items-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50`}
+//       >
+//         <AiOutlineLogin size={20} />
+//         <span className="text-sm font-medium">Log-out</span>
+//       </div>
+//     </div>
+//   );
+// };
 const ProfileSidebar = ({ setActive, active }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -212,33 +271,58 @@ const ProfileSidebar = ({ setActive, active }) => {
     { id: 3, label: "Track Order", icon: <MdOutlineTrackChanges size={20} /> },
     { id: 4, label: "Shopping Cart", icon: <HiOutlineReceiptRefund size={20} /> },
     { id: 5, label: "Wishlist", icon: <AiOutlineMessage size={20} /> },
-    // { id: 6, label: "Change Password", icon: <RiLockPasswordLine size={20} /> },
-    // { id: 7, label: "Cards & Address", icon: <TbAddressBook size={20} /> },
-    // { id: 8, label: "Browsing History", icon: <MdOutlineAdminPanelSettings size={20} /> },
     { id: 9, label: "Setting", icon: <RiLockPasswordLine size={20} /> },
   ];
 
   return (
     <div className="w-full bg-white rounded shadow-md overflow-hidden">
-      {menuItems.map((item) => (
-        <div
-          key={item.id}
-          onClick={() => setActive(item.id)}
-          className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150 ${
-            active === item.id
-              ? "bg-orange-500 text-white"
-              : "text-gray-700 hover:bg-gray-50"
-          }`}
-        >
-          <div className="min-w-[20px]">{item.icon}</div>
-          <span className="text-sm font-medium">{item.label}</span>
-        </div>
-      ))}
+      {/* Full menu for larger screens */}
+      <div className="hidden sm:block">
+        {menuItems.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setActive(item.id)}
+            className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150 ${
+              active === item.id
+                ? "bg-orange-500 text-white"
+                : "text-gray-700 hover:bg-gray-50"
+            }`}
+          >
+            <div className="min-w-[20px]">{item.icon}</div>
+            <span className="text-sm font-medium">{item.label}</span>
+          </div>
+        ))}
+      </div>
 
-      {/* Logout */}
+      {/* Only icons for smaller screens */}
+      <div className="sm:hidden">
+        {menuItems.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setActive(item.id)}
+            className={`flex items-center justify-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150 ${
+              active === item.id
+                ? "bg-orange-500 text-white"
+                : "text-gray-700 hover:bg-gray-50"
+            }`}
+          >
+            <div className="min-w-[20px]">{item.icon}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Logout Icon - Only on mobile */}
       <div
         onClick={logoutHandler}
-        className={`flex items-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50`}
+        className="sm:hidden flex items-center justify-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50"
+      >
+        <AiOutlineLogin size={20} />
+      </div>
+
+      {/* Logout Button for larger screens */}
+      <div
+        onClick={logoutHandler}
+        className="hidden sm:flex items-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50"
       >
         <AiOutlineLogin size={20} />
         <span className="text-sm font-medium">Log-out</span>
@@ -246,5 +330,4 @@ const ProfileSidebar = ({ setActive, active }) => {
     </div>
   );
 };
-
 export default ProfileSidebar;
