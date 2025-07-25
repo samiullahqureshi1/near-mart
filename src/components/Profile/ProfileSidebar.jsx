@@ -250,20 +250,22 @@ const ProfileSidebar = ({ setActive, active }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
-  const logoutHandler = () => {
-    axios
-      .get("https://near-backend.vercel.app/api/v2/user/logout", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-        window.location.reload(true);
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
-  };
+ const logoutHandler = () => {
+  localStorage.removeItem("token");
+
+  axios
+    .get("https://near-backend.vercel.app/api/v2/user/logout") 
+    .then((res) => {
+      toast.success(res.data.message);
+      navigate("/login");
+      window.location.reload(true);
+    })
+    .catch((error) => {
+      console.error("Logout error:", error.response?.data?.message || error.message);
+      toast.error("Logout failed");
+    });
+};
+
 
   const menuItems = [
     { id: 1, label: "Dashboard", icon: <RxPerson size={20} /> },

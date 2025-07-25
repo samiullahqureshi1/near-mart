@@ -25,45 +25,59 @@ const Auth = () => {
   const [passwordSignup, setPasswordSignup] = useState("");
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        "https://near-backend.vercel.app/api/v2/user/login-user",
-        {
-          email: emailLogin,
-          password: passwordLogin,
-        },
-        { withCredentials: true }
-      );
-      toast.success("Login Success!");
-      const role = res.data.user?.role;
-      if (role === "Seller") navigate("/dashboard");
-      // else navigate("/");
-      // window.location.reload(true);
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await axios.post(
+      "https://near-backend.vercel.app/api/v2/user/login-user",
+      {
+        email: emailLogin,
+        password: passwordLogin,
+      }
+    );
+
+    // ✅ Save token to localStorage
+    localStorage.setItem("token", res.data.token);
+
+    toast.success("Login Success!");
+
+    const role = res.data.user?.role;
+    if (role === "Seller") navigate("/dashboard");
+    else navigate("/");
+
+    // Optional: refresh if needed
+    window.location.reload(true);
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Login failed");
+  }
+};
+
 
   const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        "https://near-backend.vercel.app/api/v2/user/create-user",
-        {
-          name: nameSignup,
-          email: emailSignup,
-          password: passwordSignup,
-        },
-        { withCredentials: true }
-      );
-      toast.success("Account created successfully!");
-      navigate("/");
-      window.location.reload(true);
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Signup failed");
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await axios.post("https://near-backend.vercel.app/api/v2/user/create-user", {
+      name: nameSignup,
+      email: emailSignup,
+      password: passwordSignup,
+    });
+
+    toast.success("Account created successfully!");
+
+    // ✅ Automatically switch to login tab
+    setActiveTab("login");
+
+    // ✅ Pre-fill login email
+    setEmailLogin(emailSignup);
+    setPasswordLogin(passwordSignup);
+
+    // ✅ Clear signup fields
+    setNameSignup("");
+    setEmailSignup("");
+    setPasswordSignup("");
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Signup failed");
+  }
+};
 
   return (
     <>

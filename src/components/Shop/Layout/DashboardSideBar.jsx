@@ -1,94 +1,89 @@
 import React, { useState, useEffect } from "react";
-import {
-  AiOutlineFolderAdd,
-  AiOutlineLogin,
-} from "react-icons/ai";
-import { FiPackage, FiShoppingBag } from "react-icons/fi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 import { RxDashboard } from "react-icons/rx";
-import { CiSettings } from "react-icons/ci";
-import { Link, useLocation } from "react-router-dom";
+import { FiPackage, FiShoppingBag } from "react-icons/fi";
+import { AiOutlineFolderAdd, AiOutlineLogin } from "react-icons/ai";
 
 const menuItems = [
   { id: 1, label: "Dashboard", to: "/dashboard", Icon: RxDashboard },
   { id: 2, label: "Orders", to: "/dashboard-orders", Icon: FiShoppingBag },
   { id: 3, label: "Products", to: "/dashboard-products", Icon: FiPackage },
   { id: 4, label: "Create product", to: "/dashboard-create-product", Icon: AiOutlineFolderAdd },
-  { id: 5, label: "Settings", to: "/settings", Icon: CiSettings },
+  { id: 5, label: "Logout", to: null, Icon: AiOutlineLogin, isLogout: true },
 ];
 
-const DashboardSideBar = ({ onLogout }) => {
+const DashboardSideBar = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [active, setActive] = useState(1);
 
+  // ✅ Set active tab based on current route
   useEffect(() => {
-    const current =
-      menuItems.find((m) =>
-        pathname === "/"
-          ? m.to === "/"
-          : pathname.startsWith(m.to)
-      )?.id ?? 1;
-    setActive(current);
+    const matched = menuItems.find(({ to }) => to && pathname === to);
+    setActive(matched?.id || 1);
   }, [pathname]);
 
-  const baseItemCls =
-    "px-4 py-3 cursor-pointer transition-all duration-150";
+  // ✅ Logout function
+  const handleLogout = async () => {
+    try {
+      localStorage.removeItem("token"); // clear frontend token
+      await axios.get("https://near-backend.vercel.app/api/v2/user/logout"); // backend logout
+      toast.success("Logged out successfully!");
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Logout failed.");
+    }
+  };
+
+  const baseItemCls = "px-4 py-3 cursor-pointer transition-all duration-150";
 
   return (
     <aside className="w-full sm:w-72 h-[90vh] bg-white shadow-sm overflow-y-auto sticky top-0 left-0 z-10">
       <div className="w-full bg-white rounded overflow-hidden">
-        {/* Full menu for larger screens */}
+        {/* Desktop Menu */}
         <div className="hidden sm:block">
-          {menuItems.map(({ id, label, to, Icon }) => (
-          <Link
-            to={to}
-            key={id}
-            onClick={() => setActive(id)}
-            className={`flex items-center gap-3 ${baseItemCls} ${
-              active === id
-                ? "bg-orange-500 text-white"
-                : "text-gray-700 hover:bg-gray-50"
-            }`}
-          >
-            <Icon size={20} />
-            <span className="text-sm font-medium">{label}</span>
-          </Link>
-          ))}
+          {menuItems.map(({ id, label, to, Icon, isLogout }) => {
+            const isActive = active === id;
+            const classes = `flex items-center gap-3 ${baseItemCls} ${
+              isActive ? "bg-orange-500 text-white" : "text-gray-700 hover:bg-gray-50"
+            }`;
+
+            return isLogout ? (
+              <button key={id} onClick={handleLogout} className={classes}>
+                <Icon size={20} />
+                <span className="text-sm font-medium">{label}</span>
+              </button>
+            ) : (
+              <Link to={to} key={id} className={classes}>
+                <Icon size={20} />
+                <span className="text-sm font-medium">{label}</span>
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Only icons for smaller screens */}
+        {/* Mobile Icons Only */}
         <div className="sm:hidden">
-          {menuItems.map(({ id, to, Icon }) => (
-            <Link
-              to={to}
-              key={id}
-              onClick={() => setActive(id)}
-              className={`flex items-center justify-center ${baseItemCls} ${
-                active === id
-                  ? "bg-orange-500 text-white"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              <Icon size={20} />
-            </Link>
-          ))}
+          {menuItems.map(({ id, to, Icon, isLogout }) => {
+            const isActive = active === id;
+            const iconClass = `flex items-center justify-center ${baseItemCls} ${
+              isActive ? "bg-orange-500 text-white" : "text-gray-700 hover:bg-gray-50"
+            }`;
+
+            return isLogout ? (
+              <button key={id} onClick={handleLogout} className={iconClass}>
+                <Icon size={20} />
+              </button>
+            ) : (
+              <Link to={to} key={id} className={iconClass}>
+                <Icon size={20} />
+              </Link>
+            );
+          })}
         </div>
-
-        {/* Logout (mobile) */}
-        {/* <button
-          onClick={onLogout}
-          className="sm:hidden flex items-center justify-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50 w-full"
-        >
-          <AiOutlineLogin size={20} />
-        </button> */}
-
-        {/* Logout (desktop) */}
-        {/* <button
-          onClick={onLogout}
-          className="hidden sm:flex items-center gap-3 px-4 py-3 cursor-pointer text-gray-700 hover:bg-gray-50 w-full"
-        >
-          <AiOutlineLogin size={20} />
-          <span className="text-sm font-medium">Log-out</span>
-        </button> */}
       </div>
     </aside>
   );

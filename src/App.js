@@ -193,9 +193,9 @@ const App = () => {
         <Route
           path="/dashboard"
           element={
-            // <SellerProtectedRoute>
+            <SellerProtectedRoute>
             <ShopDashboardPage />
-            // </SellerProtectedRoute>
+            </SellerProtectedRoute>
           }
         />
         <Route

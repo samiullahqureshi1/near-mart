@@ -253,9 +253,9 @@ const Header = ({ activeHeading }) => {
                   <CiUser size={22} />
                 </Link>
               ) : (
-                <span onClick={() => setShowLogin((prev) => !prev)}>
+                  <Link to="/login">
                   <CgProfile size={22} />
-                </span>
+                </Link>
               )}
 
               {/* Login Modal */}
