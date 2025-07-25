@@ -9,12 +9,12 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 const AllOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
-  const { seller } = useSelector((state) => state.seller);
+  const { loading, user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrdersOfShop(seller._id));
+    dispatch(getAllOrdersOfShop(user._id));
   }, [dispatch]);
 
   const columns = [

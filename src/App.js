@@ -110,22 +110,10 @@ const App = () => {
           path="/activation/:activation_token"
           element={<ActivationPage />}
         />
-         <Route
-          path="/wishlist"
-          element={<WishlistTable />}
-        />
-         <Route
-          path="/customer-support"
-          element={<SupportPage />}
-        />
-         <Route
-          path="/track-order"
-          element={<TrackOrder />}
-        />
-          <Route
-          path="/help-center"
-          element={<HelpCenter />}
-        />
+        <Route path="/wishlist" element={<WishlistTable />} />
+        <Route path="/customer-support" element={<SupportPage />} />
+        <Route path="/track-order" element={<TrackOrder />} />
+        <Route path="/help-center" element={<HelpCenter />} />
         <Route
           path="/seller/activation/:activation_token"
           element={<SellerActivationPage />}
@@ -141,7 +129,7 @@ const App = () => {
           path="/checkout"
           element={
             // <ProtectedRoute>
-              <CheckoutPage />
+            <CheckoutPage />
             // </ProtectedRoute>
           }
         />
@@ -150,7 +138,7 @@ const App = () => {
           path="/profile"
           element={
             // <ProtectedRoute>
-              <ProfilePage />
+            <ProfilePage />
             // </ProtectedRoute>
           }
         />
@@ -170,12 +158,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-           <Route
-          path="/order-details/:id"
-          element={
-              <OrderDetails />
-          }
-        />
+        <Route path="/order-details/:id" element={<OrderDetails />} />
         <Route
           path="/user/track/order/:id"
           element={
@@ -194,22 +177,24 @@ const App = () => {
         <Route
           path="/shop/:id"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopHomePage />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/settings"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopSettingsPage />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard"
           element={
             // <SellerProtectedRoute>
-              <ShopDashboardPage />
+            <ShopDashboardPage />
             // </SellerProtectedRoute>
           }
         />
@@ -224,73 +209,82 @@ const App = () => {
         <Route
           path="/dashboard-orders"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopAllOrders />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-refunds"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopAllRefunds />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
 
         <Route
           path="/order/:id"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopOrderDetails />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-products"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopAllProducts />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-create-event"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopCreateEvents />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-events"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopAllEvents />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-coupouns"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopAllCoupouns />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-withdraw-money"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopWithDrawMoneyPage />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         <Route
           path="/dashboard-messages"
           element={
-                       <SellerProtectedRoute>
+            <SellerProtectedRoute>
               <ShopInboxPage />
-           </SellerProtectedRoute>          }
+            </SellerProtectedRoute>
+          }
         />
         {/* Admin Routes */}
         <Route
           path="/admin/dashboard"
           element={
             // <ProtectedAdminRoute>
-              <AdminDashboardPage />
+            <AdminDashboardPage />
             // </ProtectedAdminRoute>
           }
         />

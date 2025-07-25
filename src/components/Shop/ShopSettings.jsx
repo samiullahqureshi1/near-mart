@@ -4,19 +4,19 @@ import { backend_url, server } from "../../server";
 import { AiOutlineCamera } from "react-icons/ai";
 import styles from "../../styles/styles";
 import axios from "axios";
-import { loadSeller } from "../../redux/actions/user";
+import { loadUser, loaduser } from "../../redux/actions/user";
 import { toast } from "react-toastify";
 
 const ShopSettings = () => {
-  const { seller } = useSelector((state) => state.seller);
+  const { loading, user } = useSelector((state) => state.user);
   const [avatar, setAvatar] = useState();
-  const [name, setName] = useState(seller && seller.name);
+  const [name, setName] = useState(user && user.name);
   const [description, setDescription] = useState(
-    seller && seller.description ? seller.description : ""
+    user && user.description ? user.description : ""
   );
-  const [address, setAddress] = useState(seller && seller.address);
-  const [phoneNumber, setPhoneNumber] = useState(seller && seller.phoneNumber);
-  const [zipCode, setZipcode] = useState(seller && seller.zipCode);
+  const [address, setAddress] = useState(user && user.address);
+  const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
+  const [zipCode, setZipcode] = useState(user && user.zipCode);
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const ShopSettings = () => {
             }
           )
           .then((res) => {
-            dispatch(loadSeller());
+            dispatch(loadUser());
             toast.success("Avatar updated successfully!");
           })
           .catch((error) => {
@@ -64,7 +64,7 @@ const ShopSettings = () => {
       )
       .then((res) => {
         toast.success("Shop info updated succesfully!");
-        dispatch(loadSeller());
+        dispatch(loadUser());
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -77,7 +77,7 @@ const ShopSettings = () => {
         <div className="w-full flex items-center justify-center">
           <div className="relative">
             <img
-              src={avatar ? avatar : `${seller.avatar?.url}`}
+              src={avatar ? avatar : `${user.avatar?.url}`}
               alt=""
               className="w-[200px] h-[200px] rounded-full cursor-pointer"
             />
@@ -107,7 +107,7 @@ const ShopSettings = () => {
             </div>
             <input
               type="name"
-              placeholder={`${seller.name}`}
+              placeholder={`${user.name}`}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -121,8 +121,8 @@ const ShopSettings = () => {
             <input
               type="name"
               placeholder={`${
-                seller?.description
-                  ? seller.description
+                user?.description
+                  ? user.description
                   : "Enter your shop description"
               }`}
               value={description}
@@ -136,7 +136,7 @@ const ShopSettings = () => {
             </div>
             <input
               type="name"
-              placeholder={seller?.address}
+              placeholder={user?.address}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -150,7 +150,7 @@ const ShopSettings = () => {
             </div>
             <input
               type="number"
-              placeholder={seller?.phoneNumber}
+              placeholder={user?.phoneNumber}
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -164,7 +164,7 @@ const ShopSettings = () => {
             </div>
             <input
               type="number"
-              placeholder={seller?.zipCode}
+              placeholder={user?.zipCode}
               value={zipCode}
               onChange={(e) => setZipcode(e.target.value)}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}

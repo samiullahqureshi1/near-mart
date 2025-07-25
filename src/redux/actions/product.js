@@ -11,7 +11,7 @@ export const createProduct =
     originalPrice,
     discountPrice,
     stock,
-    shopId,
+    userId,
     images
   ) =>
   async (dispatch) => {
@@ -29,7 +29,7 @@ export const createProduct =
         originalPrice,
         discountPrice,
         stock,
-        shopId,
+        userId,
         images,
       );
       dispatch({

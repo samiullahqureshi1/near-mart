@@ -10,12 +10,12 @@ import Loader from "../Layout/Loader";
 
 const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
-  const { seller } = useSelector((state) => state.seller);
+  const { loading, user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllProductsShop(seller._id));
+    dispatch(getAllProductsShop(user._id));
   }, [dispatch]);
 
   const handleDelete = (id) => {

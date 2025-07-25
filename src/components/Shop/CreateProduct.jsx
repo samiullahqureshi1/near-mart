@@ -7,7 +7,7 @@ import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 
 const CreateProduct = () => {
-  const { seller } = useSelector((state) => state.seller);
+  const { loading, user } = useSelector((state) => state.user);
   const { success, error } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const CreateProduct = () => {
     newForm.append("originalPrice", originalPrice);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
+    newForm.append("userId", user._id);
     dispatch(
       createProduct({
         name,
@@ -85,7 +85,7 @@ const CreateProduct = () => {
         originalPrice,
         discountPrice,
         stock,
-        shopId: seller._id,
+        userId: user._id,
         images,
         model,
         manufacturerPartNo,
