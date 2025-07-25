@@ -38,8 +38,8 @@ const Auth = () => {
       toast.success("Login Success!");
       const role = res.data.user?.role;
       if (role === "Seller") navigate("/dashboard");
-      else navigate("/");
-      window.location.reload(true);
+      // else navigate("/");
+      // window.location.reload(true);
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
     }
